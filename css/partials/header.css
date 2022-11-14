@@ -58,15 +58,21 @@
   .header-inner .site-nav .menu-list {
     height: 0;
     overflow: hidden;
+    transition: height 0.15s;
   }
   .header-inner .site-nav .menu-list .menu-item {
     margin-right: 0;
     margin-left: auto;
     margin-top: $margin-m-0;
+    display: none;
   }
   .header-inner .site-nav .active {
     margin-top: $margin-m-1;
-    height: auto;
+    height: 160px;
+    transition: height 0.15s;
     flex-direction: column;
+  }
+  .header-inner .site-nav .active .menu-item {
+    display: flex;
   }
 }
