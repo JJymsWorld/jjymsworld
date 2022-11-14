@@ -381,16 +381,22 @@ input[type="search"]::-webkit-search-results-decoration {
   .header-inner .site-nav .menu-list {
     height: 0;
     overflow: hidden;
+    transition: height 0.2s;
   }
   .header-inner .site-nav .menu-list .menu-item {
     margin-right: 0;
     margin-left: auto;
     margin-top: 0.5rem;
+    display: none;
   }
   .header-inner .site-nav .active {
     margin-top: 0.75rem;
-    height: auto;
+    height: 160px;
+    transition: height 0.2s;
     flex-direction: column;
+  }
+  .header-inner .site-nav .active .menu-item {
+    display: flex;
   }
 }
 .footer {
