@@ -1,50 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CAS技术(CompareAndSwap)</title>
-    <url>/jjymsworld/2022/07/16/CAS%E6%8A%80%E6%9C%AF-CompareAndSwap/</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>CAS是英文单词CompareAndSwap的缩写，中文意思是：比较并替换。CAS需要有三个操作数：内存地址V，旧的预期值A，即将要更新的目标值B。</p>
-<p>CAS指令执行时，当且仅当内存地址V的值与预期值A相等的时，将内存地址V的值修改为B，否则就什么都不做。整个比较并替换的操作是一个原子操作。</p>
-<p>可以简单理解为一个无阻塞的多线程争抢资源的模型，在不满足CAS执行条件时，将一直进行自旋(即重新尝试)。</p>
-<p>CAS是乐观锁，Synchronzied关键字是悲观锁。</p>
-<h2 id="CAS缺点"><a href="#CAS缺点" class="headerlink" title="CAS缺点"></a>CAS缺点</h2><ol>
-<li>CPU开销较大</li>
-</ol>
-<p>在并发量比较高的情况下，如果许多线程反复尝试更新某一个变量，却又一直更新不成功，循环往复，会给CPU带来很大的压力。</p>
-<ol start="2">
-<li>不能保证代码块的原子性</li>
-</ol>
-<p>CAS机制所保证的知识一个一个变量的原子性操作，而不能保证整个代码块的原子性。比如需要保证3个变量共同进行原子性的更新，就不得不使用Synchronzied。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++中struct与class的区别</title>
-    <url>/jjymsworld/2022/07/16/C-%E4%B8%ADstruct%E4%B8%8Eclass%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<ol>
-<li>在C语言中，struct是一种数据类型，内部不能定义函数，所以在面向C编程的过程中，struct不能包含任何函数，否则编译器报错。</li>
-<li>在C++中，struct得到了很大的扩充，可以包含成员函数，可以实现继承，可以实现多态</li>
-</ol>
-<h2 id="struct和class的区别"><a href="#struct和class的区别" class="headerlink" title="struct和class的区别"></a>struct和class的区别</h2><ul>
-<li>默认的继承访问权方面。class默认的是private， struct默认的是public。class可以继承struct，struct也可以继承class，默认的继承访问权取决于子类。</li>
-<li>默认访问权限。struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的。</li>
-<li>struct更适合实现数据结构体，class更适合看成对象的实现体。</li>
-<li>在{}上使用的区别。class和struct如果定义了构造函数的话，都不能够使用大括号进行初始化。如果没有定义构造函数，struct可以使用大括号进行初始化。如果没有构造函数，且所有成员变量全是public的话，class可以用大括号初始化。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTTP2.0与HTTP1.1的区别</title>
     <url>/jjymsworld/2022/07/16/HTTP2-0%E4%B8%8EHTTP1-1%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<ol>
@@ -95,6 +51,71 @@
       </tags>
   </entry>
   <entry>
+    <title>CAS技术(CompareAndSwap)</title>
+    <url>/jjymsworld/2022/07/16/CAS%E6%8A%80%E6%9C%AF-CompareAndSwap/</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>CAS是英文单词CompareAndSwap的缩写，中文意思是：比较并替换。CAS需要有三个操作数：内存地址V，旧的预期值A，即将要更新的目标值B。</p>
+<p>CAS指令执行时，当且仅当内存地址V的值与预期值A相等的时，将内存地址V的值修改为B，否则就什么都不做。整个比较并替换的操作是一个原子操作。</p>
+<p>可以简单理解为一个无阻塞的多线程争抢资源的模型，在不满足CAS执行条件时，将一直进行自旋(即重新尝试)。</p>
+<p>CAS是乐观锁，Synchronzied关键字是悲观锁。</p>
+<h2 id="CAS缺点"><a href="#CAS缺点" class="headerlink" title="CAS缺点"></a>CAS缺点</h2><ol>
+<li>CPU开销较大</li>
+</ol>
+<p>在并发量比较高的情况下，如果许多线程反复尝试更新某一个变量，却又一直更新不成功，循环往复，会给CPU带来很大的压力。</p>
+<ol start="2">
+<li>不能保证代码块的原子性</li>
+</ol>
+<p>CAS机制所保证的知识一个一个变量的原子性操作，而不能保证整个代码块的原子性。比如需要保证3个变量共同进行原子性的更新，就不得不使用Synchronzied。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++中struct与class的区别</title>
+    <url>/jjymsworld/2022/07/16/C-%E4%B8%ADstruct%E4%B8%8Eclass%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<ol>
+<li>在C语言中，struct是一种数据类型，内部不能定义函数，所以在面向C编程的过程中，struct不能包含任何函数，否则编译器报错。</li>
+<li>在C++中，struct得到了很大的扩充，可以包含成员函数，可以实现继承，可以实现多态</li>
+</ol>
+<h2 id="struct和class的区别"><a href="#struct和class的区别" class="headerlink" title="struct和class的区别"></a>struct和class的区别</h2><ul>
+<li>默认的继承访问权方面。class默认的是private， struct默认的是public。class可以继承struct，struct也可以继承class，默认的继承访问权取决于子类。</li>
+<li>默认访问权限。struct作为数据结构的实现体，它默认的数据访问控制是public的，而class作为对象的实现体，它默认的成员变量访问控制是private的。</li>
+<li>struct更适合实现数据结构体，class更适合看成对象的实现体。</li>
+<li>在{}上使用的区别。class和struct如果定义了构造函数的话，都不能够使用大括号进行初始化。如果没有定义构造函数，struct可以使用大括号进行初始化。如果没有构造函数，且所有成员变量全是public的话，class可以用大括号初始化。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nodejs中http模块使用代理请求</title>
+    <url>/jjymsworld/2022/07/16/Nodejs%E4%B8%ADhttp%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82/</url>
+    <content><![CDATA[<p>代码示例: </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);  <span class="comment">// 引入内置http模块</span></span><br><span class="line"><span class="keyword">const</span> url  = <span class="built_in">require</span>(<span class="string">&quot;url&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 要访问的目标页面</span></span><br><span class="line"><span class="keyword">const</span> targetUrl = <span class="string">&quot;http://dev.kdlapi.com/testproxy&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> urlParsed   = url.<span class="title function_">parse</span>(targetUrl);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理ip,由快代理提供</span></span><br><span class="line"><span class="keyword">const</span> proxyIp = <span class="string">&quot;47.115.36.94&quot;</span>;  <span class="comment">// 代理服务器ip</span></span><br><span class="line"><span class="keyword">const</span> proxyPort = <span class="string">&quot;16816&quot;</span>; <span class="comment">// 代理服务器host</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// http代理验证信息</span></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">    host    : proxyIp,</span><br><span class="line">    port    : proxyPort,</span><br><span class="line">    path    : targetUrl,</span><br><span class="line">    method  : <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    headers : &#123;</span><br><span class="line">        <span class="string">&quot;Host&quot;</span>                : urlParsed.<span class="property">hostname</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">request</span>(options,  <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;got response: &quot;</span> + res.<span class="property">statusCode</span>);</span><br><span class="line">        <span class="comment">// 输出返回内容(使用了gzip压缩)</span></span><br><span class="line">        <span class="keyword">if</span> (res.<span class="property">headers</span>[<span class="string">&#x27;content-encoding&#x27;</span>] &amp;&amp; res.<span class="property">headers</span>[<span class="string">&#x27;content-encoding&#x27;</span>].<span class="title function_">indexOf</span>(<span class="string">&#x27;gzip&#x27;</span>) != -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> zlib = <span class="built_in">require</span>(<span class="string">&#x27;zlib&#x27;</span>);</span><br><span class="line">            <span class="keyword">let</span> unzip = zlib.<span class="title function_">createGunzip</span>();</span><br><span class="line">            res.<span class="title function_">pipe</span>(unzip).<span class="title function_">pipe</span>(process.<span class="property">stdout</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 输出返回内容(未使用gzip压缩)</span></span><br><span class="line">            res.<span class="title function_">pipe</span>(process.<span class="property">stdout</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&quot;error&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">end</span>()</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>https的要复杂一些:</p>
+<p>首先创建HttpsProxyAgent.js文件,写入以下代码.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Util</span> = <span class="built_in">require</span>(<span class="string">&#x27;util&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Https</span> = <span class="built_in">require</span>(<span class="string">&#x27;https&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Tls</span> = <span class="built_in">require</span>(<span class="string">&#x27;tls&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * HTTPS Agent for node.js HTTPS requests via a proxy.</span></span><br><span class="line"><span class="comment"> * blog.vanamco.com/connecting-via-proxy-node-js/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">HttpsProxyAgent</span>(<span class="params">options</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title class_">Https</span>.<span class="property">Agent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, options);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">proxyHost</span> = options.<span class="property">proxyHost</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">proxyPort</span> = options.<span class="property">proxyPort</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">createConnection</span> = <span class="keyword">function</span>(<span class="params">opts, callback</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// do a CONNECT request</span></span><br><span class="line">        <span class="keyword">var</span> req = <span class="title class_">Http</span>.<span class="title function_">request</span>(&#123;</span><br><span class="line">            <span class="attr">host</span>: options.<span class="property">proxyHost</span>,</span><br><span class="line">            <span class="attr">port</span>: options.<span class="property">proxyPort</span>,</span><br><span class="line">            <span class="attr">method</span>: <span class="string">&#x27;CONNECT&#x27;</span>,</span><br><span class="line">            <span class="attr">path</span>: opts.<span class="property">host</span> + <span class="string">&#x27;:&#x27;</span> + opts.<span class="property">port</span>,</span><br><span class="line">            <span class="attr">headers</span>: &#123;</span><br><span class="line">                <span class="attr">host</span>: opts.<span class="property">host</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">on</span>(<span class="string">&#x27;connect&#x27;</span>, <span class="keyword">function</span>(<span class="params">res, socket, head</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> cts = <span class="title class_">Tls</span>.<span class="title function_">connect</span>(</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">host</span>: opts.<span class="property">host</span>,</span><br><span class="line">                    <span class="attr">socket</span>: socket</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="title function_">callback</span>(<span class="literal">false</span>, cts);</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="title function_">callback</span>(err, <span class="literal">null</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">end</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Util</span>.<span class="title function_">inherits</span>(<span class="title class_">HttpsProxyAgent</span>, <span class="title class_">Https</span>.<span class="property">Agent</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Almost verbatim copy of http.Agent.addRequest</span></span><br><span class="line"><span class="comment">// HttpsProxyAgent.prototype.addRequest = function(req, host, port, localAddress) // node v0.10.x</span></span><br><span class="line"><span class="title class_">HttpsProxyAgent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">addRequest</span> = <span class="keyword">function</span>(<span class="params">req, options</span>)   <span class="comment">// node v0.12.x</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* node v0.10.x</span></span><br><span class="line"><span class="comment">    var name = host + &#x27;:&#x27; + port;</span></span><br><span class="line"><span class="comment">    if (localAddress)</span></span><br><span class="line"><span class="comment">        name += &#x27;:&#x27; + localAddress;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">var</span> name = options.<span class="property">host</span> + <span class="string">&#x27;:&#x27;</span> + options.<span class="property">port</span>;</span><br><span class="line">    <span class="keyword">if</span> (options.<span class="property">path</span>)</span><br><span class="line">        name += <span class="string">&#x27;:&#x27;</span> + options.<span class="property">path</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">sockets</span>[name])</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">sockets</span>[name] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">sockets</span>[name].<span class="property">length</span> &lt; <span class="variable language_">this</span>.<span class="property">maxSockets</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// if we are under maxSockets create a new one.</span></span><br><span class="line">        <span class="comment">// this.createSocket(name, host, port, localAddress, req, function(socket)  // node 0.10.x</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">createSocket</span>(name, options.<span class="property">host</span>, options.<span class="property">port</span>, options.<span class="property">path</span>, req, <span class="keyword">function</span>(<span class="params">socket: Net.Socket</span>) <span class="comment">// node 0.12.x</span></span><br><span class="line">        &#123;</span><br><span class="line">            req.<span class="title function_">onSocket</span>(socket);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// we are over limit so we&#x27;ll add it to the queue.</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">requests</span>[name])</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">requests</span>[name] = [];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">requests</span>[name].<span class="title function_">push</span>(req);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Almost verbatim copy of http.Agent.createSocket</span></span><br><span class="line"><span class="title class_">HttpsProxyAgent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">createSocket</span> = <span class="keyword">function</span>(<span class="params">name, host, port, localAddress, req, callback</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">var</span> options = <span class="title class_">Util</span>.<span class="title function_">_extend</span>(&#123;&#125;, self.<span class="property">options</span>);</span><br><span class="line">    options.<span class="property">port</span> = port;</span><br><span class="line">    options.<span class="property">host</span> = host;</span><br><span class="line">    options.<span class="property">localAddress</span> = localAddress;</span><br><span class="line"></span><br><span class="line">    options.<span class="property">servername</span> = host;</span><br><span class="line">    <span class="keyword">if</span> (req)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hostHeader = req.<span class="title function_">getHeader</span>(<span class="string">&#x27;host&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (hostHeader)</span><br><span class="line">            options.<span class="property">servername</span> = hostHeader.<span class="title function_">replace</span>(<span class="regexp">/:.*$/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    self.<span class="title function_">createConnection</span>(options, <span class="keyword">function</span>(<span class="params">err, s</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (err)</span><br><span class="line">        &#123;</span><br><span class="line">            err.<span class="property">message</span> += <span class="string">&#x27; while connecting to HTTP(S) proxy server &#x27;</span> + self.<span class="property">proxyHost</span> + <span class="string">&#x27;:&#x27;</span> + self.<span class="property">proxyPort</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (req)</span><br><span class="line">                req.<span class="title function_">emit</span>(<span class="string">&#x27;error&#x27;</span>, err);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">throw</span> err;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!self.<span class="property">sockets</span>[name])</span><br><span class="line">            self.<span class="property">sockets</span>[name] = [];</span><br><span class="line"></span><br><span class="line">        self.<span class="property">sockets</span>[name].<span class="title function_">push</span>(s);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onFree = <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">        &#123;</span><br><span class="line">            self.<span class="title function_">emit</span>(<span class="string">&#x27;free&#x27;</span>, s, host, port, localAddress);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onClose = <span class="keyword">function</span>(<span class="params">err</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// this is the only place where sockets get removed from the Agent.</span></span><br><span class="line">            <span class="comment">// if you want to remove a socket from the pool, just close it.</span></span><br><span class="line">            <span class="comment">// all socket errors end in a close event anyway.</span></span><br><span class="line">            self.<span class="title function_">removeSocket</span>(s, name, host, port, localAddress);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onRemove = <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// we need this function for cases like HTTP &#x27;upgrade&#x27;</span></span><br><span class="line">            <span class="comment">// (defined by WebSockets) where we need to remove a socket from the pool</span></span><br><span class="line">            <span class="comment">// because it&#x27;ll be locked up indefinitely</span></span><br><span class="line">            self.<span class="title function_">removeSocket</span>(s, name, host, port, localAddress);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;close&#x27;</span>, onClose);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;free&#x27;</span>, onFree);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;agentRemove&#x27;</span>, onRemove);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;free&#x27;</span>, onFree);</span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;close&#x27;</span>, onClose);</span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;agentRemove&#x27;</span>, onRemove);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">callback</span>(s);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>接着https代理请求示例:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">HttpsProxyAgent</span> = <span class="built_in">require</span>(<span class="string">&quot;./HttpsProxyAgent&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Https</span> = <span class="built_in">require</span>(<span class="string">&#x27;https&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> agent = <span class="keyword">new</span> <span class="title class_">HttpsProxyAgent</span>(&#123;</span><br><span class="line">    <span class="attr">proxyHost</span>: <span class="string">&#x27;210.42.41.8&#x27;</span>,</span><br><span class="line">    <span class="attr">proxyPort</span>: <span class="number">8090</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Https</span>.<span class="title function_">request</span>(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">host</span>: <span class="string">&#x27;github.com&#x27;</span>,</span><br><span class="line">        <span class="attr">port</span>: <span class="number">443</span>,</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">        <span class="attr">agent</span>: agent</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">function</span>(<span class="params">res</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        res.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="title function_">toString</span>());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">).<span class="title function_">end</span>();</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>NodeJs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GoModules使用</title>
     <url>/jjymsworld/2022/07/16/GoModules%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="GoModule相关命令"><a href="#GoModule相关命令" class="headerlink" title="GoModule相关命令"></a>GoModule相关命令</h2><p>go mod init 生成go.mod文件</p>
@@ -135,6 +156,121 @@
       </categories>
       <tags>
         <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KMP算法</title>
+    <url>/jjymsworld/2022/07/16/KMP%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="什么是KMP"><a href="#什么是KMP" class="headerlink" title="什么是KMP"></a>什么是KMP</h2><p>说到JKMP，先说一下KMP这个名字是怎么来的， 为什么叫做KMP呢。  </p>
+<p>因为这是由三位学者发明的：Knuth, Morris和Pratt，所以娶了三位学者名字的首字母，叫做KMP。</p>
+<h2 id="KMP主要有什么应用"><a href="#KMP主要有什么应用" class="headerlink" title="KMP主要有什么应用"></a>KMP主要有什么应用</h2><p>KMP主要应用在字符串匹配上。</p>
+<p>KMP的主要思想是当出现字符串不匹配时，<strong>可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配。</strong></p>
+<p>所以如何记录已经匹配的文本内容，是KMP算法的重点，也是next数组肩负的重任。</p>
+<h2 id="什么是前缀表"><a href="#什么是前缀表" class="headerlink" title="什么是前缀表"></a>什么是前缀表</h2><p>写过KMP的同学，一定都写过next数组，那么这个next数组究竟是个什么东西？</p>
+<p>next数组就是一个前缀表（prefix table）。</p>
+<p>前缀表有什么用呢？</p>
+<p><strong>前缀表是用来回溯的，它记录了模式串与主串(文本串)不匹配的时候，模式串应该从哪里开始重新匹配。</strong></p>
+<p>为了清楚的了解前缀表的来历，我们来举一个例子：</p>
+<p>要在文本串：aabaabaaf中查找是否出现过一个模式串：aabaf。</p>
+<p>请记住文本串和模式串的作用：</p>
+<p>要在文本串:aabaabaaf中查找是否出现过一个模式串:aabaaf。</p>
+<p>如动画所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp1.gif"></p>
+<p>动画里，我特意把 子串<code>aa</code> 标记上了，这是有原因的，大家先注意一下，后面还会说道。</p>
+<p>可以看出，文本串中第六个字符b 和 模式串的第六个字符f，不匹配了。如果暴力匹配，会发现不匹配，此时就要从头匹配了。</p>
+<p>但如果使用前缀表，就不会从头匹配，而是从上次已经匹配的内容开始匹配，找到了模式串中第三个字符b继续开始匹配。</p>
+<p>此时就要问了<strong>「前缀表是如何记录的呢？」</strong></p>
+<p>首先要知道前缀表的任务是当前位置匹配失败，找到之前已经匹配上的位置，在重新匹配，此也意味着在某个字符失配时，前缀表会告诉你下一步匹配中，模式串应该跳到哪个位置。</p>
+<p>那么什么是前缀表：<strong>「下表i之前（包括i）的字符串中，有多大长度的相同前缀后缀。」</strong></p>
+<h2 id="为什么一定要用前缀表"><a href="#为什么一定要用前缀表" class="headerlink" title="为什么一定要用前缀表"></a>为什么一定要用前缀表</h2><p>这就是前缀表那为啥就能告诉我们 上次匹配的位置，并跳过去呢？</p>
+<p>回顾一下，刚刚匹配的过程在下表5的地方遇到不匹配，模式串是指向f，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp2.png"></p>
+<p>然后就找到了下表2，指向b，继续匹配：如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp3.png"></p>
+<p>以下这句话，对于理解为什么使用前缀表可以告诉我们匹配失败之后跳到哪里重新匹配 非常重要！</p>
+<p><strong>「下表5之前这部分的字符串（也就是字符串aabaa）的最长相等的前缀 和 后缀字符串是 子字符串aa ，因为找到了最长相等的前缀和后缀，匹配失败的位置是后缀子串的后面，那么我们找到与其相同的前缀的后面从新匹配就可以了。」</strong></p>
+<p>所以前缀表具有告诉我们当前位置匹配失败，跳到之前已经匹配过的地方的能力。</p>
+<p><strong>「很多介绍KMP的文章或者视频并没有把为什么要用前缀表？这个问题说清楚，而是直接默认使用前缀表。」</strong></p>
+<h2 id="如何计算前缀表"><a href="#如何计算前缀表" class="headerlink" title="如何计算前缀表"></a>如何计算前缀表</h2><p>接下来就要说一说怎么计算前缀表。</p>
+<p>如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp4.png"></p>
+<p>长度为前1个字符的子串<code>a</code>，最长相同前后缀的长度为0。（注意这里计算相同前后缀，不算重复的字符）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp5.png"></p>
+<p>长度为前2个字符的子串<code>aa</code>，最长相同前后缀的长度为1。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp6.png"></p>
+<p>长度为前3个字符的子串<code>aab</code>，最长相同前后缀的长度为0。</p>
+<p>以此类推：<br>            长度为前4个字符的子串<code>aaba</code>，最长相同前后缀的长度为1。<br>            长度为前5个字符的子串<code>aabaa</code>，最长相同前后缀的长度为2。<br>            长度为前6个字符的子串<code>aabaaf</code>，最长相同前后缀的长度为0。</p>
+<p>那么把求得的最长相同前后缀的长度就是对应前缀表的元素，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp.png"></p>
+<p>可以看出<strong>「前缀表里的数值代表着就是：当前位置之前的子串有多大长度相同的前缀后缀。」</strong></p>
+<p>再来看一下如何利用 前缀表找到 当字符不匹配的时候应该指针应该移动的位置。如动画所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp9.gif"></p>
+<p>找到的不匹配的位置， 那么此时我们要看它的前一个字符的前缀表的数值是多少。</p>
+<p>为什么要看前一个字符的前缀表的数值呢，因为要找前面字符串的最长相同的前缀和后缀。</p>
+<p>所以要看前一位的 前缀表的数值。</p>
+<p>前一个字符的前缀表的数值是2， 所有把下表移动到下表2的位置继续比配。可以再反复看一下上面的动画。</p>
+<p>最后就在文本串中找到了和模式串匹配的子串了。</p>
+<h2 id="前缀表有什么问题"><a href="#前缀表有什么问题" class="headerlink" title="前缀表有什么问题"></a>前缀表有什么问题</h2><p>来看一下刚刚求的这个前缀表有什么问题呢？</p>
+<p>如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp10.png"></p>
+<p>看这个位置红框的位置，如果要找下表1 所对应 前缀表里的数值的时候，前缀表里的数值依然是1，然后就要跳到下表1的位置，如此就<strong>「形成了一个死循环」</strong>。</p>
+<p><strong>「如何怎么避免呢，就把前缀表里的数值统一减一， 开始位置设置为-1 。」</strong> 这一点对理解后面KMP代码很重要！！</p>
+<p>改为如图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp11.png"></p>
+<p>这样就避免的死循环，只不过后续取 前缀表里的数值的时候，要记得再+1，才是我们想要的值。</p>
+<p><strong>「最后得到的新前缀表在KMP算法里通常用一个next数组来表示。」</strong></p>
+<p>注意这个next数组就根据模式串求取的。</p>
+<h2 id="使用next数组来匹配"><a href="#使用next数组来匹配" class="headerlink" title="使用next数组来匹配"></a>使用next数组来匹配</h2><p>有了next数组，就可以根据next数组来 匹配文本串s，和模式串t了。</p>
+<p>注意next数组是新前缀表（旧前缀表统一减一了）。</p>
+<p>匹配过程动画如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp12.gif"></p>
+<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>再来看一下时间复杂度， 假设文本串长度为n，模式串长度为m，动画为上图。</p>
+<p>其中n为文本串长度，m为模式串长度，因为在匹配的过程中，根据前缀表不断调整匹配的位置，可以看出匹配的过程是O(n)，但之前还要单独生成next数组，时间复杂度是O(m)（next数组的实现代码将在后续文章中继续讲解），所以整个KMP算法的时间复杂度是O(n+m)的。</p>
+<p>暴力的解法显而易见是O(n * m)，所以<strong>「KMP在字符串匹配中极大的提高的搜索的效率。」</strong></p>
+<p>文章转自代码随想录，<a href="https://mp.weixin.qq.com/s/70OXnZ4Ez29CKRrUpVJmug">原文链接</a></p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>算法笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP三次握手与四次挥手</title>
+    <url>/jjymsworld/2022/07/16/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</url>
+    <content><![CDATA[<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/114bd9b53c554319ae0db15b57b472b8.gif"></h2><ol>
+<li><p>TCP服务器进程先创建传输控制块TCB，时刻准备接受客户进程的连接请求，此时服务器就进入了LISTEN（监听）状态；</p>
+</li>
+<li><p>TCP客户进程也是先创建传输控制块TCB，然后向服务器发出连接请求报文，这是报文首部中的同部位SYN&#x3D;1，同时选择一个初始序列号 seq&#x3D;x ，此时，TCP客户端进程进入了 SYN-SENT（同步已发送状态）状态。TCP规定，SYN报文段（SYN&#x3D;1的报文段）不能携带数据，但需要消耗掉一个序号。</p>
+</li>
+<li><p>TCP服务器收到请求报文后，如果同意连接，则发出确认报文。确认报文中应该 ACK&#x3D;1，SYN&#x3D;1，确认号是ack&#x3D;x+1，同时也要为自己初始化一个序列号 seq&#x3D;y，此时，TCP服务器进程进入了SYN-RCVD（同步收到）状态。这个报文也不能携带数据，但是同样要消耗一个序号。</p>
+</li>
+<li><p>TCP客户进程收到确认后，还要向服务器给出确认。确认报文的ACK&#x3D;1，ack&#x3D;y+1，自己的序列号seq&#x3D;x+1，此时，TCP连接建立，客户端进入ESTABLISHED（已建立连接）状态。TCP规定，ACK报文段可以携带数据，但是如果不携带数据则不消耗序号。</p>
+</li>
+<li><p>当服务器收到客户端的确认后也进入ESTABLISHED状态，此后双方就可以开始通信了。</p>
+<p>为什么TCP客户端最后还要发送一次确认呢？</p>
+<p>主要防止已经失效的连接请求报文突然又传送到了服务器，从而产生错误。</p>
+</li>
+</ol>
+<h2 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h2><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/0c17d72769aa4bd2b95bbaee1749b39d.gif"></p>
+<ol>
+<li>客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN&#x3D;1，其序列号为seq&#x3D;u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。</li>
+<li>服务器收到连接释放报文，发出确认报文，ACK&#x3D;1，ack&#x3D;u+1，并且带上自己的序列号seq&#x3D;v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。</li>
+<li>客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。</li>
+<li>服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN&#x3D;1，ack&#x3D;u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq&#x3D;w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</li>
+<li>客户端收到服务器的连接释放报文后，必须发出确认，ACK&#x3D;1，ack&#x3D;w+1，而自己的序列号是seq&#x3D;u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过<strong>2*MSL</strong>（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</li>
+<li>服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</li>
+</ol>
+<p>为什么客户端最后还要再等待2MSL？</p>
+<p>MSL(Maximum Segment Lifetime)，第一保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失。第二防止类似“三次握手”中提到的已经失效的连接请求报文段出现。客户端等待2MSL时间中，可以保证本连接持续时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p>
+<p>TCP舍友一个保活计时器，客户端如果出现故障，服务器不能一直等下去。服务器每收到一次客户端的请求之后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒发送一次。若连发10的探测报文仍然没反应，服务器就认为客户端出现了故障，接着就关闭连接。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -244,24 +380,76 @@
       </tags>
   </entry>
   <entry>
-    <title>Nodejs中http模块使用代理请求</title>
-    <url>/jjymsworld/2022/07/16/Nodejs%E4%B8%ADhttp%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82/</url>
-    <content><![CDATA[<p>代码示例: </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);  <span class="comment">// 引入内置http模块</span></span><br><span class="line"><span class="keyword">const</span> url  = <span class="built_in">require</span>(<span class="string">&quot;url&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 要访问的目标页面</span></span><br><span class="line"><span class="keyword">const</span> targetUrl = <span class="string">&quot;http://dev.kdlapi.com/testproxy&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> urlParsed   = url.<span class="title function_">parse</span>(targetUrl);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理ip,由快代理提供</span></span><br><span class="line"><span class="keyword">const</span> proxyIp = <span class="string">&quot;47.115.36.94&quot;</span>;  <span class="comment">// 代理服务器ip</span></span><br><span class="line"><span class="keyword">const</span> proxyPort = <span class="string">&quot;16816&quot;</span>; <span class="comment">// 代理服务器host</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// http代理验证信息</span></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">    host    : proxyIp,</span><br><span class="line">    port    : proxyPort,</span><br><span class="line">    path    : targetUrl,</span><br><span class="line">    method  : <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    headers : &#123;</span><br><span class="line">        <span class="string">&quot;Host&quot;</span>                : urlParsed.<span class="property">hostname</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">request</span>(options,  <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;got response: &quot;</span> + res.<span class="property">statusCode</span>);</span><br><span class="line">        <span class="comment">// 输出返回内容(使用了gzip压缩)</span></span><br><span class="line">        <span class="keyword">if</span> (res.<span class="property">headers</span>[<span class="string">&#x27;content-encoding&#x27;</span>] &amp;&amp; res.<span class="property">headers</span>[<span class="string">&#x27;content-encoding&#x27;</span>].<span class="title function_">indexOf</span>(<span class="string">&#x27;gzip&#x27;</span>) != -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> zlib = <span class="built_in">require</span>(<span class="string">&#x27;zlib&#x27;</span>);</span><br><span class="line">            <span class="keyword">let</span> unzip = zlib.<span class="title function_">createGunzip</span>();</span><br><span class="line">            res.<span class="title function_">pipe</span>(unzip).<span class="title function_">pipe</span>(process.<span class="property">stdout</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 输出返回内容(未使用gzip压缩)</span></span><br><span class="line">            res.<span class="title function_">pipe</span>(process.<span class="property">stdout</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&quot;error&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">end</span>()</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>TensorRT解决Network must have at least one output</title>
+    <url>/jjymsworld/2022/07/16/TensorRT%E8%A7%A3%E5%86%B3Network-must-have-at-least-one-output/</url>
+    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[TensorRT] ERROR: Network must hav at least one output</span><br><span class="line"></span><br><span class="line">AttributeError: <span class="string">&#x27;NoneType&#x27;</span> <span class="built_in">object</span> has no attribute <span class="string">&#x27;serialize&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>https的要复杂一些:</p>
-<p>首先创建HttpsProxyAgent.js文件,写入以下代码.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Util</span> = <span class="built_in">require</span>(<span class="string">&#x27;util&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Https</span> = <span class="built_in">require</span>(<span class="string">&#x27;https&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Tls</span> = <span class="built_in">require</span>(<span class="string">&#x27;tls&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * HTTPS Agent for node.js HTTPS requests via a proxy.</span></span><br><span class="line"><span class="comment"> * blog.vanamco.com/connecting-via-proxy-node-js/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">HttpsProxyAgent</span>(<span class="params">options</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title class_">Https</span>.<span class="property">Agent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, options);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">proxyHost</span> = options.<span class="property">proxyHost</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">proxyPort</span> = options.<span class="property">proxyPort</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">createConnection</span> = <span class="keyword">function</span>(<span class="params">opts, callback</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// do a CONNECT request</span></span><br><span class="line">        <span class="keyword">var</span> req = <span class="title class_">Http</span>.<span class="title function_">request</span>(&#123;</span><br><span class="line">            <span class="attr">host</span>: options.<span class="property">proxyHost</span>,</span><br><span class="line">            <span class="attr">port</span>: options.<span class="property">proxyPort</span>,</span><br><span class="line">            <span class="attr">method</span>: <span class="string">&#x27;CONNECT&#x27;</span>,</span><br><span class="line">            <span class="attr">path</span>: opts.<span class="property">host</span> + <span class="string">&#x27;:&#x27;</span> + opts.<span class="property">port</span>,</span><br><span class="line">            <span class="attr">headers</span>: &#123;</span><br><span class="line">                <span class="attr">host</span>: opts.<span class="property">host</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">on</span>(<span class="string">&#x27;connect&#x27;</span>, <span class="keyword">function</span>(<span class="params">res, socket, head</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> cts = <span class="title class_">Tls</span>.<span class="title function_">connect</span>(</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">host</span>: opts.<span class="property">host</span>,</span><br><span class="line">                    <span class="attr">socket</span>: socket</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="title function_">callback</span>(<span class="literal">false</span>, cts);</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="title function_">callback</span>(err, <span class="literal">null</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        req.<span class="title function_">end</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Util</span>.<span class="title function_">inherits</span>(<span class="title class_">HttpsProxyAgent</span>, <span class="title class_">Https</span>.<span class="property">Agent</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Almost verbatim copy of http.Agent.addRequest</span></span><br><span class="line"><span class="comment">// HttpsProxyAgent.prototype.addRequest = function(req, host, port, localAddress) // node v0.10.x</span></span><br><span class="line"><span class="title class_">HttpsProxyAgent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">addRequest</span> = <span class="keyword">function</span>(<span class="params">req, options</span>)   <span class="comment">// node v0.12.x</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* node v0.10.x</span></span><br><span class="line"><span class="comment">    var name = host + &#x27;:&#x27; + port;</span></span><br><span class="line"><span class="comment">    if (localAddress)</span></span><br><span class="line"><span class="comment">        name += &#x27;:&#x27; + localAddress;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">var</span> name = options.<span class="property">host</span> + <span class="string">&#x27;:&#x27;</span> + options.<span class="property">port</span>;</span><br><span class="line">    <span class="keyword">if</span> (options.<span class="property">path</span>)</span><br><span class="line">        name += <span class="string">&#x27;:&#x27;</span> + options.<span class="property">path</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">sockets</span>[name])</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">sockets</span>[name] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">sockets</span>[name].<span class="property">length</span> &lt; <span class="variable language_">this</span>.<span class="property">maxSockets</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// if we are under maxSockets create a new one.</span></span><br><span class="line">        <span class="comment">// this.createSocket(name, host, port, localAddress, req, function(socket)  // node 0.10.x</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">createSocket</span>(name, options.<span class="property">host</span>, options.<span class="property">port</span>, options.<span class="property">path</span>, req, <span class="keyword">function</span>(<span class="params">socket: Net.Socket</span>) <span class="comment">// node 0.12.x</span></span><br><span class="line">        &#123;</span><br><span class="line">            req.<span class="title function_">onSocket</span>(socket);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// we are over limit so we&#x27;ll add it to the queue.</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">requests</span>[name])</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">requests</span>[name] = [];</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">requests</span>[name].<span class="title function_">push</span>(req);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Almost verbatim copy of http.Agent.createSocket</span></span><br><span class="line"><span class="title class_">HttpsProxyAgent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">createSocket</span> = <span class="keyword">function</span>(<span class="params">name, host, port, localAddress, req, callback</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">var</span> options = <span class="title class_">Util</span>.<span class="title function_">_extend</span>(&#123;&#125;, self.<span class="property">options</span>);</span><br><span class="line">    options.<span class="property">port</span> = port;</span><br><span class="line">    options.<span class="property">host</span> = host;</span><br><span class="line">    options.<span class="property">localAddress</span> = localAddress;</span><br><span class="line"></span><br><span class="line">    options.<span class="property">servername</span> = host;</span><br><span class="line">    <span class="keyword">if</span> (req)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hostHeader = req.<span class="title function_">getHeader</span>(<span class="string">&#x27;host&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (hostHeader)</span><br><span class="line">            options.<span class="property">servername</span> = hostHeader.<span class="title function_">replace</span>(<span class="regexp">/:.*$/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    self.<span class="title function_">createConnection</span>(options, <span class="keyword">function</span>(<span class="params">err, s</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (err)</span><br><span class="line">        &#123;</span><br><span class="line">            err.<span class="property">message</span> += <span class="string">&#x27; while connecting to HTTP(S) proxy server &#x27;</span> + self.<span class="property">proxyHost</span> + <span class="string">&#x27;:&#x27;</span> + self.<span class="property">proxyPort</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (req)</span><br><span class="line">                req.<span class="title function_">emit</span>(<span class="string">&#x27;error&#x27;</span>, err);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">throw</span> err;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!self.<span class="property">sockets</span>[name])</span><br><span class="line">            self.<span class="property">sockets</span>[name] = [];</span><br><span class="line"></span><br><span class="line">        self.<span class="property">sockets</span>[name].<span class="title function_">push</span>(s);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onFree = <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">        &#123;</span><br><span class="line">            self.<span class="title function_">emit</span>(<span class="string">&#x27;free&#x27;</span>, s, host, port, localAddress);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onClose = <span class="keyword">function</span>(<span class="params">err</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// this is the only place where sockets get removed from the Agent.</span></span><br><span class="line">            <span class="comment">// if you want to remove a socket from the pool, just close it.</span></span><br><span class="line">            <span class="comment">// all socket errors end in a close event anyway.</span></span><br><span class="line">            self.<span class="title function_">removeSocket</span>(s, name, host, port, localAddress);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> onRemove = <span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// we need this function for cases like HTTP &#x27;upgrade&#x27;</span></span><br><span class="line">            <span class="comment">// (defined by WebSockets) where we need to remove a socket from the pool</span></span><br><span class="line">            <span class="comment">// because it&#x27;ll be locked up indefinitely</span></span><br><span class="line">            self.<span class="title function_">removeSocket</span>(s, name, host, port, localAddress);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;close&#x27;</span>, onClose);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;free&#x27;</span>, onFree);</span><br><span class="line">            s.<span class="title function_">removeListener</span>(<span class="string">&#x27;agentRemove&#x27;</span>, onRemove);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;free&#x27;</span>, onFree);</span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;close&#x27;</span>, onClose);</span><br><span class="line">        s.<span class="title function_">on</span>(<span class="string">&#x27;agentRemove&#x27;</span>, onRemove);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">callback</span>(s);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>接着https代理请求示例:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">HttpsProxyAgent</span> = <span class="built_in">require</span>(<span class="string">&quot;./HttpsProxyAgent&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Https</span> = <span class="built_in">require</span>(<span class="string">&#x27;https&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> agent = <span class="keyword">new</span> <span class="title class_">HttpsProxyAgent</span>(&#123;</span><br><span class="line">    <span class="attr">proxyHost</span>: <span class="string">&#x27;210.42.41.8&#x27;</span>,</span><br><span class="line">    <span class="attr">proxyPort</span>: <span class="number">8090</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Https</span>.<span class="title function_">request</span>(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">host</span>: <span class="string">&#x27;github.com&#x27;</span>,</span><br><span class="line">        <span class="attr">port</span>: <span class="number">443</span>,</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">        <span class="attr">agent</span>: agent</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">function</span>(<span class="params">res</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        res.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="title function_">toString</span>());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">).<span class="title function_">end</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>给代码中的create_network()传入如下参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">explicit_batch = <span class="number">1</span> &lt;&lt; (<span class="built_in">int</span>)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)</span><br><span class="line">builder.create_network(explicit_batch)</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>NodeJs</tag>
+        <tag>TensorRT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP和UDP</title>
+    <url>/jjymsworld/2022/07/16/TCP%E5%92%8CUDP/</url>
+    <content><![CDATA[<h2 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h2><ol>
+<li>TCP是面向连接的，UDP是无连接的</li>
+<li>TCP提供可靠传输，UDP提供不可靠传输</li>
+<li>TCP传输形式为字节流，UDP传输形式为数据报文段</li>
+<li>TCP传输效率慢，UDP传输效率快</li>
+<li>TCP所需资源多，UDP所需资源少</li>
+<li>TCP首部字节20-60，UDP为8个字节</li>
+</ol>
+<h2 id="TCP协议如何保证可靠传输"><a href="#TCP协议如何保证可靠传输" class="headerlink" title="TCP协议如何保证可靠传输"></a>TCP协议如何保证可靠传输</h2><ol>
+<li>应用数据被分割为TCP认为最适合发送的数据块</li>
+<li>TCP给发送的每个包进行编号，接受方对数据包进行排序，把有序的数据传送给应用层</li>
+<li>校验和：TCP计算首部的校验和。如果收到端的校验和有差错，TCP将丢弃这个报文段和不确认收到此报文段</li>
+<li>流量控制：TCP连接的每一方都有固定大小的缓冲空间。当接受方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。采用可变大小的滑动窗口协议控制</li>
+<li>拥塞控制：当网络拥塞的时候，减少数据的发送</li>
+<li>ARQ协议：基本原理是没发送完一个分组就停止发送，等待对方确认。在收到确认之后再发送下一个分组</li>
+<li>超时重传：当TCP发出一个段之后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段</li>
+</ol>
+<h2 id="ARQ协议-Automatic-Repeat-reQuest"><a href="#ARQ协议-Automatic-Repeat-reQuest" class="headerlink" title="ARQ协议(Automatic Repeat-reQuest)"></a>ARQ协议(Automatic Repeat-reQuest)</h2><ol>
+<li><h3 id="停止等待ARQ"><a href="#停止等待ARQ" class="headerlink" title="停止等待ARQ"></a>停止等待ARQ</h3></li>
+</ol>
+<p>基本原理：每发完一个分组就停止发送，等待对方确认。如果过了一段时间(超时)，还是没有收到ACK确认，说明没有发送成功，需要重新发送，知道收到确认后再发送下一个分组。</p>
+<p>在停止等待协议中，若接收方收到重复分组，就丢弃该分组，但同时还要发送确认。</p>
+<ol start="2">
+<li><h2 id="连续ARQ协议"><a href="#连续ARQ协议" class="headerlink" title="连续ARQ协议"></a>连续ARQ协议</h2></li>
+</ol>
+<p>发送放维持一个发送窗口，位于发送窗口内的分组可以连续发送出去，儿不需要等待对方的确认。接受方一般采用累积确认，对按序达到的最后一个分组发送确认，表明到这个分组为止的所有分组都已经正确收到了。</p>
+<p>优缺点：</p>
+<ul>
+<li>优点：信道利用率高，容易实现，即使确认丢失，也不必重传。</li>
+<li>缺点：不能向发送方反映出接受方已经正确收到的所有分组信息。</li>
+</ul>
+<h2 id="滑动窗口和流量控制"><a href="#滑动窗口和流量控制" class="headerlink" title="滑动窗口和流量控制"></a>滑动窗口和流量控制</h2><p>TCP利用华东窗口实现流量控制。流量控制是为了控制发送放的发送速率，保证接受方来得及接受。接受方发送的确认报文中的窗口字段可以用来控制发送放窗口的大小。将窗口设置为0,则发送放无法发送数据。</p>
+<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><p>拥塞控制是针对整个网络而言的，为了防止过多的数据注入到网络中，导致网络的性能变差。</p>
+<p>为了进行拥塞控制，发送发维持一个拥塞窗口(cwnd)。拥塞窗口的大小取决于网络的拥塞程度，并且动态变化。发送方让自己的发送窗口取值为拥塞窗口和接受方的接收窗口中较小的一个。</p>
+<p>主要有四种算法：</p>
+<ul>
+<li>慢开始：即由小到大逐渐增大拥塞窗口的值。cwnd初始值为1,没经过一个传播周期，cwnd加倍。</li>
+<li>拥塞避免：思路是让拥塞窗口cwnd的值缓慢增大，即每经过一个往返时间RTT就吧发送方的cwnd加一。</li>
+<li>快重传与快恢复(FRR)：不采用FRR，如果数据包丢失，TCP将会使用定时器来要求传输暂停。使用FRR，如果接收端接收到一个不按顺序的数据段，它会给发送端发送一个重复确认。如果发送端接受到三个重复确认，它会假定确认接受段指出的数据段丢失了，并立即重传这些丢失的数据段。</li>
+</ul>
+<p>拥塞控制过程：</p>
+<ol>
+<li>首先建立TCP连接之后，执行慢启动算法，当cwnd达到一定阈值时候，转为执行拥塞避免算法。</li>
+<li>若出现超时重传，则将慢启动阈值设置为<strong>原来的一半</strong>，重新开始执行上述算法</li>
+<li>若出现连续收到3个ACK，则将慢启动阈值设置为<strong>当前cwnd的一半</strong>，然后将当前cwnd设置为慢启动阈值，开始执行拥塞避免算法。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>计算机图形学</tag>
       </tags>
   </entry>
   <entry>
@@ -425,206 +613,6 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP和UDP</title>
-    <url>/jjymsworld/2022/07/16/TCP%E5%92%8CUDP/</url>
-    <content><![CDATA[<h2 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h2><ol>
-<li>TCP是面向连接的，UDP是无连接的</li>
-<li>TCP提供可靠传输，UDP提供不可靠传输</li>
-<li>TCP传输形式为字节流，UDP传输形式为数据报文段</li>
-<li>TCP传输效率慢，UDP传输效率快</li>
-<li>TCP所需资源多，UDP所需资源少</li>
-<li>TCP首部字节20-60，UDP为8个字节</li>
-</ol>
-<h2 id="TCP协议如何保证可靠传输"><a href="#TCP协议如何保证可靠传输" class="headerlink" title="TCP协议如何保证可靠传输"></a>TCP协议如何保证可靠传输</h2><ol>
-<li>应用数据被分割为TCP认为最适合发送的数据块</li>
-<li>TCP给发送的每个包进行编号，接受方对数据包进行排序，把有序的数据传送给应用层</li>
-<li>校验和：TCP计算首部的校验和。如果收到端的校验和有差错，TCP将丢弃这个报文段和不确认收到此报文段</li>
-<li>流量控制：TCP连接的每一方都有固定大小的缓冲空间。当接受方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。采用可变大小的滑动窗口协议控制</li>
-<li>拥塞控制：当网络拥塞的时候，减少数据的发送</li>
-<li>ARQ协议：基本原理是没发送完一个分组就停止发送，等待对方确认。在收到确认之后再发送下一个分组</li>
-<li>超时重传：当TCP发出一个段之后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段</li>
-</ol>
-<h2 id="ARQ协议-Automatic-Repeat-reQuest"><a href="#ARQ协议-Automatic-Repeat-reQuest" class="headerlink" title="ARQ协议(Automatic Repeat-reQuest)"></a>ARQ协议(Automatic Repeat-reQuest)</h2><ol>
-<li><h3 id="停止等待ARQ"><a href="#停止等待ARQ" class="headerlink" title="停止等待ARQ"></a>停止等待ARQ</h3></li>
-</ol>
-<p>基本原理：每发完一个分组就停止发送，等待对方确认。如果过了一段时间(超时)，还是没有收到ACK确认，说明没有发送成功，需要重新发送，知道收到确认后再发送下一个分组。</p>
-<p>在停止等待协议中，若接收方收到重复分组，就丢弃该分组，但同时还要发送确认。</p>
-<ol start="2">
-<li><h2 id="连续ARQ协议"><a href="#连续ARQ协议" class="headerlink" title="连续ARQ协议"></a>连续ARQ协议</h2></li>
-</ol>
-<p>发送放维持一个发送窗口，位于发送窗口内的分组可以连续发送出去，儿不需要等待对方的确认。接受方一般采用累积确认，对按序达到的最后一个分组发送确认，表明到这个分组为止的所有分组都已经正确收到了。</p>
-<p>优缺点：</p>
-<ul>
-<li>优点：信道利用率高，容易实现，即使确认丢失，也不必重传。</li>
-<li>缺点：不能向发送方反映出接受方已经正确收到的所有分组信息。</li>
-</ul>
-<h2 id="滑动窗口和流量控制"><a href="#滑动窗口和流量控制" class="headerlink" title="滑动窗口和流量控制"></a>滑动窗口和流量控制</h2><p>TCP利用华东窗口实现流量控制。流量控制是为了控制发送放的发送速率，保证接受方来得及接受。接受方发送的确认报文中的窗口字段可以用来控制发送放窗口的大小。将窗口设置为0,则发送放无法发送数据。</p>
-<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><p>拥塞控制是针对整个网络而言的，为了防止过多的数据注入到网络中，导致网络的性能变差。</p>
-<p>为了进行拥塞控制，发送发维持一个拥塞窗口(cwnd)。拥塞窗口的大小取决于网络的拥塞程度，并且动态变化。发送方让自己的发送窗口取值为拥塞窗口和接受方的接收窗口中较小的一个。</p>
-<p>主要有四种算法：</p>
-<ul>
-<li>慢开始：即由小到大逐渐增大拥塞窗口的值。cwnd初始值为1,没经过一个传播周期，cwnd加倍。</li>
-<li>拥塞避免：思路是让拥塞窗口cwnd的值缓慢增大，即每经过一个往返时间RTT就吧发送方的cwnd加一。</li>
-<li>快重传与快恢复(FRR)：不采用FRR，如果数据包丢失，TCP将会使用定时器来要求传输暂停。使用FRR，如果接收端接收到一个不按顺序的数据段，它会给发送端发送一个重复确认。如果发送端接受到三个重复确认，它会假定确认接受段指出的数据段丢失了，并立即重传这些丢失的数据段。</li>
-</ul>
-<p>拥塞控制过程：</p>
-<ol>
-<li>首先建立TCP连接之后，执行慢启动算法，当cwnd达到一定阈值时候，转为执行拥塞避免算法。</li>
-<li>若出现超时重传，则将慢启动阈值设置为<strong>原来的一半</strong>，重新开始执行上述算法</li>
-<li>若出现连续收到3个ACK，则将慢启动阈值设置为<strong>当前cwnd的一半</strong>，然后将当前cwnd设置为慢启动阈值，开始执行拥塞避免算法。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>计算机图形学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>KMP算法</title>
-    <url>/jjymsworld/2022/07/16/KMP%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="什么是KMP"><a href="#什么是KMP" class="headerlink" title="什么是KMP"></a>什么是KMP</h2><p>说到JKMP，先说一下KMP这个名字是怎么来的， 为什么叫做KMP呢。  </p>
-<p>因为这是由三位学者发明的：Knuth, Morris和Pratt，所以娶了三位学者名字的首字母，叫做KMP。</p>
-<h2 id="KMP主要有什么应用"><a href="#KMP主要有什么应用" class="headerlink" title="KMP主要有什么应用"></a>KMP主要有什么应用</h2><p>KMP主要应用在字符串匹配上。</p>
-<p>KMP的主要思想是当出现字符串不匹配时，<strong>可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配。</strong></p>
-<p>所以如何记录已经匹配的文本内容，是KMP算法的重点，也是next数组肩负的重任。</p>
-<h2 id="什么是前缀表"><a href="#什么是前缀表" class="headerlink" title="什么是前缀表"></a>什么是前缀表</h2><p>写过KMP的同学，一定都写过next数组，那么这个next数组究竟是个什么东西？</p>
-<p>next数组就是一个前缀表（prefix table）。</p>
-<p>前缀表有什么用呢？</p>
-<p><strong>前缀表是用来回溯的，它记录了模式串与主串(文本串)不匹配的时候，模式串应该从哪里开始重新匹配。</strong></p>
-<p>为了清楚的了解前缀表的来历，我们来举一个例子：</p>
-<p>要在文本串：aabaabaaf中查找是否出现过一个模式串：aabaf。</p>
-<p>请记住文本串和模式串的作用：</p>
-<p>要在文本串:aabaabaaf中查找是否出现过一个模式串:aabaaf。</p>
-<p>如动画所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp1.gif"></p>
-<p>动画里，我特意把 子串<code>aa</code> 标记上了，这是有原因的，大家先注意一下，后面还会说道。</p>
-<p>可以看出，文本串中第六个字符b 和 模式串的第六个字符f，不匹配了。如果暴力匹配，会发现不匹配，此时就要从头匹配了。</p>
-<p>但如果使用前缀表，就不会从头匹配，而是从上次已经匹配的内容开始匹配，找到了模式串中第三个字符b继续开始匹配。</p>
-<p>此时就要问了<strong>「前缀表是如何记录的呢？」</strong></p>
-<p>首先要知道前缀表的任务是当前位置匹配失败，找到之前已经匹配上的位置，在重新匹配，此也意味着在某个字符失配时，前缀表会告诉你下一步匹配中，模式串应该跳到哪个位置。</p>
-<p>那么什么是前缀表：<strong>「下表i之前（包括i）的字符串中，有多大长度的相同前缀后缀。」</strong></p>
-<h2 id="为什么一定要用前缀表"><a href="#为什么一定要用前缀表" class="headerlink" title="为什么一定要用前缀表"></a>为什么一定要用前缀表</h2><p>这就是前缀表那为啥就能告诉我们 上次匹配的位置，并跳过去呢？</p>
-<p>回顾一下，刚刚匹配的过程在下表5的地方遇到不匹配，模式串是指向f，如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp2.png"></p>
-<p>然后就找到了下表2，指向b，继续匹配：如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp3.png"></p>
-<p>以下这句话，对于理解为什么使用前缀表可以告诉我们匹配失败之后跳到哪里重新匹配 非常重要！</p>
-<p><strong>「下表5之前这部分的字符串（也就是字符串aabaa）的最长相等的前缀 和 后缀字符串是 子字符串aa ，因为找到了最长相等的前缀和后缀，匹配失败的位置是后缀子串的后面，那么我们找到与其相同的前缀的后面从新匹配就可以了。」</strong></p>
-<p>所以前缀表具有告诉我们当前位置匹配失败，跳到之前已经匹配过的地方的能力。</p>
-<p><strong>「很多介绍KMP的文章或者视频并没有把为什么要用前缀表？这个问题说清楚，而是直接默认使用前缀表。」</strong></p>
-<h2 id="如何计算前缀表"><a href="#如何计算前缀表" class="headerlink" title="如何计算前缀表"></a>如何计算前缀表</h2><p>接下来就要说一说怎么计算前缀表。</p>
-<p>如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp4.png"></p>
-<p>长度为前1个字符的子串<code>a</code>，最长相同前后缀的长度为0。（注意这里计算相同前后缀，不算重复的字符）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp5.png"></p>
-<p>长度为前2个字符的子串<code>aa</code>，最长相同前后缀的长度为1。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp6.png"></p>
-<p>长度为前3个字符的子串<code>aab</code>，最长相同前后缀的长度为0。</p>
-<p>以此类推：<br>            长度为前4个字符的子串<code>aaba</code>，最长相同前后缀的长度为1。<br>            长度为前5个字符的子串<code>aabaa</code>，最长相同前后缀的长度为2。<br>            长度为前6个字符的子串<code>aabaaf</code>，最长相同前后缀的长度为0。</p>
-<p>那么把求得的最长相同前后缀的长度就是对应前缀表的元素，如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp.png"></p>
-<p>可以看出<strong>「前缀表里的数值代表着就是：当前位置之前的子串有多大长度相同的前缀后缀。」</strong></p>
-<p>再来看一下如何利用 前缀表找到 当字符不匹配的时候应该指针应该移动的位置。如动画所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp9.gif"></p>
-<p>找到的不匹配的位置， 那么此时我们要看它的前一个字符的前缀表的数值是多少。</p>
-<p>为什么要看前一个字符的前缀表的数值呢，因为要找前面字符串的最长相同的前缀和后缀。</p>
-<p>所以要看前一位的 前缀表的数值。</p>
-<p>前一个字符的前缀表的数值是2， 所有把下表移动到下表2的位置继续比配。可以再反复看一下上面的动画。</p>
-<p>最后就在文本串中找到了和模式串匹配的子串了。</p>
-<h2 id="前缀表有什么问题"><a href="#前缀表有什么问题" class="headerlink" title="前缀表有什么问题"></a>前缀表有什么问题</h2><p>来看一下刚刚求的这个前缀表有什么问题呢？</p>
-<p>如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp10.png"></p>
-<p>看这个位置红框的位置，如果要找下表1 所对应 前缀表里的数值的时候，前缀表里的数值依然是1，然后就要跳到下表1的位置，如此就<strong>「形成了一个死循环」</strong>。</p>
-<p><strong>「如何怎么避免呢，就把前缀表里的数值统一减一， 开始位置设置为-1 。」</strong> 这一点对理解后面KMP代码很重要！！</p>
-<p>改为如图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp11.png"></p>
-<p>这样就避免的死循环，只不过后续取 前缀表里的数值的时候，要记得再+1，才是我们想要的值。</p>
-<p><strong>「最后得到的新前缀表在KMP算法里通常用一个next数组来表示。」</strong></p>
-<p>注意这个next数组就根据模式串求取的。</p>
-<h2 id="使用next数组来匹配"><a href="#使用next数组来匹配" class="headerlink" title="使用next数组来匹配"></a>使用next数组来匹配</h2><p>有了next数组，就可以根据next数组来 匹配文本串s，和模式串t了。</p>
-<p>注意next数组是新前缀表（旧前缀表统一减一了）。</p>
-<p>匹配过程动画如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/kmp12.gif"></p>
-<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>再来看一下时间复杂度， 假设文本串长度为n，模式串长度为m，动画为上图。</p>
-<p>其中n为文本串长度，m为模式串长度，因为在匹配的过程中，根据前缀表不断调整匹配的位置，可以看出匹配的过程是O(n)，但之前还要单独生成next数组，时间复杂度是O(m)（next数组的实现代码将在后续文章中继续讲解），所以整个KMP算法的时间复杂度是O(n+m)的。</p>
-<p>暴力的解法显而易见是O(n * m)，所以<strong>「KMP在字符串匹配中极大的提高的搜索的效率。」</strong></p>
-<p>文章转自代码随想录，<a href="https://mp.weixin.qq.com/s/70OXnZ4Ez29CKRrUpVJmug">原文链接</a></p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>算法笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TCP三次握手与四次挥手</title>
-    <url>/jjymsworld/2022/07/16/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</url>
-    <content><![CDATA[<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/114bd9b53c554319ae0db15b57b472b8.gif"></h2><ol>
-<li><p>TCP服务器进程先创建传输控制块TCB，时刻准备接受客户进程的连接请求，此时服务器就进入了LISTEN（监听）状态；</p>
-</li>
-<li><p>TCP客户进程也是先创建传输控制块TCB，然后向服务器发出连接请求报文，这是报文首部中的同部位SYN&#x3D;1，同时选择一个初始序列号 seq&#x3D;x ，此时，TCP客户端进程进入了 SYN-SENT（同步已发送状态）状态。TCP规定，SYN报文段（SYN&#x3D;1的报文段）不能携带数据，但需要消耗掉一个序号。</p>
-</li>
-<li><p>TCP服务器收到请求报文后，如果同意连接，则发出确认报文。确认报文中应该 ACK&#x3D;1，SYN&#x3D;1，确认号是ack&#x3D;x+1，同时也要为自己初始化一个序列号 seq&#x3D;y，此时，TCP服务器进程进入了SYN-RCVD（同步收到）状态。这个报文也不能携带数据，但是同样要消耗一个序号。</p>
-</li>
-<li><p>TCP客户进程收到确认后，还要向服务器给出确认。确认报文的ACK&#x3D;1，ack&#x3D;y+1，自己的序列号seq&#x3D;x+1，此时，TCP连接建立，客户端进入ESTABLISHED（已建立连接）状态。TCP规定，ACK报文段可以携带数据，但是如果不携带数据则不消耗序号。</p>
-</li>
-<li><p>当服务器收到客户端的确认后也进入ESTABLISHED状态，此后双方就可以开始通信了。</p>
-<p>为什么TCP客户端最后还要发送一次确认呢？</p>
-<p>主要防止已经失效的连接请求报文突然又传送到了服务器，从而产生错误。</p>
-</li>
-</ol>
-<h2 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h2><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/0c17d72769aa4bd2b95bbaee1749b39d.gif"></p>
-<ol>
-<li>客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN&#x3D;1，其序列号为seq&#x3D;u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。</li>
-<li>服务器收到连接释放报文，发出确认报文，ACK&#x3D;1，ack&#x3D;u+1，并且带上自己的序列号seq&#x3D;v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。</li>
-<li>客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。</li>
-<li>服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN&#x3D;1，ack&#x3D;u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq&#x3D;w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</li>
-<li>客户端收到服务器的连接释放报文后，必须发出确认，ACK&#x3D;1，ack&#x3D;w+1，而自己的序列号是seq&#x3D;u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过<strong>2*MSL</strong>（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</li>
-<li>服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</li>
-</ol>
-<p>为什么客户端最后还要再等待2MSL？</p>
-<p>MSL(Maximum Segment Lifetime)，第一保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失。第二防止类似“三次握手”中提到的已经失效的连接请求报文段出现。客户端等待2MSL时间中，可以保证本连接持续时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p>
-<p>TCP舍友一个保活计时器，客户端如果出现故障，服务器不能一直等下去。服务器每收到一次客户端的请求之后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒发送一次。若连发10的探测报文仍然没反应，服务器就认为客户端出现了故障，接着就关闭连接。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TensorRT解决Network must have at least one output</title>
-    <url>/jjymsworld/2022/07/16/TensorRT%E8%A7%A3%E5%86%B3Network-must-have-at-least-one-output/</url>
-    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[TensorRT] ERROR: Network must hav at least one output</span><br><span class="line"></span><br><span class="line">AttributeError: <span class="string">&#x27;NoneType&#x27;</span> <span class="built_in">object</span> has no attribute <span class="string">&#x27;serialize&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>给代码中的create_network()传入如下参数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">explicit_batch = <span class="number">1</span> &lt;&lt; (<span class="built_in">int</span>)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)</span><br><span class="line">builder.create_network(explicit_batch)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>TensorRT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>archlinux下kde+xorg设置qtcreator界面缩放</title>
-    <url>/jjymsworld/2022/07/16/archlinux%E4%B8%8Bkde-xorg%E8%AE%BE%E7%BD%AEqtcreator%E7%95%8C%E9%9D%A2%E7%BC%A9%E6%94%BE/</url>
-    <content><![CDATA[<p>在&#x2F;usr&#x2F;share&#x2F;applications中找到qtcretor的desktop文件，使用vim编辑此文件，在Exec&#x3D;后方加入<code>QT_SCREEN_SCALE_FACTORS=1</code>即可。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>archlinux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vscode中python打印输出乱码或中文不能解码问题解决</title>
     <url>/jjymsworld/2022/07/16/Vscode%E4%B8%ADpython%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E4%B9%B1%E7%A0%81%E6%88%96%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%A7%A3%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
     <content><![CDATA[<p>解决方式</p>
@@ -643,6 +631,18 @@
       </tags>
   </entry>
   <entry>
+    <title>archlinux下kde+xorg设置qtcreator界面缩放</title>
+    <url>/jjymsworld/2022/07/16/archlinux%E4%B8%8Bkde-xorg%E8%AE%BE%E7%BD%AEqtcreator%E7%95%8C%E9%9D%A2%E7%BC%A9%E6%94%BE/</url>
+    <content><![CDATA[<p>在&#x2F;usr&#x2F;share&#x2F;applications中找到qtcretor的desktop文件，使用vim编辑此文件，在Exec&#x3D;后方加入<code>QT_SCREEN_SCALE_FACTORS=1</code>即可。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>archlinux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>bresenham改进算法(任意方向，任意斜率)</title>
     <url>/jjymsworld/2022/07/16/bresenham%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>算法代码实现</p>
@@ -654,6 +654,26 @@
       </categories>
       <tags>
         <tag>计算机图形学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树的前中后序遍历统一版本迭代写法(仅移动左中右顺序)</title>
+    <url>/jjymsworld/2022/07/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E4%B8%AD%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%9F%E4%B8%80%E7%89%88%E6%9C%AC%E8%BF%AD%E4%BB%A3%E5%86%99%E6%B3%95-%E4%BB%85%E7%A7%BB%E5%8A%A8%E5%B7%A6%E4%B8%AD%E5%8F%B3%E9%A1%BA%E5%BA%8F/</url>
+    <content><![CDATA[<p>前序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>中序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">      vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">      stack&lt;TreeNode*&gt; stk;</span><br><span class="line">      stk.<span class="built_in">push</span>(root);</span><br><span class="line">      <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">          TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">          stk.<span class="built_in">pop</span>();</span><br><span class="line">          <span class="keyword">if</span>(node)&#123;</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">              &#125;</span><br><span class="line">              stk.<span class="built_in">push</span>(node);</span><br><span class="line">              stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">              &#125; </span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">              stk.<span class="built_in">pop</span>();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>后序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>算法笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -709,26 +729,6 @@
       </tags>
   </entry>
   <entry>
-    <title>二叉树的前中后序遍历统一版本迭代写法(仅移动左中右顺序)</title>
-    <url>/jjymsworld/2022/07/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E4%B8%AD%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%9F%E4%B8%80%E7%89%88%E6%9C%AC%E8%BF%AD%E4%BB%A3%E5%86%99%E6%B3%95-%E4%BB%85%E7%A7%BB%E5%8A%A8%E5%B7%A6%E4%B8%AD%E5%8F%B3%E9%A1%BA%E5%BA%8F/</url>
-    <content><![CDATA[<p>前序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>中序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">      vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">      stack&lt;TreeNode*&gt; stk;</span><br><span class="line">      stk.<span class="built_in">push</span>(root);</span><br><span class="line">      <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">          TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">          stk.<span class="built_in">pop</span>();</span><br><span class="line">          <span class="keyword">if</span>(node)&#123;</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">              &#125;</span><br><span class="line">              stk.<span class="built_in">push</span>(node);</span><br><span class="line">              stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">              &#125; </span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">              stk.<span class="built_in">pop</span>();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>后序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>算法笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于neovim配置spacevim的lspconfig问题踩坑与解决方法记录</title>
     <url>/jjymsworld/2022/07/24/%E5%85%B3%E4%BA%8Eneovim%E9%85%8D%E7%BD%AEspacevim%E7%9A%84lspconfig%E9%97%AE%E9%A2%98%E8%B8%A9%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>在archlinux下做开发已经很长时间了,对于小型项目的开发一直使用的是vim和gvim. 偶然尝试了一下neovim, 发现其在UI性能方面相较于gvim更加强大, 界面滚动也更加丝滑, 随即产生了从Vim切换到neovim的想法. 由于我直接使用的Spacevim, 在切换到neovim时产生了一些问题, 主要是lspconfig的报错问题. 这里记录一下我搜索到的资料与解决方法, 以便后面再出现此类错误, 更容易修补.</p>
@@ -768,6 +768,27 @@
       </tags>
   </entry>
   <entry>
+    <title>在windows中给Spacevim设置右键启动</title>
+    <url>/jjymsworld/2022/11/11/%E5%9C%A8windows%E4%B8%AD%E7%BB%99Spacevim%E8%AE%BE%E7%BD%AE%E5%8F%B3%E9%94%AE%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>在windwos中设置直接从右键快速在spacevim中打开文件，并加载相应的配置。</p>
+<p>具体步骤：</p>
+<ol>
+<li>按下<code>win+r</code>在运行弹窗中输入<code>regedit</code>进入注册表编辑器</li>
+<li>定位到<code>HKEY_CLASSES_ROOT &gt; * &gt; shell</code></li>
+<li>在<code>shell</code>上点击右键， 新建项，名字输入<code>use spacevim open</code>或者随便你想输入的名字，这里主要是显示在右键菜单中的文字。然后再在这个项里面新建一个项，名字为<code>command</code>，并修改其默认值为：<code>&quot;D:\Program Files\Neovim\bin\nvim-qt.exe&quot; -qwindowgeometry 1310x650+20+20 &quot;%1&quot;</code></li>
+<li>然后就可以在右键菜单中使用了，这里的启动命令指定了窗口大小，后面的参数可以自行调节。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>neovim</tag>
+        <tag>spacevim</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>射线法判断点是否在多边形内</title>
     <url>/jjymsworld/2022/07/16/%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/</url>
     <content><![CDATA[<h2 id="原理介绍"><a href="#原理介绍" class="headerlink" title="原理介绍"></a>原理介绍</h2><p>基础原理这里不再概述</p>
@@ -794,82 +815,6 @@
       </categories>
       <tags>
         <tag>计算机图形学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在windows中给Spacevim设置右键启动</title>
-    <url>/jjymsworld/2022/11/11/%E5%9C%A8windows%E4%B8%AD%E7%BB%99Spacevim%E8%AE%BE%E7%BD%AE%E5%8F%B3%E9%94%AE%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>在windwos中设置直接从右键快速在spacevim中打开文件，并加载相应的配置。</p>
-<p>具体步骤：</p>
-<ol>
-<li>按下<code>win+r</code>在运行弹窗中输入<code>regedit</code>进入注册表编辑器</li>
-<li>定位到<code>HKEY_CLASSES_ROOT &gt; * &gt; shell</code></li>
-<li>在<code>shell</code>上点击右键， 新建项，名字输入<code>use spacevim open</code>或者随便你想输入的名字，这里主要是显示在右键菜单中的文字。然后再在这个项里面新建一个项，名字为<code>command</code>，并修改其默认值为：<code>&quot;D:\Program Files\Neovim\bin\nvim-qt.exe&quot; -qwindowgeometry 1310x650+20+20 &quot;%1&quot;</code></li>
-<li>然后就可以在右键菜单中使用了，这里的启动命令指定了窗口大小，后面的参数可以自行调节。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>neovim</tag>
-        <tag>spacevim</tag>
-        <tag>vim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>汇编标志位操作指令</title>
-    <url>/jjymsworld/2022/11/10/%E6%B1%87%E7%BC%96%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">指令</th>
-<th align="center">全称</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>CLC</code></td>
-<td align="center">clear carry flag</td>
-<td align="center">CF清零</td>
-</tr>
-<tr>
-<td align="center"><code>STC</code></td>
-<td align="center">set carry flag</td>
-<td align="center">CF置位1</td>
-</tr>
-<tr>
-<td align="center"><code>CMC</code></td>
-<td align="center">complement carry flag</td>
-<td align="center">CF取反</td>
-</tr>
-<tr>
-<td align="center"><code>CLD</code></td>
-<td align="center">clear direction flag</td>
-<td align="center">DF清零</td>
-</tr>
-<tr>
-<td align="center"><code>STD</code></td>
-<td align="center">set direction flag</td>
-<td align="center">DF置位1</td>
-</tr>
-<tr>
-<td align="center"><code>CLI</code></td>
-<td align="center">clear interrupt endable flag</td>
-<td align="center">IF清零，关闭中断</td>
-</tr>
-<tr>
-<td align="center"><code>STI</code></td>
-<td align="center">set interrupt endable flag</td>
-<td align="center">IF置位1，打开中断</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
       </tags>
   </entry>
   <entry>
@@ -1003,6 +948,61 @@
       </tags>
   </entry>
   <entry>
+    <title>汇编标志位操作指令</title>
+    <url>/jjymsworld/2022/11/10/%E6%B1%87%E7%BC%96%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">指令</th>
+<th align="center">全称</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>CLC</code></td>
+<td align="center">clear carry flag</td>
+<td align="center">CF清零</td>
+</tr>
+<tr>
+<td align="center"><code>STC</code></td>
+<td align="center">set carry flag</td>
+<td align="center">CF置位1</td>
+</tr>
+<tr>
+<td align="center"><code>CMC</code></td>
+<td align="center">complement carry flag</td>
+<td align="center">CF取反</td>
+</tr>
+<tr>
+<td align="center"><code>CLD</code></td>
+<td align="center">clear direction flag</td>
+<td align="center">DF清零</td>
+</tr>
+<tr>
+<td align="center"><code>STD</code></td>
+<td align="center">set direction flag</td>
+<td align="center">DF置位1</td>
+</tr>
+<tr>
+<td align="center"><code>CLI</code></td>
+<td align="center">clear interrupt endable flag</td>
+<td align="center">IF清零，关闭中断</td>
+</tr>
+<tr>
+<td align="center"><code>STI</code></td>
+<td align="center">set interrupt endable flag</td>
+<td align="center">IF置位1，打开中断</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>汇编语言运算符</title>
     <url>/jjymsworld/2022/11/09/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
     <content><![CDATA[<h2 id="运算符伪指令"><a href="#运算符伪指令" class="headerlink" title="运算符伪指令"></a>运算符伪指令</h2><h4 id="常数"><a href="#常数" class="headerlink" title="常数"></a>常数</h4><ol>
@@ -1105,17 +1105,22 @@
       </tags>
   </entry>
   <entry>
-    <title>种子填色算法</title>
-    <url>/jjymsworld/2022/07/16/%E7%A7%8D%E5%AD%90%E5%A1%AB%E8%89%B2%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>C++代码实现：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//泛洪法，消耗大量空间，利用堆栈，容易造成堆栈溢出，在vs2019运行情况下需要调整安全堆栈内存大小才能正常运行</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">seed_filling</span><span class="params">(HDC hdc, <span class="type">int</span> x, <span class="type">int</span> y, COLORREF fill_color, COLORREF boundary_color)</span> </span>&#123;</span><br><span class="line">    COLORREF c;</span><br><span class="line">    c = <span class="built_in">GetPixel</span>(hdc,x, y);</span><br><span class="line">    <span class="keyword">if</span> ((c != boundary_color) &amp;&amp; (c != fill_color)) &#123;</span><br><span class="line">        <span class="built_in">SetPixel</span>(hdc, x, y, fill_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x + <span class="number">1</span>, y, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x - <span class="number">1</span>, y, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x, y + <span class="number">1</span>, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x, y - <span class="number">1</span>, fill_color, boundary_color);</span><br><span class="line">        <span class="comment">/*seed_filling(hdc, x + 1, y + 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x + 1, y - 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x - 1, y + 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x - 1, y - 1, fill_color, boundary_color);*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扫描线种子填色算法，节约空间</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ScanFill4</span><span class="params">(HDC hdc, <span class="type">int</span> x, <span class="type">int</span> y, COLORREF fill_color, COLORREF boundary_color)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> xl, xr;</span><br><span class="line">    <span class="type">bool</span> spanNeedFill;</span><br><span class="line">    POINT pt;</span><br><span class="line">    POINT fillPoint;</span><br><span class="line">    fillPoint.x = x;</span><br><span class="line">    fillPoint.y = y;</span><br><span class="line">    COLORREF c;</span><br><span class="line">    c = <span class="built_in">GetPixel</span>(hdc, x, y);</span><br><span class="line">    stack&lt;POINT&gt; Stack;</span><br><span class="line">    </span><br><span class="line">    pt.x = fillPoint.x;</span><br><span class="line">    pt.y = fillPoint.y;</span><br><span class="line">    Stack.<span class="built_in">push</span>(pt);</span><br><span class="line">    <span class="keyword">while</span> (!Stack.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        pt = Stack.<span class="built_in">top</span>();</span><br><span class="line">        Stack.<span class="built_in">pop</span>();</span><br><span class="line">        fillPoint.y = pt.y;</span><br><span class="line">        fillPoint.x = pt.x;</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">            <span class="built_in">SetPixel</span>(hdc, fillPoint.x, fillPoint.y, fill_color);</span><br><span class="line">            fillPoint.x++;</span><br><span class="line">        &#125;</span><br><span class="line">        xr = fillPoint.x - <span class="number">1</span>;</span><br><span class="line">        fillPoint.x = pt.x - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">            <span class="built_in">SetPixel</span>(hdc, fillPoint.x, fillPoint.y, fill_color);</span><br><span class="line">            fillPoint.x--;</span><br><span class="line">        &#125;</span><br><span class="line">        xl = fillPoint.x + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">            fillPoint.x = xl;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) fillPoint.y = fillPoint.y + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> fillPoint.y = fillPoint.y - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">while</span> (fillPoint.x &lt; xr) &#123;</span><br><span class="line">                spanNeedFill = FALSE;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">                    spanNeedFill = TRUE;</span><br><span class="line">                    fillPoint.x++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (spanNeedFill) &#123;</span><br><span class="line">                    pt.x = fillPoint.x - <span class="number">1</span>;</span><br><span class="line">                    pt.y = fillPoint.y;</span><br><span class="line">                    Stack.<span class="built_in">push</span>(pt);</span><br><span class="line">                    spanNeedFill = FALSE;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) != c &amp;&amp; fillPoint.x &lt; xr) &#123;</span><br><span class="line">                    fillPoint.x++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>解决React中修改value不能触发input事件</title>
+    <url>/jjymsworld/2022/07/16/%E8%A7%A3%E5%86%B3React%E4%B8%AD%E4%BF%AE%E6%94%B9value%E4%B8%8D%E8%83%BD%E8%A7%A6%E5%8F%91input%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>解决方法，见如下代码：</p>
+<p>原例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> input = someInput; </span><br><span class="line"><span class="keyword">let</span> lastValue = input.<span class="property">value</span>;</span><br><span class="line">input.<span class="property">value</span> = <span class="string">&#x27;new value&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// hack React15</span></span><br><span class="line">event.<span class="property">simulated</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// hack React16 内部定义了descriptor拦截value，此处重置状态</span></span><br><span class="line"><span class="keyword">let</span> tracker = input.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span> (tracker) &#123;</span><br><span class="line">  tracker.<span class="title function_">setValue</span>(lastValue);</span><br><span class="line">&#125;</span><br><span class="line">input.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
 
+<p>js操作示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;input.m-addr-input &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">test.<span class="property">value</span> = <span class="string">&quot;蒋毅&quot;</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123;<span class="attr">bubbles</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> tracker = test.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span>(tracker)&#123;</span><br><span class="line">    tracker.<span class="title function_">setValue</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">test.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/facebook/react/issues/11488#issuecomment-347775628">原始资料地址</a></p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>计算机图形学</tag>
+        <tag>JavaScript,React</tag>
       </tags>
   </entry>
   <entry>
@@ -1190,22 +1195,17 @@
       </tags>
   </entry>
   <entry>
-    <title>解决React中修改value不能触发input事件</title>
-    <url>/jjymsworld/2022/07/16/%E8%A7%A3%E5%86%B3React%E4%B8%AD%E4%BF%AE%E6%94%B9value%E4%B8%8D%E8%83%BD%E8%A7%A6%E5%8F%91input%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p>解决方法，见如下代码：</p>
-<p>原例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> input = someInput; </span><br><span class="line"><span class="keyword">let</span> lastValue = input.<span class="property">value</span>;</span><br><span class="line">input.<span class="property">value</span> = <span class="string">&#x27;new value&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// hack React15</span></span><br><span class="line">event.<span class="property">simulated</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// hack React16 内部定义了descriptor拦截value，此处重置状态</span></span><br><span class="line"><span class="keyword">let</span> tracker = input.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span> (tracker) &#123;</span><br><span class="line">  tracker.<span class="title function_">setValue</span>(lastValue);</span><br><span class="line">&#125;</span><br><span class="line">input.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
+    <title>种子填色算法</title>
+    <url>/jjymsworld/2022/07/16/%E7%A7%8D%E5%AD%90%E5%A1%AB%E8%89%B2%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>C++代码实现：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//泛洪法，消耗大量空间，利用堆栈，容易造成堆栈溢出，在vs2019运行情况下需要调整安全堆栈内存大小才能正常运行</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">seed_filling</span><span class="params">(HDC hdc, <span class="type">int</span> x, <span class="type">int</span> y, COLORREF fill_color, COLORREF boundary_color)</span> </span>&#123;</span><br><span class="line">    COLORREF c;</span><br><span class="line">    c = <span class="built_in">GetPixel</span>(hdc,x, y);</span><br><span class="line">    <span class="keyword">if</span> ((c != boundary_color) &amp;&amp; (c != fill_color)) &#123;</span><br><span class="line">        <span class="built_in">SetPixel</span>(hdc, x, y, fill_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x + <span class="number">1</span>, y, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x - <span class="number">1</span>, y, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x, y + <span class="number">1</span>, fill_color, boundary_color);</span><br><span class="line">        <span class="built_in">seed_filling</span>(hdc, x, y - <span class="number">1</span>, fill_color, boundary_color);</span><br><span class="line">        <span class="comment">/*seed_filling(hdc, x + 1, y + 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x + 1, y - 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x - 1, y + 1, fill_color, boundary_color);</span></span><br><span class="line"><span class="comment">        seed_filling(hdc, x - 1, y - 1, fill_color, boundary_color);*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扫描线种子填色算法，节约空间</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ScanFill4</span><span class="params">(HDC hdc, <span class="type">int</span> x, <span class="type">int</span> y, COLORREF fill_color, COLORREF boundary_color)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> xl, xr;</span><br><span class="line">    <span class="type">bool</span> spanNeedFill;</span><br><span class="line">    POINT pt;</span><br><span class="line">    POINT fillPoint;</span><br><span class="line">    fillPoint.x = x;</span><br><span class="line">    fillPoint.y = y;</span><br><span class="line">    COLORREF c;</span><br><span class="line">    c = <span class="built_in">GetPixel</span>(hdc, x, y);</span><br><span class="line">    stack&lt;POINT&gt; Stack;</span><br><span class="line">    </span><br><span class="line">    pt.x = fillPoint.x;</span><br><span class="line">    pt.y = fillPoint.y;</span><br><span class="line">    Stack.<span class="built_in">push</span>(pt);</span><br><span class="line">    <span class="keyword">while</span> (!Stack.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        pt = Stack.<span class="built_in">top</span>();</span><br><span class="line">        Stack.<span class="built_in">pop</span>();</span><br><span class="line">        fillPoint.y = pt.y;</span><br><span class="line">        fillPoint.x = pt.x;</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">            <span class="built_in">SetPixel</span>(hdc, fillPoint.x, fillPoint.y, fill_color);</span><br><span class="line">            fillPoint.x++;</span><br><span class="line">        &#125;</span><br><span class="line">        xr = fillPoint.x - <span class="number">1</span>;</span><br><span class="line">        fillPoint.x = pt.x - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">            <span class="built_in">SetPixel</span>(hdc, fillPoint.x, fillPoint.y, fill_color);</span><br><span class="line">            fillPoint.x--;</span><br><span class="line">        &#125;</span><br><span class="line">        xl = fillPoint.x + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">            fillPoint.x = xl;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) fillPoint.y = fillPoint.y + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> fillPoint.y = fillPoint.y - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">while</span> (fillPoint.x &lt; xr) &#123;</span><br><span class="line">                spanNeedFill = FALSE;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) == c) &#123;</span><br><span class="line">                    spanNeedFill = TRUE;</span><br><span class="line">                    fillPoint.x++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (spanNeedFill) &#123;</span><br><span class="line">                    pt.x = fillPoint.x - <span class="number">1</span>;</span><br><span class="line">                    pt.y = fillPoint.y;</span><br><span class="line">                    Stack.<span class="built_in">push</span>(pt);</span><br><span class="line">                    spanNeedFill = FALSE;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">GetPixel</span>(hdc, fillPoint.x, fillPoint.y) != c &amp;&amp; fillPoint.x &lt; xr) &#123;</span><br><span class="line">                    fillPoint.x++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>js操作示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;input.m-addr-input &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">test.<span class="property">value</span> = <span class="string">&quot;蒋毅&quot;</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123;<span class="attr">bubbles</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> tracker = test.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span>(tracker)&#123;</span><br><span class="line">    tracker.<span class="title function_">setValue</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">test.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://github.com/facebook/react/issues/11488#issuecomment-347775628">原始资料地址</a></p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>JavaScript,React</tag>
+        <tag>计算机图形学</tag>
       </tags>
   </entry>
   <entry>
