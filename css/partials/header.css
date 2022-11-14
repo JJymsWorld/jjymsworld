@@ -68,7 +68,7 @@
   }
   .header-inner .site-nav .active {
     margin-top: $margin-m-1;
-    height: 160px;
+    height: 158px;
     transition: height 0.2s;
     flex-direction: column;
   }

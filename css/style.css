@@ -391,7 +391,7 @@ input[type="search"]::-webkit-search-results-decoration {
   }
   .header-inner .site-nav .active {
     margin-top: 0.75rem;
-    height: 160px;
+    height: 158px;
     transition: height 0.2s;
     flex-direction: column;
   }
