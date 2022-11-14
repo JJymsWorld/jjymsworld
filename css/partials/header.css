@@ -58,7 +58,7 @@
   .header-inner .site-nav .menu-list {
     height: 0;
     overflow: hidden;
-    transition: height 0.15s;
+    transition: height 0.2s;
   }
   .header-inner .site-nav .menu-list .menu-item {
     margin-right: 0;
@@ -69,7 +69,7 @@
   .header-inner .site-nav .active {
     margin-top: $margin-m-1;
     height: 160px;
-    transition: height 0.15s;
+    transition: height 0.2s;
     flex-direction: column;
   }
   .header-inner .site-nav .active .menu-item {
