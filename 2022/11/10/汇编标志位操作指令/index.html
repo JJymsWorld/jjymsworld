@@ -53,11 +53,7 @@
 
 
 
-  <!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+  <meta name="generator" content="Hexo 6.3.0"></head>
   <body>
     <div class="mask-border">
     </div>
@@ -152,50 +148,54 @@
     </div>
 </div>
     <div class="post-content">
-    <table>
+    <div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="center">指令</th>
-<th align="center">全称</th>
-<th align="center">功能</th>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">全称</th>
+<th style="text-align:center">功能</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><code>CLC</code></td>
-<td align="center">clear carry flag</td>
-<td align="center">CF清零</td>
+<tbody>
+<tr>
+<td style="text-align:center"><code>CLC</code></td>
+<td style="text-align:center">clear carry flag</td>
+<td style="text-align:center">CF清零</td>
 </tr>
 <tr>
-<td align="center"><code>STC</code></td>
-<td align="center">set carry flag</td>
-<td align="center">CF置位1</td>
+<td style="text-align:center"><code>STC</code></td>
+<td style="text-align:center">set carry flag</td>
+<td style="text-align:center">CF置位1</td>
 </tr>
 <tr>
-<td align="center"><code>CMC</code></td>
-<td align="center">complement carry flag</td>
-<td align="center">CF取反</td>
+<td style="text-align:center"><code>CMC</code></td>
+<td style="text-align:center">complement carry flag</td>
+<td style="text-align:center">CF取反</td>
 </tr>
 <tr>
-<td align="center"><code>CLD</code></td>
-<td align="center">clear direction flag</td>
-<td align="center">DF清零</td>
+<td style="text-align:center"><code>CLD</code></td>
+<td style="text-align:center">clear direction flag</td>
+<td style="text-align:center">DF清零</td>
 </tr>
 <tr>
-<td align="center"><code>STD</code></td>
-<td align="center">set direction flag</td>
-<td align="center">DF置位1</td>
+<td style="text-align:center"><code>STD</code></td>
+<td style="text-align:center">set direction flag</td>
+<td style="text-align:center">DF置位1</td>
 </tr>
 <tr>
-<td align="center"><code>CLI</code></td>
-<td align="center">clear interrupt endable flag</td>
-<td align="center">IF清零，关闭中断</td>
+<td style="text-align:center"><code>CLI</code></td>
+<td style="text-align:center">clear interrupt endable flag</td>
+<td style="text-align:center">IF清零，关闭中断</td>
 </tr>
 <tr>
-<td align="center"><code>STI</code></td>
-<td align="center">set interrupt endable flag</td>
-<td align="center">IF置位1，打开中断</td>
+<td style="text-align:center"><code>STI</code></td>
+<td style="text-align:center">set interrupt endable flag</td>
+<td style="text-align:center">IF置位1，打开中断</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
 </div> 
 
@@ -307,5 +307,22 @@
     
     
 
-  </body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
 </html>

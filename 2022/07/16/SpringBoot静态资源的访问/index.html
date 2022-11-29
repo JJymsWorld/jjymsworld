@@ -53,11 +53,7 @@
 
 
 
-  <!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+  <meta name="generator" content="Hexo 6.3.0"></head>
   <body>
     <div class="mask-border">
     </div>
@@ -163,40 +159,28 @@
 <li><code>/static/</code></li>
 <li><code>/public/</code></li>
 </ul>
-<img :src="$withBase('/images/springbootstatic_1.webp')" alt="springbootstatic_1">
-
-
-
-
-
+<p><img :src="$withBase('/images/springbootstatic_1.webp')" alt="springbootstatic_1"></p>
 <p>如果这四个目录中有相同的静态资源文件，那么优先访问哪个目录下面的资源啊？<br> 静态资源的默认访问优先级：<code>/META-INF/resources/</code>&gt;<code>/resources/</code>&gt;<code>/static/</code>&gt;<code>/public/</code></p>
 <p>在四个目录中都放一个static.html的文件，每个html文件中都说明自己所在的目录，访问结果如下：</p>
-<img :src="$withBase('/images/springbootstatic_2.webp')" alt="springbootstatic_2">
-
+<p><img :src="$withBase('/images/springbootstatic_2.webp')" alt="springbootstatic_2"></p>
 <p>SpringBoot关于静态资源的访问涉及到了application.properties中的两个属性：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 默认值为 /*</span></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern= <span class="meta">#这里设置静态资源匹配的url-pattern</span></span><br><span class="line"><span class="meta"># 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/ </span></span><br><span class="line">spring.resources.<span class="keyword">static</span>-locations= <span class="meta">#这里设置要指向的路径，多个使用英文逗号隔开，在前面的优先级高</span></span><br></pre></td></tr></table></figure>
-
 <p>此时，我们豁然开朗，知道默认情况下静态资源为什么放在<code>/META-INF/resources/</code>、<code>/resources/</code>、<code>/static/</code>、<code>/public/</code>这四个目录了，还有这四个目录访问的优先级是怎么来的了。</p>
 <p>修改静态资源映射的方法：</p>
 <ul>
 <li>我们可以修改这两个属性来改变静态资源的映射，比如我们的所有静态资源都在<code>mystatic</code>目录中，并且我们希望访问静态资源的的url都带有<code>/mystatic/</code>这个目录前缀:</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.mvc.<span class="type">static</span>-path-pattern=/mystatic<span class="comment">/*</span></span><br><span class="line"><span class="comment">spring.resources.static-locations= classpath:mystatic/</span></span><br></pre></td></tr></table></figure>
-
 <p>在<code>resources</code>资源目录中创建一个<code>mystatic</code>目录，在该目录下面创建一个<code>static.html</code>文件，访问结果如下：</p>
-<img :src="$withBase('/images/springbootstatic_3.webp')" alt="springbootstatic_3">
-
-
-
+<p><img :src="$withBase('/images/springbootstatic_3.webp')" alt="springbootstatic_3"></p>
 <ul>
 <li><p>继承</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WebMvcConfigurerAdapter</span><br></pre></td></tr></table></figure>
-
 <p>类，并且重写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addResourceHandlers</span><br></pre></td></tr></table></figure>
-
 <p>方法就行，该操作与上面的方法得到的效果是一样的</p>
-<img :src="$withBase('/images/springbootstatic_4.webp')" alt="springbootstatic_4"></li>
+<p><img :src="$withBase('/images/springbootstatic_4.webp')" alt="springbootstatic_4"></p>
+</li>
 </ul>
 <p><strong>注意：还可以设置外部磁盘目录，设置方式不变，格式如下：<code>file:d/mystatic/</code>。</strong></p>
 <h3 id="WebJars"><a href="#WebJars" class="headerlink" title="WebJars"></a>WebJars</h3><hr>
@@ -209,21 +193,18 @@
 <li>在<code>pom.xml</code>中引入<code>jquery</code>的<code>WebJars</code>，默认会被放在<code>classpath:/META-INF/resources/webjars/</code>目录中</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.webjars<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jquery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>在前端<code>webjars.html</code>页面中引入<code>jquery</code></li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/webjars/jquery/2.1.1/jquery.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>访问页面</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webjars.html</span><br></pre></td></tr></table></figure>
-
 <p>，查看源码，可以链接到</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jquery.js</span><br></pre></td></tr></table></figure>
-
 <p>的内容</p>
-<img :src="$withBase('/images/springbootstatic_5.webp')" alt="springbootstatic_5"></li>
+<p><img :src="$withBase('/images/springbootstatic_5.webp')" alt="springbootstatic_5"></p>
+</li>
 </ul>
 <h4 id="版本号统一管理"><a href="#版本号统一管理" class="headerlink" title="版本号统一管理"></a>版本号统一管理</h4><hr>
 <p>如果我们有很多页面都是用了<code>WebJars</code>中的资源，而我们现在要升级<code>WebJars</code>的版本，岂不是要在每个页面中都改动一下，这样很麻烦啊，有没有简单的方法啊。此时，我们可以进行版本号统一管理。</p>
@@ -231,74 +212,61 @@
 <li>在<code>pom.xml</code>中引入<code>jquery</code>的<code>WebJars</code>的基础上添加：</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.webjars<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>webjars-locator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>添加版本号统一管理的控制器</p>
-<img :src="$withBase('/images/Springbootstatic_6.webp')" alt="Springbootstatic_6">
+<p><img :src="$withBase('/images/Springbootstatic_6.webp')" alt="Springbootstatic_6"></p>
 </li>
 <li><p>在页面中引入<code>jquery</code>的方式如下：</p>
 </li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/webjarslocator/jquery/jquery.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="静态资源版本管理"><a href="#静态资源版本管理" class="headerlink" title="静态资源版本管理"></a>静态资源版本管理</h2><hr>
 <p>当我们资源内容发生变化时，由于浏览器缓存，用户本地的静态资源还是旧的资源，为了防止这种情况导致的问题，我们可能会手动在请求url的时候加个版本号或者其他方式。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/lavor.js?v=1.1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>SpringMVC提供了两种方式可以帮助我们很容易地解决这类问题。</p>
 <h3 id="MD5方式"><a href="#MD5方式" class="headerlink" title="MD5方式"></a>MD5方式</h3><hr>
 <ul>
 <li>修改<code>application.properties</code>配置文件</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.chain.strategy.content.enabled=<span class="literal">true</span></span><br><span class="line">spring.resources.chain.strategy.content.paths=/**</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@ControllerAdvice</span><br></pre></td></tr></table></figure>
-
 <p>注解，返回</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResourceUrlProvider</span><br></pre></td></tr></table></figure>
-
 <p>的对象，这样所有通过控制器返回的模板页面（jsp,thymeleaf,freeemarker等）就都可以在页面中使用该对象了</p>
-<img :src="$withBase('/images/springbootstatic_7.webp')" alt="springbootstatic_7">
+<p><img :src="$withBase('/images/springbootstatic_7.webp')" alt="springbootstatic_7"></p>
 </li>
 <li><p>在控制器返回的模板页面中，添加以下信息，我们这里的返回页面时jsp页面，<code>lavor.js</code>是<code>webapp</code>目录下面的js脚本文件。</p>
 </li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>  <span class="attr">src</span>=<span class="string">&quot;$&#123;urls.getForLookupPath(&#x27;/lavor.js&#x27;) &#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>通过浏览器访问控制器的请求url，查看页面源代码</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>  <span class="attr">src</span>=<span class="string">&quot;/lavor-fdfa0502716d517c6cad4f2536aa02a1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>请求<code>/lavor-fdfa0502716d517c6cad4f2536aa02a1.js</code>，我们MD5配置的<code>paths=/**</code>，所以SpringMVC会尝试url中是否包含<code>-</code>，如果包含会去掉后面这部分，然后去映射的目录（如webapp根目录，上面提到的四大静态映射目录）查找<code>/lavor.js</code>文件，如果能找到就返回。</p>
 <h3 id="版本号方式"><a href="#版本号方式" class="headerlink" title="版本号方式"></a>版本号方式</h3><hr>
 <ul>
 <li>修改<code>application.properties</code>配置文件，<strong>注意MD5方式中的是<code>content</code>，这里是<code>fixed</code></strong></li>
 </ul>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.chain.strategy.<span class="keyword">fixed</span>.enabled=<span class="literal">true</span></span><br><span class="line"><span class="meta">#版本号处理的路径</span></span><br><span class="line">spring.resources.chain.strategy.<span class="keyword">fixed</span>.paths=<span class="comment">/**</span></span><br><span class="line"><span class="comment"># 版本号，可以为所处理路径中的资源加上/v1.1目录前缀</span></span><br><span class="line"><span class="comment">spring.resources.chain.strategy.fixed.version=v1.1</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@ControllerAdvice</span><br></pre></td></tr></table></figure>
-
 <p>注解，返回</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResourceUrlProvider</span><br></pre></td></tr></table></figure>
-
 <p>的对象，这样所有通过控制器返回的模板页面（jsp,thymeleaf,freeemarker等）就都可以在页面中使用该对象了</p>
-<img :src="$withBase('/images/springbootstatic_7.webp')" alt="springbootstatic_7">
+<p><img :src="$withBase('/images/springbootstatic_7.webp')" alt="springbootstatic_7"></p>
 </li>
 <li><p>在控制器返回的模板页面中，添加以下信息，我们这里的返回页面时jsp页面，<code>lavor.js</code>是<code>webapp</code>目录下面的js脚本文件.</p>
 </li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>  <span class="attr">src</span>=<span class="string">&quot;$&#123;urls.getForLookupPath(&#x27;/lavor.js&#x27;) &#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>通过浏览器访问控制器的请求url，查看页面源代码</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>  <span class="attr">src</span>=<span class="string">&quot;/v1.1/lavor.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>请求<code>/v1.1/lavor.js</code>，会查看<code>v1.1</code>是不是版本号，如果是就去掉前缀目录，直接查找<code>/lavor.js</code>。</p>
 <p><strong>注意：我们发现如果添加了webapp目录，那么该目录也可以存放静态资源，并且默认情况下访问优先级比<code>/META-INF/resources/</code>还要高。</strong></p>
 
@@ -412,5 +380,22 @@
     
     
 
-  </body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
 </html>
