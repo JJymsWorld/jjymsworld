@@ -1291,6 +1291,20 @@
       </tags>
   </entry>
   <entry>
+    <title>spacevim修改空格延迟</title>
+    <url>/jjymsworld/2023/06/10/spacevim%E4%BF%AE%E6%94%B9%E7%A9%BA%E6%A0%BC%E5%BB%B6%E8%BF%9F/</url>
+    <content><![CDATA[<p>找到<code>.SpaceVim.d</code>文件夹，进入其中创建<code>autoload</code>文件夹，然后创建<code>myspacevim.vim</code>文件，填入以下内容。<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function!</span> <span class="title">myspacevim</span>#before<span class="params">()</span> abort</span><br><span class="line">    <span class="keyword">set</span> timeoutlen=<span class="number">100</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure><br>然后在spacevim的配置文件中，在<code>option</code>下面加入一行代码.<br><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">bootstrap_before</span> = <span class="string">&quot;myspacevim#before&quot;</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>neovim</tag>
+        <tag>spacevim</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>&#39;tag&#39;</title>
     <url>/jjymsworld/tag/index.html</url>
     <content><![CDATA[]]></content>

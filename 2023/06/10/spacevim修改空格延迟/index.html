@@ -14,7 +14,7 @@
 
 
 
-<title>Archive | Revves_J</title>
+<title>spacevim修改空格延迟 | Revves_J</title>
 
 
 
@@ -114,95 +114,110 @@
 
       <div class="main">
         <div class="flex-container">
-          <div class="post-list">
-    
-    
+          <article id="post">
 
-        
-
-        
-            <div class="year-title">2022</div>
-        
-
-        <div class="post-list-item">
-            <div class="post-title">
-            <a href="/jjymsworld/2022/07/16/CAS%E6%8A%80%E6%9C%AF-CompareAndSwap/">
-                
-                    CAS技术(CompareAndSwap)
-                
-                </a> 
-            </div>
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
             
-            <span class="post-date">7月 16, 2022</span>
-        </div>
-
-    
-
-        
-
-        
-
-        <div class="post-list-item">
-            <div class="post-title">
-            <a href="/jjymsworld/2022/07/16/GoModules%E4%BD%BF%E7%94%A8/">
                 
-                    GoModules使用
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/neovim/">
+                            neovim
+                        </a>
+                    </span>    
                 
-                </a> 
-            </div>
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/spacevim/">
+                            spacevim
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/vim/">
+                            vim
+                        </a>
+                    </span>    
+                           
             
-            <span class="post-date">7月 16, 2022</span>
         </div>
-
-    
-
-        
-
-        
-
-        <div class="post-list-item">
-            <div class="post-title">
-            <a href="/jjymsworld/2022/07/16/golang%E7%94%9F%E6%80%81/">
-                
-                    golang生态
-                
-                </a> 
-            </div>
+        <div class="post-title">
             
-            <span class="post-date">7月 16, 2022</span>
-        </div>
-
-    
-
-        
-
-        
-
-        <div class="post-list-item">
-            <div class="post-title">
-            <a href="/jjymsworld/2022/07/16/C-%E4%B8%ADstruct%E4%B8%8Eclass%E7%9A%84%E5%8C%BA%E5%88%AB/">
-                
-                    C++中struct与class的区别
-                
-                </a> 
-            </div>
             
-            <span class="post-date">7月 16, 2022</span>
+                spacevim修改空格延迟
+            
+            
         </div>
-
-    
-    <div id="paginator">
-        
-    <div class=paginator>
-        <div class="h-line-primary"></div>
-        <nav class="pagination">
-            <a class="page-number" href="/jjymsworld/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jjymsworld/archives/page/3/">3</a><span class="page-number current">4</span>
-        </nav>
+        <span class="post-date">
+            6月 10, 2023
+        </span>
     </div>
-
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
     </div>
 </div>
+    <div class="post-content">
+    <p>找到<code>.SpaceVim.d</code>文件夹，进入其中创建<code>autoload</code>文件夹，然后创建<code>myspacevim.vim</code>文件，填入以下内容。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function!</span> <span class="title">myspacevim</span>#before<span class="params">()</span> abort</span><br><span class="line">    <span class="keyword">set</span> timeoutlen=<span class="number">100</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure><br>然后在spacevim的配置文件中，在<code>option</code>下面加入一行代码.<br><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bootstrap_before</span> = <span class="string">&quot;myspacevim#before&quot;</span></span><br></pre></td></tr></table></figure></p>
 
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2022/12/02/KMP%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2023/06/10/spacevim%E4%BF%AE%E6%94%B9%E7%A9%BA%E6%A0%BC%E5%BB%B6%E8%BF%9F/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2023/06/10/spacevim修改空格延迟/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
         </div>
       </div>
       
