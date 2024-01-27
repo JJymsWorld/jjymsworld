@@ -14,7 +14,7 @@
 
 
 
-<title>nvchad中nvimtree配置vertical-split | YiMing</title>
+<title>给NvChad配置代码执行功能 | YiMing</title>
 
 
 
@@ -127,30 +127,18 @@
                             neovim
                         </a>
                     </span>    
-                
-                    <span class="post-tag">
-                        <a href="/jjymsworld/tags/nvchad/">
-                            nvchad
-                        </a>
-                    </span>    
-                
-                    <span class="post-tag">
-                        <a href="/jjymsworld/tags/nvimtree/">
-                            nvimtree
-                        </a>
-                    </span>    
                            
             
         </div>
         <div class="post-title">
             
             
-                nvchad中nvimtree配置vertical-split
+                给NvChad配置代码执行功能
             
             
         </div>
         <span class="post-date">
-            1月 21, 2024
+            1月 27, 2024
         </span>
     </div>
     <div class="post-img">
@@ -160,7 +148,11 @@
     </div>
 </div>
     <div class="post-content">
-    <p>nvimtree中默认的vertical-split的快捷键是<code>&lt;C-v&gt;</code>而在nvchad中这个快捷键与粘贴功能冲突，并且nvchad的作者并没有解决这个问题，所以这里记录下自定义修改nvimtree快捷键map的过程。<br>首先进入到配置neovim的文件夹，进入<code>nvim\lua\plugins\configs</code>找到<code>nvimtree.lua</code><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401212250013.png" alt=""><br>图中红框标注的是新增的代码，箭头指向的地方改成快捷键，以及对应的api，api可以在nvimtree的官方github仓库中进行查看。</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为平时习惯了使用vim进行一些简单代码的编写和一些目录结构比较简单的项目开发，效率也非常高，但是因为要经常在本地和服务器进行切换，懒得进行配置了，之前是整理了一套spacevim的配置流程，每换个设备就配置一下也非常快，但是最近越发觉得spacevim过于臃肿了，很多功能用不到，启动速度也比较慢，甚至快不如vscode了，于是切换到了更加轻量化的NvChad，但是NvChad没有spacevim那样的直接<code>spec l r</code>就直接运行代码的功能，遂打算自己配置一个，这里使用 jaq-nvim[<a target="_blank" rel="noopener" href="https://github.com/is0n/jaq-nvim">https://github.com/is0n/jaq-nvim</a>] 来进行对neovim配置代码执行功能。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>首先，NvChad是使用lazyvim进行插件管理的，我们先去进行插件的安装，首先进入到NvChad的插件配置文件里面，这里我是在<code>nvim\lua\custom\plugins.lua</code>中进行配置<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272035330.png" alt=""><br>在这里进行插件的安装。</p>
+<h3 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h3><p>接下来到<code>configs\override.lua</code>中对插件进行配置<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272120646.png" alt=""><br>这里我是直接参考的官方的文档进行配置的，可以去作者的GitHub上进行查看，当然作者没有给c和cpp的执行指令，这里是我自己进行配置的，可以参考，具体的作用是创建<code>build</code>文件夹，然后将编译出的可执行文件放入build文件夹中，避免污染当前目录，然后执行编译出的可执行文件。  </p>
+<h3 id="启用插件"><a href="#启用插件" class="headerlink" title="启用插件"></a>启用插件</h3><p>到<code>nvim\lua\plugins\init.lua</code>中启用插件<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272047201.png" alt="">  </p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>经过上面的配置，已经可以直接进行代码执行，直接执行<code>:Jaq</code>指令即可<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272054241.png" alt=""><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272121002.png" alt=""></p>
 
 </div> 
 
@@ -172,17 +164,12 @@
     <nav class="post-nav">
         <div class="prev-item">
            
-                <div class="icon arrow-left"></div>
-                <div class="post-link">
-                    <a href="/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/">Prev</a>
-                </div>
-            
         </div>
         <div class="next-item">
             
                 <div class="icon arrow-right"></div>
                 <div class="post-link">
-                  <a href="/jjymsworld/2023/12/19/cmd%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%97%B6%E5%81%87%E6%AD%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">Next</a>  
+                  <a href="/jjymsworld/2024/01/21/nvchad%E4%B8%ADnvimtree%E9%85%8D%E7%BD%AEvertical-split/">Next</a>  
                 </div>  
             
         </div>
@@ -202,8 +189,8 @@
             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
             
             var disqus_config = function () {
-                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/01/21/nvchad%E4%B8%ADnvimtree%E9%85%8D%E7%BD%AEvertical-split/';  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = '2024/01/21/nvchad中nvimtree配置vertical-split/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/01/27/给NvChad配置代码执行功能/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                 this.language = 'en'
             };
             
