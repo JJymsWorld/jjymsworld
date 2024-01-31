@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Dijkstra单源最短路径算法</title>
+    <url>/jjymsworld/2022/11/28/Dijkstra%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128210110.png" alt=""></p>
+<p>使用三个数组，解法类似Prim求解最小生成树算法。</p>
+<p>代码示例如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Dijkstra</span><span class="params">(Graph G, <span class="type">int</span> v0, <span class="type">int</span> path[])</span> </span>&#123;</span><br><span class="line">    <span class="type">bool</span> final_s[G.vexnum] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line">    <span class="type">int</span> dis[G.vexnum];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G.vexnum;i++)&#123;</span><br><span class="line">        final_s[i] = <span class="literal">false</span>;</span><br><span class="line">        dis[i] = G.arcs[v0][i];</span><br><span class="line">        <span class="keyword">if</span>(dis[i] &lt; INFINITY) &#123;</span><br><span class="line">            path[i] = v0;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            path[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    dis[v0] = <span class="number">0</span>;</span><br><span class="line">    final_s[v0] = <span class="literal">true</span>;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">    <span class="type">int</span> min;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G.vexnum;i++) &#123;</span><br><span class="line">        min = INFINITY;</span><br><span class="line">        <span class="keyword">if</span>(final_s[i] == <span class="literal">false</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dis[i] &lt; min) &#123;</span><br><span class="line">                min = dis[i];</span><br><span class="line">                v = i;</span><br><span class="line">            &#125;</span><br><span class="line">            final_s[v] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> w = <span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(final_s[w] == <span class="literal">false</span> &amp;&amp; (min+G.arcs[v][w]) &lt; dis[w])  &#123;</span><br><span class="line">                    dis[w] = min+G.arcs[v][w];</span><br><span class="line">                    path[w] = v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Floyd各顶点之间最短路径</title>
+    <url>/jjymsworld/2022/11/28/Floyd%E5%90%84%E9%A1%B6%E7%82%B9%E4%B9%8B%E9%97%B4%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<p>两个矩阵，一个记录权值，一个记录路径。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128210837.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211034.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211146.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211308.png" alt=""></p>
+<p>代码实现示例：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Floyd</span><span class="params">(Graph G, <span class="type">int</span> path[][])</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> d[G.vexnum][G.vexnum];</span><br><span class="line">  <span class="type">int</span> v, w;</span><br><span class="line">  <span class="keyword">for</span>(v = <span class="number">0</span>;v&lt;G.vexnum;v++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(w=<span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">      d[v][w] = G.arcs[v][w];</span><br><span class="line">      path[v][w] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> u;</span><br><span class="line">  <span class="keyword">for</span>(u=<span class="number">0</span>;u&lt;G.vexnum;u++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(v=<span class="number">0</span>;v&lt;G.vexnum;v++)&#123;</span><br><span class="line">      <span class="keyword">for</span>(w=<span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((d[v][u] + d[u][w]) &lt; d[v][w] &amp;&amp; v!=w) &#123;</span><br><span class="line">          d[v][w] = d[v][u] + d[u][w];</span><br><span class="line">          path[v][w] = u;</span><br><span class="line">        &#125; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CAS技术(CompareAndSwap)</title>
     <url>/jjymsworld/2022/07/16/CAS%E6%8A%80%E6%9C%AF-CompareAndSwap/</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>CAS是英文单词CompareAndSwap的缩写，中文意思是：比较并替换。CAS需要有三个操作数：内存地址V，旧的预期值A，即将要更新的目标值B。</p>
@@ -42,6 +73,110 @@
       </categories>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTP2.0与HTTP1.1的区别</title>
+    <url>/jjymsworld/2022/07/16/HTTP2-0%E4%B8%8EHTTP1-1%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<ol>
+<li><h2 id="什么是HTTP2-0"><a href="#什么是HTTP2-0" class="headerlink" title="什么是HTTP2.0"></a>什么是HTTP2.0</h2></li>
+</ol>
+<ul>
+<li>HTTP/2（超文本传输协议第二版，最初命名为HTTP2.0），是HTTP协议的第二个主要版本，使用于万维网。HTTP/2是HTTP协议自1999年HTTP1.1发布后的首个更新，主要基于SPDY协议(是Google开发的基于TCP的应用层协议，用以最小化网络延迟，提升网络速度，优化用户的网络使用体验)。</li>
+</ul>
+<ol>
+<li><h2 id="与HTTP1-1相比，主要区别包括"><a href="#与HTTP1-1相比，主要区别包括" class="headerlink" title="与HTTP1.1相比，主要区别包括"></a>与HTTP1.1相比，主要区别包括</h2></li>
+</ol>
+<ul>
+<li>HTTP/2采用二进制格式而非文本格式</li>
+<li>HTTP/2是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行</li>
+<li>使用报头压缩，HTTP/2降低了开销</li>
+<li>HTTP/2让服务器可以响应主动“推送”到客户端缓存中</li>
+</ul>
+<ol>
+<li><h2 id="HTTP-2为什么是二进制"><a href="#HTTP-2为什么是二进制" class="headerlink" title="HTTP/2为什么是二进制"></a>HTTP/2为什么是二进制</h2></li>
+</ol>
+<ul>
+<li>二进制解析起来更加高效、“线上”更紧凑，更重要的是错误更少</li>
+</ul>
+<ol>
+<li><h2 id="为什么HTTP-2需要多路传输"><a href="#为什么HTTP-2需要多路传输" class="headerlink" title="为什么HTTP/2需要多路传输"></a>为什么HTTP/2需要多路传输</h2></li>
+</ol>
+<ul>
+<li>HTTP/1.x 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题,因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。</li>
+</ul>
+<ol>
+<li><h2 id="消息头为什么需要压缩"><a href="#消息头为什么需要压缩" class="headerlink" title="消息头为什么需要压缩"></a>消息头为什么需要压缩</h2></li>
+</ol>
+<ul>
+<li>假定一个页面有80个资源需要加载（这个数量对于今天的Web而言还是挺保守的）, 而每一次请求都有1400字节的消息头（着同样也并不少见，因为Cookie和引用等东西的存在）, 至少要7到8个来回去“在线”获得这些消息头。这还不包括响应时间——那只是从客户端那里获取到它们所花的时间而已。这全都由于TCP的慢启动机制，它会基于对已知有多少个包，来确定还要来回去获取哪些包 – 这很明显的限制了最初的几个来回可以发送的数据包的数量。相比之下，即使是头部轻微的压缩也可以是让那些请求只需一个来回就能搞定——有时候甚至一个包就可以了。这种开销是可以被节省下来的，特别是当你考虑移动客户端应用的时候，即使是良好条件下，一般也会看到几百毫秒的来回延迟。</li>
+</ul>
+<ol>
+<li><h2 id="服务器推送的好处是什么"><a href="#服务器推送的好处是什么" class="headerlink" title="服务器推送的好处是什么"></a>服务器推送的好处是什么</h2></li>
+</ol>
+<ul>
+<li>当浏览器请求一个网页时，服务器将会发回HTML，在服务器开始发送JavaScript、图片和CSS前，服务器需要等待浏览器解析HTML和发送所有内嵌资源的请求。服务器推送服务通过“推送”那些它认为客户端将会需要的内容到客户端的缓存中，以此来避免往返的延迟。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GoModules使用</title>
+    <url>/jjymsworld/2022/07/16/GoModules%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="GoModule相关命令"><a href="#GoModule相关命令" class="headerlink" title="GoModule相关命令"></a>GoModule相关命令</h2><p>go mod init 生成go.mod文件</p>
+<p>go mod download 下在go.mod文件中指明的所有依赖</p>
+<p>go mod tidy 整理现有的依赖</p>
+<p>go mod graph 查看现有的依赖结构</p>
+<p>go mod edit 编辑go.mod文件</p>
+<p>go mod vendor 导出项目所有的依赖到vendorm目录</p>
+<p>go mod verify 校验一个模块是是否被篡改过</p>
+<p>go mod why 查看为什么需要依赖模块</p>
+<h2 id="GoModu环境变量"><a href="#GoModu环境变量" class="headerlink" title="GoModu环境变量"></a>GoModu环境变量</h2><p>GO111MODULE = on</p>
+<p>GOPROXY = <a href="https://goproxy.cn,direct">https://goproxy.cn,direct</a>     (七牛云仓库)</p>
+<p>GOSUMDB （设置GOPROXY之后无需设置自动覆盖）</p>
+<p>GONOPROXY，GONOSUMDB，GOPRIVATE（使用私人仓库时使用，将不会通过GOPROXY进行校验）</p>
+<p>如 go env -w GOPRIVATE=”git.example.com” 表示git.example.com是私有仓库，不会进行GOPROXY下载和校验</p>
+<p>还可设置通配符进行匹配如”*.example.com”</p>
+<h2 id="Go-env-环境变量"><a href="#Go-env-环境变量" class="headerlink" title="Go env 环境变量"></a>Go env 环境变量</h2><p>go env 查看环境变量</p>
+<p>通过go env -w GOPROX=———————————————来设置go env中的变量</p>
+<p>或者通过Linux export (编辑.bashrc或者.zshrc等)</p>
+<h2 id="Go-modules-初始化项目"><a href="#Go-modules-初始化项目" class="headerlink" title="Go modules 初始化项目"></a>Go modules 初始化项目</h2><ol>
+<li>开启Go Module模块  即保证GO111MODULE=on</li>
+<li>任意文件夹创建项目(不需要在GOPATH下)</li>
+<li>创建go.mod文件 使用go mod init + 模块名称</li>
+<li>在该项目中创建源代码，编写源代码，若代码中依赖某个库，如github.com/aceld/zin/znet</li>
+<li>执行go get github.com/aceld/zinx/znet来下载模块到本地，存储路径为GOPATH下的pkg\mod中</li>
+</ol>
+<p>在执行go get下载依赖之后会在go.mod文件中新增一行<code>require github.com/aceld/zinx v1.0.1 // indirect</code>其含义是当前模块依赖为github.com/aceld/zinx，依赖的版本是v1.0.1，indirect表示间接依赖（因为项目直接依赖的是znet包，所以间接依赖是zinx包）</p>
+<p>还会生成一个go.sum文件，内容形式为</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">github.com/aceld/zinx v1<span class="number">.0</span><span class="number">.1</span> h1:WnahGyE7tDJvkJRVK2VI/m57aHEeUjr12EAYpOYW3ng=</span><br><span class="line">github.com/aceld/zinx v1<span class="number">.0</span><span class="number">.1</span>/<span class="keyword">go</span>.mod h1:Tth0Fmjjpel0G8YjCz0jHdL0sXlc4p3Km/l/srvqqKo=</span><br><span class="line">github.com/golang/protobuf v1<span class="number">.3</span><span class="number">.3</span>/<span class="keyword">go</span>.mod h1:vzj43D7+SQXF/<span class="number">4</span>pzW/hwtAqwc6iTitCiVSaWz5lYuqw=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>go.sum 文件的作用：罗列当前项目直接或者间接依赖的所有模块版本，保证今后项目依赖的版本不会被篡改</p>
+<p>h1:hash 表示整体项目的zip文件打开之后的全部文件的校验和来生成的hash，如果这项不存在，可能表示依赖的库可能用不上</p>
+<p>xxx/go.mod h1:hash      go.mod文件生成的hash</p>
+<h2 id="修改模块依赖关系"><a href="#修改模块依赖关系" class="headerlink" title="修改模块依赖关系"></a>修改模块依赖关系</h2><p>使用go mod edit -replace=版本名称1=版本名称2来实现版本替换</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KMP算法代码</title>
+    <url>/jjymsworld/2022/12/02/KMP%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//未优化版本求next数组</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_next</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;next, string s)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>, j=<span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;s.<span class="built_in">length</span>()<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j ==<span class="number">-1</span> || s[i] == s[j])&#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">            next[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化版本求next数组</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_nextval</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;next, string s)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;s.<span class="built_in">length</span>() - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j == <span class="number">-1</span> || s[i] == s[j]) &#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">            <span class="keyword">if</span>(s[i] != s[j]) next[i] = j;</span><br><span class="line">            <span class="keyword">else</span> next[i] = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Index_KMP</span><span class="params">(string s1, string s2, vector&lt;<span class="type">int</span>&gt; next)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>, j=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> len1 = s1.<span class="built_in">length</span>();</span><br><span class="line">    <span class="type">int</span> len2 = s2.<span class="built_in">length</span>();</span><br><span class="line">    <span class="keyword">while</span>(i &lt; len1 &amp;&amp; j &lt; len2) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span> || s1[i] == s2[j]) &#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;=s2.<span class="built_in">length</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> i-s2.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s1 = <span class="string">&quot;aabbccddeeff&quot;</span>;</span><br><span class="line">    string s2 = <span class="string">&quot;ccdd&quot;</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(<span class="number">4</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="comment">// get_next(next, s2);</span></span><br><span class="line">    <span class="built_in">get_nextval</span>(next, s2);</span><br><span class="line">    <span class="comment">// for(int i=0;i&lt;next.size();i++)&#123;</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; next[i] &lt;&lt; &quot; &quot; &lt;&lt; endl;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="type">int</span> ind = <span class="built_in">Index_KMP</span>(s1, s2, next);</span><br><span class="line">    cout &lt;&lt; ind &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -132,141 +267,6 @@
       </categories>
       <tags>
         <tag>JetsonNano</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Floyd各顶点之间最短路径</title>
-    <url>/jjymsworld/2022/11/28/Floyd%E5%90%84%E9%A1%B6%E7%82%B9%E4%B9%8B%E9%97%B4%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</url>
-    <content><![CDATA[<p>两个矩阵，一个记录权值，一个记录路径。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128210837.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211034.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211146.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128211308.png" alt=""></p>
-<p>代码实现示例：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Floyd</span><span class="params">(Graph G, <span class="type">int</span> path[][])</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> d[G.vexnum][G.vexnum];</span><br><span class="line">  <span class="type">int</span> v, w;</span><br><span class="line">  <span class="keyword">for</span>(v = <span class="number">0</span>;v&lt;G.vexnum;v++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(w=<span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">      d[v][w] = G.arcs[v][w];</span><br><span class="line">      path[v][w] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> u;</span><br><span class="line">  <span class="keyword">for</span>(u=<span class="number">0</span>;u&lt;G.vexnum;u++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(v=<span class="number">0</span>;v&lt;G.vexnum;v++)&#123;</span><br><span class="line">      <span class="keyword">for</span>(w=<span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((d[v][u] + d[u][w]) &lt; d[v][w] &amp;&amp; v!=w) &#123;</span><br><span class="line">          d[v][w] = d[v][u] + d[u][w];</span><br><span class="line">          path[v][w] = u;</span><br><span class="line">        &#125; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Dijkstra单源最短路径算法</title>
-    <url>/jjymsworld/2022/11/28/Dijkstra%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20221128210110.png" alt=""></p>
-<p>使用三个数组，解法类似Prim求解最小生成树算法。</p>
-<p>代码示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Dijkstra</span><span class="params">(Graph G, <span class="type">int</span> v0, <span class="type">int</span> path[])</span> </span>&#123;</span><br><span class="line">    <span class="type">bool</span> final_s[G.vexnum] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line">    <span class="type">int</span> dis[G.vexnum];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G.vexnum;i++)&#123;</span><br><span class="line">        final_s[i] = <span class="literal">false</span>;</span><br><span class="line">        dis[i] = G.arcs[v0][i];</span><br><span class="line">        <span class="keyword">if</span>(dis[i] &lt; INFINITY) &#123;</span><br><span class="line">            path[i] = v0;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            path[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    dis[v0] = <span class="number">0</span>;</span><br><span class="line">    final_s[v0] = <span class="literal">true</span>;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">    <span class="type">int</span> min;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G.vexnum;i++) &#123;</span><br><span class="line">        min = INFINITY;</span><br><span class="line">        <span class="keyword">if</span>(final_s[i] == <span class="literal">false</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(dis[i] &lt; min) &#123;</span><br><span class="line">                min = dis[i];</span><br><span class="line">                v = i;</span><br><span class="line">            &#125;</span><br><span class="line">            final_s[v] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> w = <span class="number">0</span>;w&lt;G.vexnum;w++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(final_s[w] == <span class="literal">false</span> &amp;&amp; (min+G.arcs[v][w]) &lt; dis[w])  &#123;</span><br><span class="line">                    dis[w] = min+G.arcs[v][w];</span><br><span class="line">                    path[w] = v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GoModules使用</title>
-    <url>/jjymsworld/2022/07/16/GoModules%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="GoModule相关命令"><a href="#GoModule相关命令" class="headerlink" title="GoModule相关命令"></a>GoModule相关命令</h2><p>go mod init 生成go.mod文件</p>
-<p>go mod download 下在go.mod文件中指明的所有依赖</p>
-<p>go mod tidy 整理现有的依赖</p>
-<p>go mod graph 查看现有的依赖结构</p>
-<p>go mod edit 编辑go.mod文件</p>
-<p>go mod vendor 导出项目所有的依赖到vendorm目录</p>
-<p>go mod verify 校验一个模块是是否被篡改过</p>
-<p>go mod why 查看为什么需要依赖模块</p>
-<h2 id="GoModu环境变量"><a href="#GoModu环境变量" class="headerlink" title="GoModu环境变量"></a>GoModu环境变量</h2><p>GO111MODULE = on</p>
-<p>GOPROXY = <a href="https://goproxy.cn,direct">https://goproxy.cn,direct</a>     (七牛云仓库)</p>
-<p>GOSUMDB （设置GOPROXY之后无需设置自动覆盖）</p>
-<p>GONOPROXY，GONOSUMDB，GOPRIVATE（使用私人仓库时使用，将不会通过GOPROXY进行校验）</p>
-<p>如 go env -w GOPRIVATE=”git.example.com” 表示git.example.com是私有仓库，不会进行GOPROXY下载和校验</p>
-<p>还可设置通配符进行匹配如”*.example.com”</p>
-<h2 id="Go-env-环境变量"><a href="#Go-env-环境变量" class="headerlink" title="Go env 环境变量"></a>Go env 环境变量</h2><p>go env 查看环境变量</p>
-<p>通过go env -w GOPROX=———————————————来设置go env中的变量</p>
-<p>或者通过Linux export (编辑.bashrc或者.zshrc等)</p>
-<h2 id="Go-modules-初始化项目"><a href="#Go-modules-初始化项目" class="headerlink" title="Go modules 初始化项目"></a>Go modules 初始化项目</h2><ol>
-<li>开启Go Module模块  即保证GO111MODULE=on</li>
-<li>任意文件夹创建项目(不需要在GOPATH下)</li>
-<li>创建go.mod文件 使用go mod init + 模块名称</li>
-<li>在该项目中创建源代码，编写源代码，若代码中依赖某个库，如github.com/aceld/zin/znet</li>
-<li>执行go get github.com/aceld/zinx/znet来下载模块到本地，存储路径为GOPATH下的pkg\mod中</li>
-</ol>
-<p>在执行go get下载依赖之后会在go.mod文件中新增一行<code>require github.com/aceld/zinx v1.0.1 // indirect</code>其含义是当前模块依赖为github.com/aceld/zinx，依赖的版本是v1.0.1，indirect表示间接依赖（因为项目直接依赖的是znet包，所以间接依赖是zinx包）</p>
-<p>还会生成一个go.sum文件，内容形式为</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">github.com/aceld/zinx v1<span class="number">.0</span><span class="number">.1</span> h1:WnahGyE7tDJvkJRVK2VI/m57aHEeUjr12EAYpOYW3ng=</span><br><span class="line">github.com/aceld/zinx v1<span class="number">.0</span><span class="number">.1</span>/<span class="keyword">go</span>.mod h1:Tth0Fmjjpel0G8YjCz0jHdL0sXlc4p3Km/l/srvqqKo=</span><br><span class="line">github.com/golang/protobuf v1<span class="number">.3</span><span class="number">.3</span>/<span class="keyword">go</span>.mod h1:vzj43D7+SQXF/<span class="number">4</span>pzW/hwtAqwc6iTitCiVSaWz5lYuqw=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>go.sum 文件的作用：罗列当前项目直接或者间接依赖的所有模块版本，保证今后项目依赖的版本不会被篡改</p>
-<p>h1:hash 表示整体项目的zip文件打开之后的全部文件的校验和来生成的hash，如果这项不存在，可能表示依赖的库可能用不上</p>
-<p>xxx/go.mod h1:hash      go.mod文件生成的hash</p>
-<h2 id="修改模块依赖关系"><a href="#修改模块依赖关系" class="headerlink" title="修改模块依赖关系"></a>修改模块依赖关系</h2><p>使用go mod edit -replace=版本名称1=版本名称2来实现版本替换</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTP2.0与HTTP1.1的区别</title>
-    <url>/jjymsworld/2022/07/16/HTTP2-0%E4%B8%8EHTTP1-1%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<ol>
-<li><h2 id="什么是HTTP2-0"><a href="#什么是HTTP2-0" class="headerlink" title="什么是HTTP2.0"></a>什么是HTTP2.0</h2></li>
-</ol>
-<ul>
-<li>HTTP/2（超文本传输协议第二版，最初命名为HTTP2.0），是HTTP协议的第二个主要版本，使用于万维网。HTTP/2是HTTP协议自1999年HTTP1.1发布后的首个更新，主要基于SPDY协议(是Google开发的基于TCP的应用层协议，用以最小化网络延迟，提升网络速度，优化用户的网络使用体验)。</li>
-</ul>
-<ol>
-<li><h2 id="与HTTP1-1相比，主要区别包括"><a href="#与HTTP1-1相比，主要区别包括" class="headerlink" title="与HTTP1.1相比，主要区别包括"></a>与HTTP1.1相比，主要区别包括</h2></li>
-</ol>
-<ul>
-<li>HTTP/2采用二进制格式而非文本格式</li>
-<li>HTTP/2是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行</li>
-<li>使用报头压缩，HTTP/2降低了开销</li>
-<li>HTTP/2让服务器可以响应主动“推送”到客户端缓存中</li>
-</ul>
-<ol>
-<li><h2 id="HTTP-2为什么是二进制"><a href="#HTTP-2为什么是二进制" class="headerlink" title="HTTP/2为什么是二进制"></a>HTTP/2为什么是二进制</h2></li>
-</ol>
-<ul>
-<li>二进制解析起来更加高效、“线上”更紧凑，更重要的是错误更少</li>
-</ul>
-<ol>
-<li><h2 id="为什么HTTP-2需要多路传输"><a href="#为什么HTTP-2需要多路传输" class="headerlink" title="为什么HTTP/2需要多路传输"></a>为什么HTTP/2需要多路传输</h2></li>
-</ol>
-<ul>
-<li>HTTP/1.x 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题,因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。</li>
-</ul>
-<ol>
-<li><h2 id="消息头为什么需要压缩"><a href="#消息头为什么需要压缩" class="headerlink" title="消息头为什么需要压缩"></a>消息头为什么需要压缩</h2></li>
-</ol>
-<ul>
-<li>假定一个页面有80个资源需要加载（这个数量对于今天的Web而言还是挺保守的）, 而每一次请求都有1400字节的消息头（着同样也并不少见，因为Cookie和引用等东西的存在）, 至少要7到8个来回去“在线”获得这些消息头。这还不包括响应时间——那只是从客户端那里获取到它们所花的时间而已。这全都由于TCP的慢启动机制，它会基于对已知有多少个包，来确定还要来回去获取哪些包 – 这很明显的限制了最初的几个来回可以发送的数据包的数量。相比之下，即使是头部轻微的压缩也可以是让那些请求只需一个来回就能搞定——有时候甚至一个包就可以了。这种开销是可以被节省下来的，特别是当你考虑移动客户端应用的时候，即使是良好条件下，一般也会看到几百毫秒的来回延迟。</li>
-</ul>
-<ol>
-<li><h2 id="服务器推送的好处是什么"><a href="#服务器推送的好处是什么" class="headerlink" title="服务器推送的好处是什么"></a>服务器推送的好处是什么</h2></li>
-</ol>
-<ul>
-<li>当浏览器请求一个网页时，服务器将会发回HTML，在服务器开始发送JavaScript、图片和CSS前，服务器需要等待浏览器解析HTML和发送所有内嵌资源的请求。服务器推送服务通过“推送”那些它认为客户端将会需要的内容到客户端的缓存中，以此来避免往返的延迟。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>KMP算法代码</title>
-    <url>/jjymsworld/2022/12/02/KMP%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//未优化版本求next数组</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_next</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;next, string s)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>, j=<span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;s.<span class="built_in">length</span>()<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j ==<span class="number">-1</span> || s[i] == s[j])&#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">            next[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化版本求next数组</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_nextval</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;next, string s)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;s.<span class="built_in">length</span>() - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j == <span class="number">-1</span> || s[i] == s[j]) &#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">            <span class="keyword">if</span>(s[i] != s[j]) next[i] = j;</span><br><span class="line">            <span class="keyword">else</span> next[i] = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Index_KMP</span><span class="params">(string s1, string s2, vector&lt;<span class="type">int</span>&gt; next)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>, j=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> len1 = s1.<span class="built_in">length</span>();</span><br><span class="line">    <span class="type">int</span> len2 = s2.<span class="built_in">length</span>();</span><br><span class="line">    <span class="keyword">while</span>(i &lt; len1 &amp;&amp; j &lt; len2) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span> || s1[i] == s2[j]) &#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;=s2.<span class="built_in">length</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> i-s2.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s1 = <span class="string">&quot;aabbccddeeff&quot;</span>;</span><br><span class="line">    string s2 = <span class="string">&quot;ccdd&quot;</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(<span class="number">4</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="comment">// get_next(next, s2);</span></span><br><span class="line">    <span class="built_in">get_nextval</span>(next, s2);</span><br><span class="line">    <span class="comment">// for(int i=0;i&lt;next.size();i++)&#123;</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; next[i] &lt;&lt; &quot; &quot; &lt;&lt; endl;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="type">int</span> ind = <span class="built_in">Index_KMP</span>(s1, s2, next);</span><br><span class="line">    cout &lt;&lt; ind &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -535,17 +535,18 @@
       </tags>
   </entry>
   <entry>
-    <title>TensorRT解决Network must have at least one output</title>
-    <url>/jjymsworld/2022/07/16/TensorRT%E8%A7%A3%E5%86%B3Network-must-have-at-least-one-output/</url>
-    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[TensorRT] ERROR: Network must hav at least one output</span><br><span class="line"></span><br><span class="line">AttributeError: <span class="string">&#x27;NoneType&#x27;</span> <span class="built_in">object</span> has no attribute <span class="string">&#x27;serialize&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>给代码中的create_network()传入如下参数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">explicit_batch = <span class="number">1</span> &lt;&lt; (<span class="built_in">int</span>)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)</span><br><span class="line">builder.create_network(explicit_batch)</span><br></pre></td></tr></table></figure>
+    <title>Vscode中python打印输出乱码或中文不能解码问题解决</title>
+    <url>/jjymsworld/2022/07/16/Vscode%E4%B8%ADpython%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E4%B9%B1%E7%A0%81%E6%88%96%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%A7%A3%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>解决方式</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment">#改变标准输出的默认编码</span></span><br><span class="line">sys.stdout=io.TextIOWrapper(sys.stdout.buffer,encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>导入以上库，并改变标准输出的默认编码即可。</p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>TensorRT</tag>
+        <tag>Vscode</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -618,48 +619,36 @@
       </tags>
   </entry>
   <entry>
-    <title>Vscode设置tab键循环代码补全提示</title>
-    <url>/jjymsworld/2022/11/26/Vscode%E8%AE%BE%E7%BD%AEtab%E9%94%AE%E5%BE%AA%E7%8E%AF%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%90%E7%A4%BA/</url>
-    <content><![CDATA[<ol>
-<li>按下 <code>ctrl + shift + p</code>输入 <code>key</code>，选择 <code>首选项: 打开键盘快捷方式(JSON)</code></li>
-<li><p>把下面的代码粘贴进去即可</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectNextQuickFix&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorFocus &amp;&amp; quickFixWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shift+tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectPrevQuickFix&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorFocus &amp;&amp; quickFixWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectNextSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shift+tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectPrevSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+    <title>TensorRT解决Network must have at least one output</title>
+    <url>/jjymsworld/2022/07/16/TensorRT%E8%A7%A3%E5%86%B3Network-must-have-at-least-one-output/</url>
+    <content><![CDATA[<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[TensorRT] ERROR: Network must hav at least one output</span><br><span class="line"></span><br><span class="line">AttributeError: <span class="string">&#x27;NoneType&#x27;</span> <span class="built_in">object</span> has no attribute <span class="string">&#x27;serialize&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>给代码中的create_network()传入如下参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">explicit_batch = <span class="number">1</span> &lt;&lt; (<span class="built_in">int</span>)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)</span><br><span class="line">builder.create_network(explicit_batch)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>vscode</tag>
+        <tag>TensorRT</tag>
       </tags>
   </entry>
   <entry>
-    <title>bresenham改进算法(任意方向，任意斜率)</title>
-    <url>/jjymsworld/2022/07/16/bresenham%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>算法代码实现</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Line_by_Bresenham</span><span class="params">(HDC hdc, <span class="type">int</span> x0, <span class="type">int</span> y0, <span class="type">int</span> xEnd, <span class="type">int</span> yEnd)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x, y, dx, dy, e;</span><br><span class="line">    dx = xEnd - x0;</span><br><span class="line">    dy = yEnd - y0;</span><br><span class="line">    x = x0;</span><br><span class="line">    y = y0;</span><br><span class="line">    <span class="keyword">if</span> ((dx &gt;= <span class="number">0</span> &amp;&amp; dy &gt;= <span class="number">0</span>) || (dx &lt;= <span class="number">0</span> &amp;&amp; dy &lt;= <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((dx &lt;= <span class="number">0</span>) || (dx == <span class="number">0</span> &amp;&amp; dy &lt; <span class="number">0</span>)) &#123;</span><br><span class="line">            dx = -dx;</span><br><span class="line">            x = xEnd;</span><br><span class="line">            dy = -dy;</span><br><span class="line">            y = yEnd;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &lt; dx) &#123;</span><br><span class="line">            e = -dx;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dx; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                x++;</span><br><span class="line">                e = e + <span class="number">2</span> * dy;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    y++;</span><br><span class="line">                    e = e - dx - dx;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            e = -dy;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dy; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                y++;</span><br><span class="line">                e = e + dx + dx;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    x++;</span><br><span class="line">                    e = e - dy - dy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">int</span> tempx, tempy;</span><br><span class="line">        <span class="keyword">if</span> (dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            tempx = -dx;</span><br><span class="line">            tempy = dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            tempx = dx;</span><br><span class="line">            tempy = -dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tempx &gt; tempy) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = -dx;</span><br><span class="line">                x = xEnd;</span><br><span class="line">                dy = -dy;</span><br><span class="line">                y = yEnd;</span><br><span class="line">            &#125;</span><br><span class="line">            e = -dx;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dx; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                x++;</span><br><span class="line">                e = e - dy - dy;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    y--;</span><br><span class="line">                    e = e - dx - dx;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = -dx;</span><br><span class="line">                x = xEnd;</span><br><span class="line">                dy = -dy;</span><br><span class="line">                y = yEnd;</span><br><span class="line">            &#125;</span><br><span class="line">            e = -dy;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dy; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                y++;</span><br><span class="line">                e = e - dx - dx;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    x--;</span><br><span class="line">                    e = e - dy - dy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>cmd运行程序时假死解决方法</title>
+    <url>/jjymsworld/2023/12/19/cmd%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%97%B6%E5%81%87%E6%AD%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>最近使用打包的Python程序执行定时任务的时候，发现有时候会不动了，点击一下之后又开始继续执行了，典型的cmd假死问题。记录一下往上搜罗到的解决方法。 </p>
+<p>一、 在CMD窗口中点击右键-&gt;属性-&gt;选项-&gt;编辑选项-&gt;取消勾选“快速编辑模式”  </p>
+<p>但这个方法作用范围有限，我发现设置完cmd是禁用了，运行一个exe终端，发现它还是启动了快速编辑模式，所以每运行一次exe都需手动设置取消“快速编辑模式”。  </p>
+<p>二、 修改注册表<br>建立一个 批处理文件 xxx.bat, 写入以下内容:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">reg add HKEY_CURRENT_USER\Console /v QuickEdit /t REG_DWORD /d 00000000 /f</span><br></pre></td></tr></table></figure><br>保存后执行即可. 以后新打开的命令行就会自动取消快速编辑模式  </p>
+<p>三、 在自己要运行的程序里面加上取消“快速编辑模式”的code(放前面)  </p>
+<p>python<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消或禁用控制台/终端的快速编辑模式</span></span><br><span class="line">kernel32 = ctypes.windll.kernel32</span><br><span class="line">kernel32.SetConsoleMode(kernel32.GetStdHandle(-<span class="number">10</span>), (<span class="number">0x4</span> | <span class="number">0x80</span> | <span class="number">0x20</span> | <span class="number">0x2</span> | <span class="number">0x10</span> | <span class="number">0x1</span> | <span class="number">0x00</span> | <span class="number">0x100</span>))</span><br><span class="line">```  </span><br><span class="line">  </span><br><span class="line">c++</span><br><span class="line">```cpp</span><br><span class="line">HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);</span><br><span class="line"></span><br><span class="line">DWORD mode;</span><br><span class="line">GetConsoleMode(hStdin, &amp;mode);</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_QUICK_EDIT_MODE; //移除快速编辑模式</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_INSERT_MODE; //移除插入模式</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_MOUSE_INPUT;</span><br><span class="line"></span><br><span class="line">SetConsoleMode(hStdin, mode);</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>计算机图形学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vscode中python打印输出乱码或中文不能解码问题解决</title>
-    <url>/jjymsworld/2022/07/16/Vscode%E4%B8%ADpython%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E4%B9%B1%E7%A0%81%E6%88%96%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%A7%A3%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<p>解决方式</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment">#改变标准输出的默认编码</span></span><br><span class="line">sys.stdout=io.TextIOWrapper(sys.stdout.buffer,encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>导入以上库，并改变标准输出的默认编码即可。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>Vscode</tag>
         <tag>python</tag>
+        <tag>cmd</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -693,22 +682,47 @@
       </tags>
   </entry>
   <entry>
-    <title>cmd运行程序时假死解决方法</title>
-    <url>/jjymsworld/2023/12/19/cmd%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%97%B6%E5%81%87%E6%AD%BB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>最近使用打包的Python程序执行定时任务的时候，发现有时候会不动了，点击一下之后又开始继续执行了，典型的cmd假死问题。记录一下往上搜罗到的解决方法。 </p>
-<p>一、 在CMD窗口中点击右键-&gt;属性-&gt;选项-&gt;编辑选项-&gt;取消勾选“快速编辑模式”  </p>
-<p>但这个方法作用范围有限，我发现设置完cmd是禁用了，运行一个exe终端，发现它还是启动了快速编辑模式，所以每运行一次exe都需手动设置取消“快速编辑模式”。  </p>
-<p>二、 修改注册表<br>建立一个 批处理文件 xxx.bat, 写入以下内容:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">reg add HKEY_CURRENT_USER\Console /v QuickEdit /t REG_DWORD /d 00000000 /f</span><br></pre></td></tr></table></figure><br>保存后执行即可. 以后新打开的命令行就会自动取消快速编辑模式  </p>
-<p>三、 在自己要运行的程序里面加上取消“快速编辑模式”的code(放前面)  </p>
-<p>python<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消或禁用控制台/终端的快速编辑模式</span></span><br><span class="line">kernel32 = ctypes.windll.kernel32</span><br><span class="line">kernel32.SetConsoleMode(kernel32.GetStdHandle(-<span class="number">10</span>), (<span class="number">0x4</span> | <span class="number">0x80</span> | <span class="number">0x20</span> | <span class="number">0x2</span> | <span class="number">0x10</span> | <span class="number">0x1</span> | <span class="number">0x00</span> | <span class="number">0x100</span>))</span><br><span class="line">```  </span><br><span class="line">  </span><br><span class="line">c++</span><br><span class="line">```cpp</span><br><span class="line">HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);</span><br><span class="line"></span><br><span class="line">DWORD mode;</span><br><span class="line">GetConsoleMode(hStdin, &amp;mode);</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_QUICK_EDIT_MODE; //移除快速编辑模式</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_INSERT_MODE; //移除插入模式</span><br><span class="line"></span><br><span class="line">mode &amp;= ~ENABLE_MOUSE_INPUT;</span><br><span class="line"></span><br><span class="line">SetConsoleMode(hStdin, mode);</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+    <title>bresenham改进算法(任意方向，任意斜率)</title>
+    <url>/jjymsworld/2022/07/16/bresenham%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>算法代码实现</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Line_by_Bresenham</span><span class="params">(HDC hdc, <span class="type">int</span> x0, <span class="type">int</span> y0, <span class="type">int</span> xEnd, <span class="type">int</span> yEnd)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x, y, dx, dy, e;</span><br><span class="line">    dx = xEnd - x0;</span><br><span class="line">    dy = yEnd - y0;</span><br><span class="line">    x = x0;</span><br><span class="line">    y = y0;</span><br><span class="line">    <span class="keyword">if</span> ((dx &gt;= <span class="number">0</span> &amp;&amp; dy &gt;= <span class="number">0</span>) || (dx &lt;= <span class="number">0</span> &amp;&amp; dy &lt;= <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((dx &lt;= <span class="number">0</span>) || (dx == <span class="number">0</span> &amp;&amp; dy &lt; <span class="number">0</span>)) &#123;</span><br><span class="line">            dx = -dx;</span><br><span class="line">            x = xEnd;</span><br><span class="line">            dy = -dy;</span><br><span class="line">            y = yEnd;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &lt; dx) &#123;</span><br><span class="line">            e = -dx;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dx; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                x++;</span><br><span class="line">                e = e + <span class="number">2</span> * dy;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    y++;</span><br><span class="line">                    e = e - dx - dx;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            e = -dy;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dy; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                y++;</span><br><span class="line">                e = e + dx + dx;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    x++;</span><br><span class="line">                    e = e - dy - dy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">int</span> tempx, tempy;</span><br><span class="line">        <span class="keyword">if</span> (dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            tempx = -dx;</span><br><span class="line">            tempy = dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            tempx = dx;</span><br><span class="line">            tempy = -dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tempx &gt; tempy) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = -dx;</span><br><span class="line">                x = xEnd;</span><br><span class="line">                dy = -dy;</span><br><span class="line">                y = yEnd;</span><br><span class="line">            &#125;</span><br><span class="line">            e = -dx;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dx; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                x++;</span><br><span class="line">                e = e - dy - dy;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    y--;</span><br><span class="line">                    e = e - dx - dx;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = -dx;</span><br><span class="line">                x = xEnd;</span><br><span class="line">                dy = -dy;</span><br><span class="line">                y = yEnd;</span><br><span class="line">            &#125;</span><br><span class="line">            e = -dy;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; dy; i++) &#123;</span><br><span class="line">                <span class="built_in">SetPixel</span>(hdc, x, y, <span class="built_in">RGB</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">                y++;</span><br><span class="line">                e = e - dx - dx;</span><br><span class="line">                <span class="keyword">if</span> (e &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    x--;</span><br><span class="line">                    e = e - dy - dy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>python</tag>
-        <tag>cmd</tag>
-        <tag>c++</tag>
+        <tag>计算机图形学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nvchad中nvimtree配置vertical-split</title>
+    <url>/jjymsworld/2024/01/21/nvchad%E4%B8%ADnvimtree%E9%85%8D%E7%BD%AEvertical-split/</url>
+    <content><![CDATA[<p>nvimtree中默认的vertical-split的快捷键是<code>&lt;C-v&gt;</code>而在nvchad中这个快捷键与粘贴功能冲突，并且nvchad的作者并没有解决这个问题，所以这里记录下自定义修改nvimtree快捷键map的过程。<br>首先进入到配置neovim的文件夹，进入<code>nvim\lua\plugins\configs</code>找到<code>nvimtree.lua</code><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401212250013.png" alt=""><br>图中红框标注的是新增的代码，箭头指向的地方改成快捷键，以及对应的api，api可以在nvimtree的官方github仓库中进行查看。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>neovim</tag>
+        <tag>nvchad</tag>
+        <tag>nvimtree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vscode设置tab键循环代码补全提示</title>
+    <url>/jjymsworld/2022/11/26/Vscode%E8%AE%BE%E7%BD%AEtab%E9%94%AE%E5%BE%AA%E7%8E%AF%E4%BB%A3%E7%A0%81%E8%A1%A5%E5%85%A8%E6%8F%90%E7%A4%BA/</url>
+    <content><![CDATA[<ol>
+<li>按下 <code>ctrl + shift + p</code>输入 <code>key</code>，选择 <code>首选项: 打开键盘快捷方式(JSON)</code></li>
+<li><p>把下面的代码粘贴进去即可</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectNextQuickFix&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorFocus &amp;&amp; quickFixWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shift+tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectPrevQuickFix&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorFocus &amp;&amp; quickFixWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectNextSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shift+tab&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectPrevSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus &amp;&amp; suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>vscode</tag>
       </tags>
   </entry>
   <entry>
@@ -732,6 +746,20 @@
       </tags>
   </entry>
   <entry>
+    <title>spacevim修改空格延迟</title>
+    <url>/jjymsworld/2023/06/10/spacevim%E4%BF%AE%E6%94%B9%E7%A9%BA%E6%A0%BC%E5%BB%B6%E8%BF%9F/</url>
+    <content><![CDATA[<p>找到<code>.SpaceVim.d</code>文件夹，进入其中创建<code>autoload</code>文件夹，然后创建<code>myspacevim.vim</code>文件，填入以下内容。<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function!</span> <span class="title">myspacevim</span>#before<span class="params">()</span> abort</span><br><span class="line">    <span class="keyword">set</span> timeoutlen=<span class="number">100</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure><br>然后在spacevim的配置文件中，在<code>option</code>下面加入一行代码.<br><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">bootstrap_before</span> = <span class="string">&quot;myspacevim#before&quot;</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>neovim</tag>
+        <tag>spacevim</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux下使用bypy实现百度网盘的上传和下载</title>
     <url>/jjymsworld/2023/11/22/linux%E4%B8%8B%E4%BD%BF%E7%94%A8bypy%E5%AE%9E%E7%8E%B0%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E7%9A%84%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/</url>
     <content><![CDATA[<p>首先需要系统中安装有python的环境，然后使用pip安装<code>bypy</code><br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install bypy</span><br></pre></td></tr></table></figure><br>安装完成之后，在终端中输入<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bypy info</span><br></pre></td></tr></table></figure><br>这时候命令会返回一个网址，把这个网址复制出来到浏览器中打开，然后按照要求登录百度网盘进行授权，授权之后会在网页上显示一个token，将token复制回终端中即可授权bypy。<br>授权之后，百度网盘中会出现一个bypy文件夹，具体路径如下图所示:<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311221735670.png" alt=""><br>之后所有的文件或者文件夹都在这里进行中转。<br>然后就可以回到linux终端下进行文件上传和下载操作了。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bypy list</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">显示百度网盘bypy目录下的所有文件</span></span><br><span class="line"></span><br><span class="line">bypy downfile xxx</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下载xxx文件到本地</span></span><br><span class="line"></span><br><span class="line">bypy downdir /xxx</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下载xxx文件夹到本地</span></span><br><span class="line"></span><br><span class="line">bypy upload xxx</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">上传xxx文件到百度网盘bypy文件夹下</span></span><br><span class="line"></span><br><span class="line">bypy -h</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看更多命令和使用帮助</span></span><br></pre></td></tr></table></figure></p>
@@ -745,17 +773,41 @@
       </tags>
   </entry>
   <entry>
-    <title>nvchad中nvimtree配置vertical-split</title>
-    <url>/jjymsworld/2024/01/21/nvchad%E4%B8%ADnvimtree%E9%85%8D%E7%BD%AEvertical-split/</url>
-    <content><![CDATA[<p>nvimtree中默认的vertical-split的快捷键是<code>&lt;C-v&gt;</code>而在nvchad中这个快捷键与粘贴功能冲突，并且nvchad的作者并没有解决这个问题，所以这里记录下自定义修改nvimtree快捷键map的过程。<br>首先进入到配置neovim的文件夹，进入<code>nvim\lua\plugins\configs</code>找到<code>nvimtree.lua</code><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401212250013.png" alt=""><br>图中红框标注的是新增的代码，箭头指向的地方改成快捷键，以及对应的api，api可以在nvimtree的官方github仓库中进行查看。</p>
+    <title>二叉树的前中后序遍历统一版本迭代写法(仅移动左中右顺序)</title>
+    <url>/jjymsworld/2022/07/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E4%B8%AD%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%9F%E4%B8%80%E7%89%88%E6%9C%AC%E8%BF%AD%E4%BB%A3%E5%86%99%E6%B3%95-%E4%BB%85%E7%A7%BB%E5%8A%A8%E5%B7%A6%E4%B8%AD%E5%8F%B3%E9%A1%BA%E5%BA%8F/</url>
+    <content><![CDATA[<p>前序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>中序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">      vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">      stack&lt;TreeNode*&gt; stk;</span><br><span class="line">      stk.<span class="built_in">push</span>(root);</span><br><span class="line">      <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">          TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">          stk.<span class="built_in">pop</span>();</span><br><span class="line">          <span class="keyword">if</span>(node)&#123;</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">              &#125;</span><br><span class="line">              stk.<span class="built_in">push</span>(node);</span><br><span class="line">              stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">              &#125; </span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">              stk.<span class="built_in">pop</span>();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>后序遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>算法笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在windows中给Spacevim设置右键启动</title>
+    <url>/jjymsworld/2022/11/11/%E5%9C%A8windows%E4%B8%AD%E7%BB%99Spacevim%E8%AE%BE%E7%BD%AE%E5%8F%B3%E9%94%AE%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>在windwos中设置直接从右键快速在spacevim中打开文件，并加载相应的配置。</p>
+<p>具体步骤：</p>
+<ol>
+<li>按下<code>win+r</code>在运行弹窗中输入<code>regedit</code>进入注册表编辑器</li>
+<li>定位到<code>HKEY_CLASSES_ROOT &gt; * &gt; shell</code></li>
+<li>在<code>shell</code>上点击右键， 新建项，名字输入<code>use spacevim open</code>或者随便你想输入的名字，这里主要是显示在右键菜单中的文字。然后再在这个项里面新建一个项，名字为<code>command</code>，并修改其默认值为：<code>&quot;D:\Program Files\Neovim\bin\nvim-qt.exe&quot; -qwindowgeometry 1310x650+20+20 &quot;%1&quot;</code></li>
+<li>然后就可以在右键菜单中使用了，这里的启动命令指定了窗口大小，后面的参数可以自行调节。</li>
+</ol>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
         <tag>neovim</tag>
-        <tag>nvchad</tag>
-        <tag>nvimtree</tag>
+        <tag>spacevim</tag>
+        <tag>vim</tag>
       </tags>
   </entry>
   <entry>
@@ -783,76 +835,6 @@
       </categories>
       <tags>
         <tag>tmux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu安装最新版neovim</title>
-    <url>/jjymsworld/2023/11/08/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88neovim/</url>
-    <content><![CDATA[<p>首先需要卸载旧版，如果没装过不需要卸载<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo remove neovim</span><br></pre></td></tr></table></figure><br>然后从github上面下载最新的neovim压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz</span><br></pre></td></tr></table></figure><br>然后解压，并移动<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xzvf nvim-linux64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> nvim-linux64 /usr/local/nvim</span><br></pre></td></tr></table></figure><br>创建软链接<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nvim/bin/nvim /usr/bin/nvim</span><br></pre></td></tr></table></figure><br>完成！然后可以输入nvim -v查看版本信息</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>neovim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>spacevim修改空格延迟</title>
-    <url>/jjymsworld/2023/06/10/spacevim%E4%BF%AE%E6%94%B9%E7%A9%BA%E6%A0%BC%E5%BB%B6%E8%BF%9F/</url>
-    <content><![CDATA[<p>找到<code>.SpaceVim.d</code>文件夹，进入其中创建<code>autoload</code>文件夹，然后创建<code>myspacevim.vim</code>文件，填入以下内容。<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function!</span> <span class="title">myspacevim</span>#before<span class="params">()</span> abort</span><br><span class="line">    <span class="keyword">set</span> timeoutlen=<span class="number">100</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure><br>然后在spacevim的配置文件中，在<code>option</code>下面加入一行代码.<br><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="attr">bootstrap_before</span> = <span class="string">&quot;myspacevim#before&quot;</span></span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>neovim</tag>
-        <tag>spacevim</tag>
-        <tag>vim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>射线法判断点是否在多边形内</title>
-    <url>/jjymsworld/2022/07/16/%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/</url>
-    <content><![CDATA[<h2 id="原理介绍"><a href="#原理介绍" class="headerlink" title="原理介绍"></a>原理介绍</h2><p>基础原理这里不再概述</p>
-<p>介绍对于点在多边形顶点，点在边上等判断方法</p>
-<ol>
-<li>判断点是否在线上的方法有很多，比较简单直接的就是计算点与两个多边形顶点的连线斜率是否相等，中学数学都学过</li>
-<li>点和多边形顶点重合的情况更简单，直接比较点的坐标就行了</li>
-<li>顶点穿越看似棘手，其实我们换一个角度，思路会大不相同。先来回答一个问题，射线穿越一条线段需要什么前提条件？没错，就是线段两个端点分别在射线两侧。只要想通这一点，顶点穿越就迎刃而解了。这样一来，我们只需要规定被射线穿越的点都算作其中一侧。</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/20170904204203276" alt=""></p>
-<p>如上图，假如我们规定射线经过的点都属于射线以上的一侧，显然点D和发生顶点穿越的点C都位于射线Y的同一侧，所以射线Y其实并没有穿越CD这条边。而点C和点B则分别位于射线Y的两侧，所以射线Y和BC发生了穿越，由此我们可以断定点Y在多边形内。同理，射线X分别与AD和CD都发生了穿越，因此点X在多边形外，而射线Z没有和多边形发生穿越，点Z位于多边形外。</p>
-<ol>
-<li>解决了第三点，这一点就毫无难度了。根据上面的假设，射线连续经过的两个顶点显然都位于射线以上的一侧，因此这种情况看作没有发生穿越就可以了。由于第三点的解决方案实际上已经覆盖到这种特例，因此不需要再做特别的处理。</li>
-</ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>C++再MFC中的实现:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">PointJudge</span><span class="params">(POINT p, POINT* poly, <span class="type">int</span> ploySize)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * @param &#123;POINT&#125; p  待判断点的坐标。</span></span><br><span class="line"><span class="comment">    * @param &#123;POINT *&#125; poly  多边形各点的坐标集合</span></span><br><span class="line"><span class="comment">    * @param &#123;int&#125; polySize 多边形边的数量（多边形顶点的数量）</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="type">int</span> px = p.x;</span><br><span class="line">    <span class="type">int</span> py = p.y;</span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">int</span> i, l, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>,  l = ploySize,  j = l - <span class="number">1</span>; i &lt; l; j = i, i++) &#123;</span><br><span class="line">        <span class="type">int</span> sx = poly[i].x;</span><br><span class="line">        <span class="type">int</span> sy = poly[i].y;</span><br><span class="line">        <span class="type">int</span> tx = poly[j].x;</span><br><span class="line">        <span class="type">int</span> ty = poly[j].y;</span><br><span class="line">        <span class="keyword">if</span> ((sx == px &amp;&amp; sy == py) || (tx == px &amp;&amp; ty == py)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;内部&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ((sy &lt; py &amp;&amp; ty &gt;= py) || (sy &gt;= py &amp;&amp; ty &lt; py)) &#123;</span><br><span class="line">            <span class="type">int</span> x = sx + (py - sy) * (tx - sx) / (ty - sy);</span><br><span class="line">            <span class="keyword">if</span> (x == px) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;边上&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (x &gt; px) &#123;</span><br><span class="line">                flag = !flag;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag%<span class="number">2</span> != <span class="number">0</span> ? <span class="string">&quot;内部&quot;</span> : <span class="string">&quot;外部&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>JavaScript实现:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 射线法判断点是否在多边形内部</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125; p 待判断的点，格式：&#123; x: X坐标, y: Y坐标 &#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Array</span>&#125; poly 多边形顶点，数组成员的格式同 p</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">String</span>&#125; 点 p 和多边形 poly 的几何关系</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">rayCasting</span>(<span class="params">p, poly</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> px = p.<span class="property">x</span>,</span><br><span class="line">      py = p.<span class="property">y</span>,</span><br><span class="line">      flag = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, l = poly.<span class="property">length</span>, j = l - <span class="number">1</span>; i &lt; l; j = i, i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> sx = poly[i].<span class="property">x</span>,</span><br><span class="line">        sy = poly[i].<span class="property">y</span>,</span><br><span class="line">        tx = poly[j].<span class="property">x</span>,</span><br><span class="line">        ty = poly[j].<span class="property">y</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点与多边形顶点重合</span></span><br><span class="line">    <span class="keyword">if</span>((sx === px &amp;&amp; sy === py) || (tx === px &amp;&amp; ty === py)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;on&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断线段两端点是否在射线两侧</span></span><br><span class="line">    <span class="keyword">if</span>((sy &lt; py &amp;&amp; ty &gt;= py) || (sy &gt;= py &amp;&amp; ty &lt; py)) &#123;</span><br><span class="line">      <span class="comment">// 线段上与射线 Y 坐标相同的点的 X 坐标</span></span><br><span class="line">      <span class="keyword">var</span> x = sx + (py - sy) * (tx - sx) / (ty - sy)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 点在多边形的边上</span></span><br><span class="line">      <span class="keyword">if</span>(x === px) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;on&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 射线穿过多边形的边界</span></span><br><span class="line">      <span class="keyword">if</span>(x &gt; px) &#123;</span><br><span class="line">        flag = !flag</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 射线穿过多边形边界的次数为奇数时点在多边形内</span></span><br><span class="line">  <span class="keyword">return</span> flag ? <span class="string">&#x27;in&#x27;</span> : <span class="string">&#x27;out&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>计算机图形学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二叉树的前中后序遍历统一版本迭代写法(仅移动左中右顺序)</title>
-    <url>/jjymsworld/2022/07/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E4%B8%AD%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%9F%E4%B8%80%E7%89%88%E6%9C%AC%E8%BF%AD%E4%BB%A3%E5%86%99%E6%B3%95-%E4%BB%85%E7%A7%BB%E5%8A%A8%E5%B7%A6%E4%B8%AD%E5%8F%B3%E9%A1%BA%E5%BA%8F/</url>
-    <content><![CDATA[<p>前序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>中序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">      vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">      stack&lt;TreeNode*&gt; stk;</span><br><span class="line">      stk.<span class="built_in">push</span>(root);</span><br><span class="line">      <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">          TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">          stk.<span class="built_in">pop</span>();</span><br><span class="line">          <span class="keyword">if</span>(node)&#123;</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">              &#125;</span><br><span class="line">              stk.<span class="built_in">push</span>(node);</span><br><span class="line">              stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">              <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                  stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">              &#125; </span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">              stk.<span class="built_in">pop</span>();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>后序遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    stack&lt;TreeNode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        TreeNode* node = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(node)&#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(node);</span><br><span class="line">            stk.<span class="built_in">push</span>(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; right)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node -&gt; left)&#123;</span><br><span class="line">                stk.<span class="built_in">push</span>(node -&gt; left);</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);</span><br><span class="line">            stk.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>算法笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -890,48 +872,6 @@
       </tags>
   </entry>
   <entry>
-    <title>在windows中给Spacevim设置右键启动</title>
-    <url>/jjymsworld/2022/11/11/%E5%9C%A8windows%E4%B8%AD%E7%BB%99Spacevim%E8%AE%BE%E7%BD%AE%E5%8F%B3%E9%94%AE%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>在windwos中设置直接从右键快速在spacevim中打开文件，并加载相应的配置。</p>
-<p>具体步骤：</p>
-<ol>
-<li>按下<code>win+r</code>在运行弹窗中输入<code>regedit</code>进入注册表编辑器</li>
-<li>定位到<code>HKEY_CLASSES_ROOT &gt; * &gt; shell</code></li>
-<li>在<code>shell</code>上点击右键， 新建项，名字输入<code>use spacevim open</code>或者随便你想输入的名字，这里主要是显示在右键菜单中的文字。然后再在这个项里面新建一个项，名字为<code>command</code>，并修改其默认值为：<code>&quot;D:\Program Files\Neovim\bin\nvim-qt.exe&quot; -qwindowgeometry 1310x650+20+20 &quot;%1&quot;</code></li>
-<li>然后就可以在右键菜单中使用了，这里的启动命令指定了窗口大小，后面的参数可以自行调节。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>neovim</tag>
-        <tag>spacevim</tag>
-        <tag>vim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>服务器ssh配置以及使用Miniconda配置python运行环境以及tmux使用说明</title>
-    <url>/jjymsworld/2023/11/05/%E6%9C%8D%E5%8A%A1%E5%99%A8ssh%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8Miniconda%E9%85%8D%E7%BD%AEpython%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8Atmux%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<h2 id="Vscode-ssh远程连接服务器"><a href="#Vscode-ssh远程连接服务器" class="headerlink" title="Vscode ssh远程连接服务器"></a>Vscode ssh远程连接服务器</h2><p>首先安装好vscode，去官网下载。<br>然后，如果习惯使用中文，去插件里搜索<code>chinese</code>，第一个下载安装即可。<br>然后去插件安装<code>Remote-SSH</code>这个插件，安装后左侧边栏会多出一项。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052113119.png" alt=""><br>然后选择远程资源管理器，鼠标放到ssh上面，点击右侧的设置按钮<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052116080.png" alt=""><br>然后选择第一个进去，把config文件中的内容全选复制粘贴替换进去然后保存。<br>然后点击刷新按钮，下图所示。再展开SSH即可看到连接列表。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052118140.png" alt=""><br>点击箭头或者后面那个都可以，箭头是在本窗口打开，另一个是再打开一个新的窗口连接。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052120302.png" alt=""><br>然后选择linux，输入密码即可，可能有些机器需要输入两遍。</p>
-<h2 id="Miniconda环境安装"><a href="#Miniconda环境安装" class="headerlink" title="Miniconda环境安装"></a>Miniconda环境安装</h2><p>首先去<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/?C=M&amp;O=D">清华原官方</a>,找到你要安装的Miniconda版本，一般安装最新的即可，服务器是ubuntu系统，所以看清楚，找到linux x86_64的版本进行复制。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052124345.png" alt=""><br>然后鼠标放上去点击右键然后复制连接。<br>然后连接上远程服务器，打开终端，在终端输入命令把安装文件下载到本地:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py311_23.9.0-0-Linux-x86_64.sh </span><br><span class="line"><span class="comment"># wget后面的地址就是你复制的地址</span></span><br></pre></td></tr></table></figure><br>然后输入指令修改文件执行权限:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+x Miniconda3-py311_23.9.0-0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure><br>最后执行安装文件进行安装:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./Miniconda3-py311_23.9.0-0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure><br>然后根据提示进行安装，许可证那里可以按几次空格跳过，中间让按回车就按回车，让输入yes就输入yes。<br>安装完毕后，关掉终端，然后重新打开一下终端。<br>测试能够正常执行<code>conda</code>指令，即为安装成功。<br>然后如果需要创建新的python环境，可以使用指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n abc python==3.8</span><br><span class="line"><span class="comment">#上面指令中的abc是你要创建的新的环境的名称</span></span><br><span class="line"><span class="comment">#然后后面可以通过</span></span><br><span class="line">conda activate abc</span><br><span class="line"><span class="comment">#来激活abc环境</span></span><br><span class="line"></span><br><span class="line">conda deactivate</span><br><span class="line"><span class="comment">#取消激活环境，返回上一个环境</span></span><br></pre></td></tr></table></figure><br>conda的具体指令自行去百度学习，学习之后再进行操作，本着节省空间，减少冗余依赖包的原则，先学习好conda的使用，以及conda和pip包管理的区别，再进行使用。  </p>
-<h2 id="tmux使用教程"><a href="#tmux使用教程" class="headerlink" title="tmux使用教程"></a>tmux使用教程</h2><p>简单来说就是，当我们连接上远程服务器之后，我们的会话一旦关闭，那么会话中运行的程序也将会关闭，通常我们进行模型的训练会需要比较长的时间，如果使用原始的方法，我们在服务器上跑程序的同时，也比需保持我们的电脑与服务器的连接，那么更为高级的方法就是我们通过tmux管理会话，当我们一个程序需要跑很久的时候，我们可以不关闭会话，而是detach会话，然后在一段之间之后我们可以重连回会话，并且在detach这段时间，我们的退出并不影响远程服务器上面代码的执行。    </p>
-<p>目前服务器上面tmux均已安装好，直接就可以使用，不需要自行安装。  </p>
-<p>更为详细的使用方法可以参考<a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">阮一峰的教程</a>，我这里只进行简单日常的使用的演示。  </p>
-<p>tmux的使用是在服务器上面的，所以我们首先需要连接上远程终端。<br>然后我们可以通过<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux new -s abc</span><br><span class="line"><span class="comment">#abc为需要建立会话的名称，后续detach之后需要通过这个名称来进行重连，自己记好</span></span><br></pre></td></tr></table></figure><br>这时候我们已经进入tmux新建的会话中<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052152555.png" alt="">  </p>
-<p>到会话内部的使用，跟外部没什么区别，你可以把它看作就是一个普通的终端，可以通过<code>python test.py</code>来执行python文件等等。  </p>
-<p>当我们需要执行一个比较久的文件时，我们可以现在tmux创建的会话中运行程序，然后输入<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux detach</span><br></pre></td></tr></table></figure><br>来detach当前会话，然后这时候你就会退出tmux会话，此时你可以关闭ssh连接，甚至是自己的电脑，然后去睡一觉，醒了之后，再次连接上ssh，然后通过指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux attach -t abc</span><br><span class="line"><span class="comment">#abc是会话名称</span></span><br></pre></td></tr></table></figure><br>即可重连回去，这时候就可以看运行结果咯。<br>当然，如果你忘了你创建过多少会话，以及会话的名字，你可以通过指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure><br>来查看已经创建的会话，以及对应的会话名称。<br>其他更多指令，以及快捷键直接去参考阮一峰的教程。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tmux</tag>
-        <tag>ssh</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据结构排序算法代码实现</title>
     <url>/jjymsworld/2022/11/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert_sort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i+<span class="number">1</span>] &lt; nums[i])&#123;</span><br><span class="line">            <span class="type">int</span> temp = nums[i+<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span>(j=i; j&gt;=<span class="number">0</span> &amp;&amp; nums[j] &gt; temp;j--) &#123;</span><br><span class="line">                nums[j+<span class="number">1</span>] = nums[j];</span><br><span class="line">            &#125;</span><br><span class="line">            nums[j+<span class="number">1</span>] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; nums = &#123;<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">2</span>&#125;;</span><br><span class="line">    <span class="built_in">insert_sort</span>(nums, nums.<span class="built_in">size</span>());</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">        cout &lt;&lt; nums[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -952,217 +892,30 @@
       </tags>
   </entry>
   <entry>
-    <title>汇编语言运算符</title>
-    <url>/jjymsworld/2022/11/09/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
-    <content><![CDATA[<h2 id="运算符伪指令"><a href="#运算符伪指令" class="headerlink" title="运算符伪指令"></a>运算符伪指令</h2><h4 id="常数"><a href="#常数" class="headerlink" title="常数"></a>常数</h4><ol>
-<li>二进制常数：以字母B为结尾</li>
-<li>八进制常数：以字母Q为结尾</li>
-<li>十进制常数：以字母D为结尾(可省略)</li>
-<li>十六进制常数：以字母H为结尾</li>
-<li>字符串常数：以ASCII码形式存放</li>
-</ol>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><ol>
-<li>+：加</li>
-<li>-：减</li>
-<li>*：乘</li>
-<li>/：除，取整</li>
-<li>MOD：模除、取余</li>
-<li>SHL：左移</li>
-<li>SHR：右移</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 16 MOD 5 ;(AL)=1</span><br><span class="line">MOV AL, 10100100B SHR 2 ;(AL)=00101001B</span><br></pre></td></tr></table></figure>
-<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><ol>
-<li>AND：与</li>
-<li>OR：或</li>
-<li>NOT：非</li>
-<li>XOR：异或</li>
-</ol>
-<blockquote>
-<p>用于数值表达式中对数值进行按位逻辑运算，结果为8、16或32位二进制数</p>
-<p><strong>注意区分与逻辑运算执行的区别！！！：逻辑运算符在汇编的时候就由汇编程序完成逻辑运算了，而逻辑指令则是在指令执行的时候完成</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;(DL)=10110100B</span><br><span class="line">OR DL, NOT 7EH ;其中NOT是逻辑运算符在编译的时候数值已经确定为81H，OR是逻辑运算指令，在执行的时候计算81H与DL寄存器中的数据作或运算，相当于执行指令时候执行下面指令</span><br><span class="line">OR DL, 81H</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h4 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h4><ol>
-<li>EQ：等于</li>
-<li>NE：不等于</li>
-<li>LT：小于</li>
-<li>GT：大于</li>
-<li>GE：大于等于</li>
-<li>LE：小于等于</li>
-</ol>
-<blockquote>
-<p>参与关系运算的必须是两个数值，若关系成立，则结果为真(0FFFFH)，否则结果为假(0000H)</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, ((12 LT 8) AND 5) OR ((20 GE 9) AND 7)</span><br><span class="line"></span><br><span class="line">;上式相当于</span><br><span class="line">;(12 LT 8)=0000H, (12 LT 8) AND 5=0</span><br><span class="line">;(20 GE 9)=0FFFFH, (20 GE 9) AND 7=7</span><br><span class="line">;AX=0007H</span><br></pre></td></tr></table></figure>
-<h4 id="分析运算符"><a href="#分析运算符" class="headerlink" title="分析运算符"></a>分析运算符</h4><p><code>SEG</code>，<code>OFFSET</code>，<code>TYPE</code>加在变量名或标号名的前面</p>
+    <title>射线法判断点是否在多边形内</title>
+    <url>/jjymsworld/2022/07/16/%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/</url>
+    <content><![CDATA[<h2 id="原理介绍"><a href="#原理介绍" class="headerlink" title="原理介绍"></a>原理介绍</h2><p>基础原理这里不再概述</p>
+<p>介绍对于点在多边形顶点，点在边上等判断方法</p>
 <ol>
-<li>SEG：得到变量名或者标号名的段基址</li>
-<li>OFFSET：得到变量名或者标号名的偏移量</li>
-<li>TYPE：在变量名前面，返回值为1(字节)，2(字)，4(双子)，-1(NEAR)，-2(FAR)</li>
-<li>LENGTH：用在变量名前面，对与变量使用DUP进行定义的情况，汇编程序将回送分配给该变量的单元数。对于其他情况则送回1.</li>
-<li>SIZE：用在变量名前面，汇编程序将送回分配给该变量的字节数，值为LENGTH与TYPE的乘积。</li>
+<li>判断点是否在线上的方法有很多，比较简单直接的就是计算点与两个多边形顶点的连线斜率是否相等，中学数学都学过</li>
+<li>点和多边形顶点重合的情况更简单，直接比较点的坐标就行了</li>
+<li>顶点穿越看似棘手，其实我们换一个角度，思路会大不相同。先来回答一个问题，射线穿越一条线段需要什么前提条件？没错，就是线段两个端点分别在射线两侧。只要想通这一点，顶点穿越就迎刃而解了。这样一来，我们只需要规定被射线穿越的点都算作其中一侧。</li>
 </ol>
-<h4 id="属性说明伪指令"><a href="#属性说明伪指令" class="headerlink" title="属性说明伪指令"></a>属性说明伪指令</h4><ol>
-<li>PTR操作符</li>
-</ol>
-<p>格式：<code>类型  PTR  地址表达式</code></p>
-<p>功能：确定地址表达式的存储单元为指定的类型(类似与强制类型转换)，即用在地址表达式前面，用于指定或临时改变变量名和标号名的类型</p>
-<p>分类：<code>BYTE</code>，<code>WORD</code>，<code>DWORD</code>，<code>NEAR</code>，<code>FAR</code>等</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADD WORD PTR [SI], 20 ;存储器操作类型为字</span><br><span class="line">JMP FAR PTR OK ;OK是可以进行段间转移的符号</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/qq171895821/Jymscloudiimmgg@main/img/20170904204203276" alt=""></p>
+<p>如上图，假如我们规定射线经过的点都属于射线以上的一侧，显然点D和发生顶点穿越的点C都位于射线Y的同一侧，所以射线Y其实并没有穿越CD这条边。而点C和点B则分别位于射线Y的两侧，所以射线Y和BC发生了穿越，由此我们可以断定点Y在多边形内。同理，射线X分别与AD和CD都发生了穿越，因此点X在多边形外，而射线Z没有和多边形发生穿越，点Z位于多边形外。</p>
 <ol>
-<li>THIS操作符</li>
+<li>解决了第三点，这一点就毫无难度了。根据上面的假设，射线连续经过的两个顶点显然都位于射线以上的一侧，因此这种情况看作没有发生穿越就可以了。由于第三点的解决方案实际上已经覆盖到这种特例，因此不需要再做特别的处理。</li>
 </ol>
-<p>格式： <code>THIS  类型</code></p>
-<p>功能：返回一个具有指定类型的存储器操作数。返回的存储器操作数的段基地址和偏移址就是下一个将要分配的存储单元的段基址和偏移地址。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MY_WORD EQU THIS WORD ;MY_WORD是一个字变量，他的段基址和偏移地址与字节变量MY_BYTE相同</span><br><span class="line">MY_BYTE DB ?</span><br></pre></td></tr></table></figure>
-<ol>
-<li>SHORT(短转移说明)</li>
-</ol>
-<p>格式： <code>JMP SHORT PTR  目标地址</code></p>
-<p>功能： 转移的目标地址等于当前IP的内容加上8位的位移量，转移的目标地址距离本条指令的下一条指令之间的偏移量范围为-128~127</p>
-<ol>
-<li>LABEL伪指令</li>
-</ol>
-<p>格式： <code>变量号/标号  LABEL [类型]</code></p>
-<p>功能：通常和下一个语句所定义的变量和标号联用，给下一个语句所定义的变量和标号取别名。别名由LABEL左边的名称决定，而其类型属性或距离属性则由LABEL右边的参数来给定。</p>
-<p>分类：</p>
-<ul>
-<li>与变量连用(改变其类型属性)</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TIMB LABEL BYTE ;为TIMW取别名TIMB，并修改类型为字节型</span><br><span class="line">TIMW DW 1234H, 5678H</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">MOV AX, TIMW[0] ;(AX)=1234H</span><br><span class="line">MOV BL, TIMB[0] ;(BX)=34H</span><br></pre></td></tr></table></figure>
-<pre><code>定义堆栈段也经常使用LABEL语句：
-</code></pre><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ASTACK SEGMENT</span><br><span class="line">  DW 20 DUP (?)</span><br><span class="line">  TOP LABEL WORD</span><br><span class="line">ASTACK ENDS ;这里定义了一个由20字组成的堆栈，其栈底名称取名为TOP，类型定义为字</span><br></pre></td></tr></table></figure>
-<ul>
-<li>与标号连用(改变其距离属性)</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SUBF LABEL FAR</span><br><span class="line">SUBN:MOV AX,[BX+SI];隐式定义了SUBN的距离属性为NEAR,前面为SUBN去了一个别名SUBF，属性为FAR。</span><br><span class="line">;SUBF和SUBN有着相同的逻辑地址，但他们的距离属性不同，可作为程序转移或调用时不同情况的入口，当段内转移或段间转移，调用不</span><br><span class="line">;同标号名称，实际上是指向同一条指令 </span><br></pre></td></tr></table></figure>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>C++再MFC中的实现:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">PointJudge</span><span class="params">(POINT p, POINT* poly, <span class="type">int</span> ploySize)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * @param &#123;POINT&#125; p  待判断点的坐标。</span></span><br><span class="line"><span class="comment">    * @param &#123;POINT *&#125; poly  多边形各点的坐标集合</span></span><br><span class="line"><span class="comment">    * @param &#123;int&#125; polySize 多边形边的数量（多边形顶点的数量）</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="type">int</span> px = p.x;</span><br><span class="line">    <span class="type">int</span> py = p.y;</span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">int</span> i, l, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>,  l = ploySize,  j = l - <span class="number">1</span>; i &lt; l; j = i, i++) &#123;</span><br><span class="line">        <span class="type">int</span> sx = poly[i].x;</span><br><span class="line">        <span class="type">int</span> sy = poly[i].y;</span><br><span class="line">        <span class="type">int</span> tx = poly[j].x;</span><br><span class="line">        <span class="type">int</span> ty = poly[j].y;</span><br><span class="line">        <span class="keyword">if</span> ((sx == px &amp;&amp; sy == py) || (tx == px &amp;&amp; ty == py)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;内部&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ((sy &lt; py &amp;&amp; ty &gt;= py) || (sy &gt;= py &amp;&amp; ty &lt; py)) &#123;</span><br><span class="line">            <span class="type">int</span> x = sx + (py - sy) * (tx - sx) / (ty - sy);</span><br><span class="line">            <span class="keyword">if</span> (x == px) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;边上&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (x &gt; px) &#123;</span><br><span class="line">                flag = !flag;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag%<span class="number">2</span> != <span class="number">0</span> ? <span class="string">&quot;内部&quot;</span> : <span class="string">&quot;外部&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JavaScript实现:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 射线法判断点是否在多边形内部</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125; p 待判断的点，格式：&#123; x: X坐标, y: Y坐标 &#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Array</span>&#125; poly 多边形顶点，数组成员的格式同 p</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">String</span>&#125; 点 p 和多边形 poly 的几何关系</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">rayCasting</span>(<span class="params">p, poly</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> px = p.<span class="property">x</span>,</span><br><span class="line">      py = p.<span class="property">y</span>,</span><br><span class="line">      flag = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, l = poly.<span class="property">length</span>, j = l - <span class="number">1</span>; i &lt; l; j = i, i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> sx = poly[i].<span class="property">x</span>,</span><br><span class="line">        sy = poly[i].<span class="property">y</span>,</span><br><span class="line">        tx = poly[j].<span class="property">x</span>,</span><br><span class="line">        ty = poly[j].<span class="property">y</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点与多边形顶点重合</span></span><br><span class="line">    <span class="keyword">if</span>((sx === px &amp;&amp; sy === py) || (tx === px &amp;&amp; ty === py)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;on&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断线段两端点是否在射线两侧</span></span><br><span class="line">    <span class="keyword">if</span>((sy &lt; py &amp;&amp; ty &gt;= py) || (sy &gt;= py &amp;&amp; ty &lt; py)) &#123;</span><br><span class="line">      <span class="comment">// 线段上与射线 Y 坐标相同的点的 X 坐标</span></span><br><span class="line">      <span class="keyword">var</span> x = sx + (py - sy) * (tx - sx) / (ty - sy)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 点在多边形的边上</span></span><br><span class="line">      <span class="keyword">if</span>(x === px) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;on&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 射线穿过多边形的边界</span></span><br><span class="line">      <span class="keyword">if</span>(x &gt; px) &#123;</span><br><span class="line">        flag = !flag</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 射线穿过多边形边界的次数为奇数时点在多边形内</span></span><br><span class="line">  <span class="keyword">return</span> flag ? <span class="string">&#x27;in&#x27;</span> : <span class="string">&#x27;out&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>汇编标志位操作指令</title>
-    <url>/jjymsworld/2022/11/10/%E6%B1%87%E7%BC%96%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</url>
-    <content><![CDATA[<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">指令</th>
-<th style="text-align:center">全称</th>
-<th style="text-align:center">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>CLC</code></td>
-<td style="text-align:center">clear carry flag</td>
-<td style="text-align:center">CF清零</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>STC</code></td>
-<td style="text-align:center">set carry flag</td>
-<td style="text-align:center">CF置位1</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>CMC</code></td>
-<td style="text-align:center">complement carry flag</td>
-<td style="text-align:center">CF取反</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>CLD</code></td>
-<td style="text-align:center">clear direction flag</td>
-<td style="text-align:center">DF清零</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>STD</code></td>
-<td style="text-align:center">set direction flag</td>
-<td style="text-align:center">DF置位1</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>CLI</code></td>
-<td style="text-align:center">clear interrupt endable flag</td>
-<td style="text-align:center">IF清零，关闭中断</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>STI</code></td>
-<td style="text-align:center">set interrupt endable flag</td>
-<td style="text-align:center">IF置位1，打开中断</td>
-</tr>
-</tbody>
-</table>
-</div>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>红黑树</title>
-    <url>/jjymsworld/2022/11/30/%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
-    <content><![CDATA[<h1 id="红黑树概念与性质"><a href="#红黑树概念与性质" class="headerlink" title="红黑树概念与性质"></a>红黑树概念与性质</h1><p>时间复杂度: 插入O(log2n), 删除(O(log2n)), 查询(O(log2n)).<br>平衡二叉树(AVL): 平衡二叉树的插入与删除很容易破坏平衡特性，需要频繁调整，时间开销较大，适用于查询为主。<br>红黑树RBT: 插入与删除很多时候不会破坏红黑树的特性，即便需要调整，一般都可以在常数级时间内完成，适用于频繁插入与删除的场景。</p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
-<li>红黑树是二叉排序树，满足二叉排序数的特点，<strong>左子树结点值≤根结点值≤右子树结点值</strong>。</li>
-<li>与普通BST相比：<ul>
-<li>每个结点或是红色的或是黑色的</li>
-<li>根结点是黑色的</li>
-<li>叶结点(也叫做外部结点，NULL节点，失败结点)均是黑色的</li>
-<li>不存在两个相邻的红色结点(即红结点的父亲结点与孩子结点均为黑色)</li>
-<li>对每个结点，从当前节点出发到任一叶节点的简单路径上，所含黑结点的数目相同。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">RBNode</span>&#123;</span><br><span class="line">  <span class="type">int</span> key;</span><br><span class="line">  RBNode *parent;</span><br><span class="line">  RBNode *lchild;</span><br><span class="line">  RBnode *rchild;</span><br><span class="line">  <span class="type">int</span> color;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-背诵口诀: <strong>左根右，根叶黑，不红红，黑路同</strong></li>
-</ul>
-</li>
-<li>结点的黑高bh——从某节点出发不包含该节点到任一空叶结点的路径上黑色结点的个数。</li>
-<li><strong>性质</strong>：<ol>
-<li>从根节点到叶节点的最长路径不大于最短路径的2倍</li>
-<li>有n个内部结点的红黑树高度为h&lt;2log2(n+1)</li>
-</ol>
-</li>
-</ol>
-<h1 id="红黑树的查找，插入与删除"><a href="#红黑树的查找，插入与删除" class="headerlink" title="红黑树的查找，插入与删除"></a>红黑树的查找，插入与删除</h1><h2 id="红黑树的查找"><a href="#红黑树的查找" class="headerlink" title="红黑树的查找"></a>红黑树的查找</h2><p>红黑树的查找与BST(二叉排序树),AVL(平衡二叉树)相同，从跟出发，左小右大，若查找到一个空叶结点，则查找失败。</p>
-<h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><ul>
-<li>先查找，确定插入位置(原理同二叉排序树)，插入新节点</li>
-<li>新结点时根——染为黑色</li>
-<li>新结点非跟——染为红色<ul>
-<li>若插入新结点后仍然满足红黑树定义，则插入结束</li>
-<li>若插入新结点后不满足红黑树定义，则需要调整，使其重新满足红黑树定义(如何调整？答：看新叔叔的脸色(hahahaha!))<ul>
-<li><strong>黑叔：旋转＋染色(旋转与平衡二叉树相同)</strong><ul>
-<li>LL型：右单旋，父换爷+染色(以插入结点的父节点为基准旋转)</li>
-<li>RR型：左单旋，父换爷+染色(同上)</li>
-<li>LR型：左、右双旋，儿换爷＋染色(先以插入结点为基准左旋在以旋转后的当前结点位置右旋)</li>
-<li>RL型：右、左双旋，儿换爷+染色(上述左右相反即可)</li>
-</ul>
-</li>
-<li><strong>红叔：染色＋变新</strong><ul>
-<li>叔父爷染色，爷变为新结点(变为新结点即从该插入部分第二句话开始考虑该结点即可。)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>根节点黑高为h的红黑树，内部结点数(关键字数量)至少有${r^h} - 1$个(总共有h层黑节点的满树形态)。</p>
-<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><ol>
-<li>红黑树的删除结点的处理方式与二叉排序树的删除方式相同。</li>
-<li>删除结点之后，可能破坏红黑树的特性，此时需要调整使其再次满足红黑树的情况，调整方式与插入部分的调整方式相同。</li>
-</ol>
-<hr>
-<p>此文内容总结自王道考研数据结构课程，仅作个人笔记记录使用。</p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
+        <tag>计算机图形学</tag>
       </tags>
   </entry>
   <entry>
@@ -1279,6 +1032,253 @@
       </tags>
   </entry>
   <entry>
+    <title>汇编标志位操作指令</title>
+    <url>/jjymsworld/2022/11/10/%E6%B1%87%E7%BC%96%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">全称</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>CLC</code></td>
+<td style="text-align:center">clear carry flag</td>
+<td style="text-align:center">CF清零</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>STC</code></td>
+<td style="text-align:center">set carry flag</td>
+<td style="text-align:center">CF置位1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CMC</code></td>
+<td style="text-align:center">complement carry flag</td>
+<td style="text-align:center">CF取反</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CLD</code></td>
+<td style="text-align:center">clear direction flag</td>
+<td style="text-align:center">DF清零</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>STD</code></td>
+<td style="text-align:center">set direction flag</td>
+<td style="text-align:center">DF置位1</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CLI</code></td>
+<td style="text-align:center">clear interrupt endable flag</td>
+<td style="text-align:center">IF清零，关闭中断</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>STI</code></td>
+<td style="text-align:center">set interrupt endable flag</td>
+<td style="text-align:center">IF置位1，打开中断</td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu安装最新版neovim</title>
+    <url>/jjymsworld/2023/11/08/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88neovim/</url>
+    <content><![CDATA[<p>首先需要卸载旧版，如果没装过不需要卸载<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo remove neovim</span><br></pre></td></tr></table></figure><br>然后从github上面下载最新的neovim压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz</span><br></pre></td></tr></table></figure><br>然后解压，并移动<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xzvf nvim-linux64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> nvim-linux64 /usr/local/nvim</span><br></pre></td></tr></table></figure><br>创建软链接<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nvim/bin/nvim /usr/bin/nvim</span><br></pre></td></tr></table></figure><br>完成！然后可以输入nvim -v查看版本信息</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>neovim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>服务器ssh配置以及使用Miniconda配置python运行环境以及tmux使用说明</title>
+    <url>/jjymsworld/2023/11/05/%E6%9C%8D%E5%8A%A1%E5%99%A8ssh%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8Miniconda%E9%85%8D%E7%BD%AEpython%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8Atmux%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h2 id="Vscode-ssh远程连接服务器"><a href="#Vscode-ssh远程连接服务器" class="headerlink" title="Vscode ssh远程连接服务器"></a>Vscode ssh远程连接服务器</h2><p>首先安装好vscode，去官网下载。<br>然后，如果习惯使用中文，去插件里搜索<code>chinese</code>，第一个下载安装即可。<br>然后去插件安装<code>Remote-SSH</code>这个插件，安装后左侧边栏会多出一项。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052113119.png" alt=""><br>然后选择远程资源管理器，鼠标放到ssh上面，点击右侧的设置按钮<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052116080.png" alt=""><br>然后选择第一个进去，把config文件中的内容全选复制粘贴替换进去然后保存。<br>然后点击刷新按钮，下图所示。再展开SSH即可看到连接列表。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052118140.png" alt=""><br>点击箭头或者后面那个都可以，箭头是在本窗口打开，另一个是再打开一个新的窗口连接。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052120302.png" alt=""><br>然后选择linux，输入密码即可，可能有些机器需要输入两遍。</p>
+<h2 id="Miniconda环境安装"><a href="#Miniconda环境安装" class="headerlink" title="Miniconda环境安装"></a>Miniconda环境安装</h2><p>首先去<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/?C=M&amp;O=D">清华原官方</a>,找到你要安装的Miniconda版本，一般安装最新的即可，服务器是ubuntu系统，所以看清楚，找到linux x86_64的版本进行复制。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052124345.png" alt=""><br>然后鼠标放上去点击右键然后复制连接。<br>然后连接上远程服务器，打开终端，在终端输入命令把安装文件下载到本地:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py311_23.9.0-0-Linux-x86_64.sh </span><br><span class="line"><span class="comment"># wget后面的地址就是你复制的地址</span></span><br></pre></td></tr></table></figure><br>然后输入指令修改文件执行权限:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+x Miniconda3-py311_23.9.0-0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure><br>最后执行安装文件进行安装:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./Miniconda3-py311_23.9.0-0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure><br>然后根据提示进行安装，许可证那里可以按几次空格跳过，中间让按回车就按回车，让输入yes就输入yes。<br>安装完毕后，关掉终端，然后重新打开一下终端。<br>测试能够正常执行<code>conda</code>指令，即为安装成功。<br>然后如果需要创建新的python环境，可以使用指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n abc python==3.8</span><br><span class="line"><span class="comment">#上面指令中的abc是你要创建的新的环境的名称</span></span><br><span class="line"><span class="comment">#然后后面可以通过</span></span><br><span class="line">conda activate abc</span><br><span class="line"><span class="comment">#来激活abc环境</span></span><br><span class="line"></span><br><span class="line">conda deactivate</span><br><span class="line"><span class="comment">#取消激活环境，返回上一个环境</span></span><br></pre></td></tr></table></figure><br>conda的具体指令自行去百度学习，学习之后再进行操作，本着节省空间，减少冗余依赖包的原则，先学习好conda的使用，以及conda和pip包管理的区别，再进行使用。  </p>
+<h2 id="tmux使用教程"><a href="#tmux使用教程" class="headerlink" title="tmux使用教程"></a>tmux使用教程</h2><p>简单来说就是，当我们连接上远程服务器之后，我们的会话一旦关闭，那么会话中运行的程序也将会关闭，通常我们进行模型的训练会需要比较长的时间，如果使用原始的方法，我们在服务器上跑程序的同时，也比需保持我们的电脑与服务器的连接，那么更为高级的方法就是我们通过tmux管理会话，当我们一个程序需要跑很久的时候，我们可以不关闭会话，而是detach会话，然后在一段之间之后我们可以重连回会话，并且在detach这段时间，我们的退出并不影响远程服务器上面代码的执行。    </p>
+<p>目前服务器上面tmux均已安装好，直接就可以使用，不需要自行安装。  </p>
+<p>更为详细的使用方法可以参考<a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">阮一峰的教程</a>，我这里只进行简单日常的使用的演示。  </p>
+<p>tmux的使用是在服务器上面的，所以我们首先需要连接上远程终端。<br>然后我们可以通过<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux new -s abc</span><br><span class="line"><span class="comment">#abc为需要建立会话的名称，后续detach之后需要通过这个名称来进行重连，自己记好</span></span><br></pre></td></tr></table></figure><br>这时候我们已经进入tmux新建的会话中<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202311052152555.png" alt="">  </p>
+<p>到会话内部的使用，跟外部没什么区别，你可以把它看作就是一个普通的终端，可以通过<code>python test.py</code>来执行python文件等等。  </p>
+<p>当我们需要执行一个比较久的文件时，我们可以现在tmux创建的会话中运行程序，然后输入<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux detach</span><br></pre></td></tr></table></figure><br>来detach当前会话，然后这时候你就会退出tmux会话，此时你可以关闭ssh连接，甚至是自己的电脑，然后去睡一觉，醒了之后，再次连接上ssh，然后通过指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux attach -t abc</span><br><span class="line"><span class="comment">#abc是会话名称</span></span><br></pre></td></tr></table></figure><br>即可重连回去，这时候就可以看运行结果咯。<br>当然，如果你忘了你创建过多少会话，以及会话的名字，你可以通过指令:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure><br>来查看已经创建的会话，以及对应的会话名称。<br>其他更多指令，以及快捷键直接去参考阮一峰的教程。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>tmux</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汇编语言运算符</title>
+    <url>/jjymsworld/2022/11/09/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    <content><![CDATA[<h2 id="运算符伪指令"><a href="#运算符伪指令" class="headerlink" title="运算符伪指令"></a>运算符伪指令</h2><h4 id="常数"><a href="#常数" class="headerlink" title="常数"></a>常数</h4><ol>
+<li>二进制常数：以字母B为结尾</li>
+<li>八进制常数：以字母Q为结尾</li>
+<li>十进制常数：以字母D为结尾(可省略)</li>
+<li>十六进制常数：以字母H为结尾</li>
+<li>字符串常数：以ASCII码形式存放</li>
+</ol>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><ol>
+<li>+：加</li>
+<li>-：减</li>
+<li>*：乘</li>
+<li>/：除，取整</li>
+<li>MOD：模除、取余</li>
+<li>SHL：左移</li>
+<li>SHR：右移</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 16 MOD 5 ;(AL)=1</span><br><span class="line">MOV AL, 10100100B SHR 2 ;(AL)=00101001B</span><br></pre></td></tr></table></figure>
+<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><ol>
+<li>AND：与</li>
+<li>OR：或</li>
+<li>NOT：非</li>
+<li>XOR：异或</li>
+</ol>
+<blockquote>
+<p>用于数值表达式中对数值进行按位逻辑运算，结果为8、16或32位二进制数</p>
+<p><strong>注意区分与逻辑运算执行的区别！！！：逻辑运算符在汇编的时候就由汇编程序完成逻辑运算了，而逻辑指令则是在指令执行的时候完成</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;(DL)=10110100B</span><br><span class="line">OR DL, NOT 7EH ;其中NOT是逻辑运算符在编译的时候数值已经确定为81H，OR是逻辑运算指令，在执行的时候计算81H与DL寄存器中的数据作或运算，相当于执行指令时候执行下面指令</span><br><span class="line">OR DL, 81H</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h4><ol>
+<li>EQ：等于</li>
+<li>NE：不等于</li>
+<li>LT：小于</li>
+<li>GT：大于</li>
+<li>GE：大于等于</li>
+<li>LE：小于等于</li>
+</ol>
+<blockquote>
+<p>参与关系运算的必须是两个数值，若关系成立，则结果为真(0FFFFH)，否则结果为假(0000H)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, ((12 LT 8) AND 5) OR ((20 GE 9) AND 7)</span><br><span class="line"></span><br><span class="line">;上式相当于</span><br><span class="line">;(12 LT 8)=0000H, (12 LT 8) AND 5=0</span><br><span class="line">;(20 GE 9)=0FFFFH, (20 GE 9) AND 7=7</span><br><span class="line">;AX=0007H</span><br></pre></td></tr></table></figure>
+<h4 id="分析运算符"><a href="#分析运算符" class="headerlink" title="分析运算符"></a>分析运算符</h4><p><code>SEG</code>，<code>OFFSET</code>，<code>TYPE</code>加在变量名或标号名的前面</p>
+<ol>
+<li>SEG：得到变量名或者标号名的段基址</li>
+<li>OFFSET：得到变量名或者标号名的偏移量</li>
+<li>TYPE：在变量名前面，返回值为1(字节)，2(字)，4(双子)，-1(NEAR)，-2(FAR)</li>
+<li>LENGTH：用在变量名前面，对与变量使用DUP进行定义的情况，汇编程序将回送分配给该变量的单元数。对于其他情况则送回1.</li>
+<li>SIZE：用在变量名前面，汇编程序将送回分配给该变量的字节数，值为LENGTH与TYPE的乘积。</li>
+</ol>
+<h4 id="属性说明伪指令"><a href="#属性说明伪指令" class="headerlink" title="属性说明伪指令"></a>属性说明伪指令</h4><ol>
+<li>PTR操作符</li>
+</ol>
+<p>格式：<code>类型  PTR  地址表达式</code></p>
+<p>功能：确定地址表达式的存储单元为指定的类型(类似与强制类型转换)，即用在地址表达式前面，用于指定或临时改变变量名和标号名的类型</p>
+<p>分类：<code>BYTE</code>，<code>WORD</code>，<code>DWORD</code>，<code>NEAR</code>，<code>FAR</code>等</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADD WORD PTR [SI], 20 ;存储器操作类型为字</span><br><span class="line">JMP FAR PTR OK ;OK是可以进行段间转移的符号</span><br></pre></td></tr></table></figure>
+<ol>
+<li>THIS操作符</li>
+</ol>
+<p>格式： <code>THIS  类型</code></p>
+<p>功能：返回一个具有指定类型的存储器操作数。返回的存储器操作数的段基地址和偏移址就是下一个将要分配的存储单元的段基址和偏移地址。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MY_WORD EQU THIS WORD ;MY_WORD是一个字变量，他的段基址和偏移地址与字节变量MY_BYTE相同</span><br><span class="line">MY_BYTE DB ?</span><br></pre></td></tr></table></figure>
+<ol>
+<li>SHORT(短转移说明)</li>
+</ol>
+<p>格式： <code>JMP SHORT PTR  目标地址</code></p>
+<p>功能： 转移的目标地址等于当前IP的内容加上8位的位移量，转移的目标地址距离本条指令的下一条指令之间的偏移量范围为-128~127</p>
+<ol>
+<li>LABEL伪指令</li>
+</ol>
+<p>格式： <code>变量号/标号  LABEL [类型]</code></p>
+<p>功能：通常和下一个语句所定义的变量和标号联用，给下一个语句所定义的变量和标号取别名。别名由LABEL左边的名称决定，而其类型属性或距离属性则由LABEL右边的参数来给定。</p>
+<p>分类：</p>
+<ul>
+<li>与变量连用(改变其类型属性)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TIMB LABEL BYTE ;为TIMW取别名TIMB，并修改类型为字节型</span><br><span class="line">TIMW DW 1234H, 5678H</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">MOV AX, TIMW[0] ;(AX)=1234H</span><br><span class="line">MOV BL, TIMB[0] ;(BX)=34H</span><br></pre></td></tr></table></figure>
+<pre><code>定义堆栈段也经常使用LABEL语句：
+</code></pre><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ASTACK SEGMENT</span><br><span class="line">  DW 20 DUP (?)</span><br><span class="line">  TOP LABEL WORD</span><br><span class="line">ASTACK ENDS ;这里定义了一个由20字组成的堆栈，其栈底名称取名为TOP，类型定义为字</span><br></pre></td></tr></table></figure>
+<ul>
+<li>与标号连用(改变其距离属性)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SUBF LABEL FAR</span><br><span class="line">SUBN:MOV AX,[BX+SI];隐式定义了SUBN的距离属性为NEAR,前面为SUBN去了一个别名SUBF，属性为FAR。</span><br><span class="line">;SUBF和SUBN有着相同的逻辑地址，但他们的距离属性不同，可作为程序转移或调用时不同情况的入口，当段内转移或段间转移，调用不</span><br><span class="line">;同标号名称，实际上是指向同一条指令 </span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>红黑树</title>
+    <url>/jjymsworld/2022/11/30/%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="红黑树概念与性质"><a href="#红黑树概念与性质" class="headerlink" title="红黑树概念与性质"></a>红黑树概念与性质</h1><p>时间复杂度: 插入O(log2n), 删除(O(log2n)), 查询(O(log2n)).<br>平衡二叉树(AVL): 平衡二叉树的插入与删除很容易破坏平衡特性，需要频繁调整，时间开销较大，适用于查询为主。<br>红黑树RBT: 插入与删除很多时候不会破坏红黑树的特性，即便需要调整，一般都可以在常数级时间内完成，适用于频繁插入与删除的场景。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
+<li>红黑树是二叉排序树，满足二叉排序数的特点，<strong>左子树结点值≤根结点值≤右子树结点值</strong>。</li>
+<li>与普通BST相比：<ul>
+<li>每个结点或是红色的或是黑色的</li>
+<li>根结点是黑色的</li>
+<li>叶结点(也叫做外部结点，NULL节点，失败结点)均是黑色的</li>
+<li>不存在两个相邻的红色结点(即红结点的父亲结点与孩子结点均为黑色)</li>
+<li>对每个结点，从当前节点出发到任一叶节点的简单路径上，所含黑结点的数目相同。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">RBNode</span>&#123;</span><br><span class="line">  <span class="type">int</span> key;</span><br><span class="line">  RBNode *parent;</span><br><span class="line">  RBNode *lchild;</span><br><span class="line">  RBnode *rchild;</span><br><span class="line">  <span class="type">int</span> color;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+背诵口诀: <strong>左根右，根叶黑，不红红，黑路同</strong></li>
+</ul>
+</li>
+<li>结点的黑高bh——从某节点出发不包含该节点到任一空叶结点的路径上黑色结点的个数。</li>
+<li><strong>性质</strong>：<ol>
+<li>从根节点到叶节点的最长路径不大于最短路径的2倍</li>
+<li>有n个内部结点的红黑树高度为h&lt;2log2(n+1)</li>
+</ol>
+</li>
+</ol>
+<h1 id="红黑树的查找，插入与删除"><a href="#红黑树的查找，插入与删除" class="headerlink" title="红黑树的查找，插入与删除"></a>红黑树的查找，插入与删除</h1><h2 id="红黑树的查找"><a href="#红黑树的查找" class="headerlink" title="红黑树的查找"></a>红黑树的查找</h2><p>红黑树的查找与BST(二叉排序树),AVL(平衡二叉树)相同，从跟出发，左小右大，若查找到一个空叶结点，则查找失败。</p>
+<h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><ul>
+<li>先查找，确定插入位置(原理同二叉排序树)，插入新节点</li>
+<li>新结点时根——染为黑色</li>
+<li>新结点非跟——染为红色<ul>
+<li>若插入新结点后仍然满足红黑树定义，则插入结束</li>
+<li>若插入新结点后不满足红黑树定义，则需要调整，使其重新满足红黑树定义(如何调整？答：看新叔叔的脸色(hahahaha!))<ul>
+<li><strong>黑叔：旋转＋染色(旋转与平衡二叉树相同)</strong><ul>
+<li>LL型：右单旋，父换爷+染色(以插入结点的父节点为基准旋转)</li>
+<li>RR型：左单旋，父换爷+染色(同上)</li>
+<li>LR型：左、右双旋，儿换爷＋染色(先以插入结点为基准左旋在以旋转后的当前结点位置右旋)</li>
+<li>RL型：右、左双旋，儿换爷+染色(上述左右相反即可)</li>
+</ul>
+</li>
+<li><strong>红叔：染色＋变新</strong><ul>
+<li>叔父爷染色，爷变为新结点(变为新结点即从该插入部分第二句话开始考虑该结点即可。)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>根节点黑高为h的红黑树，内部结点数(关键字数量)至少有${r^h} - 1$个(总共有h层黑节点的满树形态)。</p>
+<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><ol>
+<li>红黑树的删除结点的处理方式与二叉排序树的删除方式相同。</li>
+<li>删除结点之后，可能破坏红黑树的特性，此时需要调整使其再次满足红黑树的情况，调整方式与插入部分的调整方式相同。</li>
+</ol>
+<hr>
+<p>此文内容总结自王道考研数据结构课程，仅作个人笔记记录使用。</p>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>种子填色算法</title>
     <url>/jjymsworld/2022/07/16/%E7%A7%8D%E5%AD%90%E5%A1%AB%E8%89%B2%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>C++代码实现：</p>
@@ -1292,20 +1292,59 @@
       </tags>
   </entry>
   <entry>
-    <title>解决React中修改value不能触发input事件</title>
-    <url>/jjymsworld/2022/07/16/%E8%A7%A3%E5%86%B3React%E4%B8%AD%E4%BF%AE%E6%94%B9value%E4%B8%8D%E8%83%BD%E8%A7%A6%E5%8F%91input%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p>解决方法，见如下代码：</p>
-<p>原例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> input = someInput; </span><br><span class="line"><span class="keyword">let</span> lastValue = input.<span class="property">value</span>;</span><br><span class="line">input.<span class="property">value</span> = <span class="string">&#x27;new value&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// hack React15</span></span><br><span class="line">event.<span class="property">simulated</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// hack React16 内部定义了descriptor拦截value，此处重置状态</span></span><br><span class="line"><span class="keyword">let</span> tracker = input.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span> (tracker) &#123;</span><br><span class="line">  tracker.<span class="title function_">setValue</span>(lastValue);</span><br><span class="line">&#125;</span><br><span class="line">input.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
-<p>js操作示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;input.m-addr-input &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">test.<span class="property">value</span> = <span class="string">&quot;蒋毅&quot;</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123;<span class="attr">bubbles</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> tracker = test.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span>(tracker)&#123;</span><br><span class="line">    tracker.<span class="title function_">setValue</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">test.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/facebook/react/issues/11488#issuecomment-347775628">原始资料地址</a></p>
+    <title>给NvChad配置代码执行功能</title>
+    <url>/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为平时习惯了使用vim进行一些简单代码的编写和一些目录结构比较简单的项目开发，效率也非常高，但是因为要经常在本地和服务器进行切换，懒得进行配置了，之前是整理了一套spacevim的配置流程，每换个设备就配置一下也非常快，但是最近越发觉得spacevim过于臃肿了，很多功能用不到，启动速度也比较慢，甚至快不如vscode了，于是切换到了更加轻量化的NvChad，但是NvChad没有spacevim那样的直接<code>spec l r</code>就直接运行代码的功能，遂打算自己配置一个，这里使用 jaq-nvim[<a href="https://github.com/is0n/jaq-nvim">https://github.com/is0n/jaq-nvim</a>] 来进行对neovim配置代码执行功能。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>首先，NvChad是使用lazyvim进行插件管理的，我们先去进行插件的安装，首先进入到NvChad的插件配置文件里面，这里我是在<code>nvim\lua\custom\plugins.lua</code>中进行配置<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272035330.png" alt=""><br>在这里进行插件的安装。</p>
+<h3 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h3><p>接下来到<code>configs\override.lua</code>中对插件进行配置 <img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401312146529.png" alt=""><br>这里我是直接参考的官方的文档进行配置的，可以去作者的GitHub上进行查看，当然作者没有给c和cpp的执行指令，这里是我自己进行配置的，可以参考，具体的作用是创建<code>build</code>文件夹，然后将编译出的可执行文件放入build文件夹中，避免污染当前目录，然后执行编译出的可执行文件。注释的部分是在当前目录下生成可执行文件，然后执行可执行文件之后将可执行文件删除，这里加了timeout指令，是cmd下的延时指令，至于为什么加这个指令是因为如果直接del可执行文件，它会提示程序正在执行中无法删除，具体原因我也不知道为什么或者怎么解决，所以加了延迟1s，这样就不会提示无法删除了。  </p>
+<h3 id="启用插件"><a href="#启用插件" class="headerlink" title="启用插件"></a>启用插件</h3><p>到<code>nvim\lua\plugins\init.lua</code>中启用插件<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272047201.png" alt="">  </p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>经过上面的配置，已经可以直接进行代码执行，直接执行<code>:Jaq</code>指令即可<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272054241.png" alt=""><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272121002.png" alt=""></p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>JavaScript,React</tag>
+        <tag>neovim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高数常用展开式</title>
+    <url>/jjymsworld/2022/11/29/%E9%AB%98%E6%95%B0%E5%B8%B8%E7%94%A8%E5%B1%95%E5%BC%80%E5%BC%8F/</url>
+    <content><![CDATA[<p>无穷级数，数列极限，微分学常用展开式</p>
+<ol>
+<li><script type="math/tex; mode=display">
+\ln (1 + x) = \sum\limits_{n = 1}^\infty  { { {( - 1)}^{n - 1} } \cdot \frac{ { {x^n} } } {n} } {\rm{  } },{\rm{ } } - 1 < x \le 1</script></li>
+<li><script type="math/tex; mode=display">
+\frac{1}{2}\ln (1 + x) = \sum\limits_{n = 1}^\infty  { { {( - 1)}^{n - 1} } \cdot \frac{ { {x^n} } }{2n} } {\rm{  } },{\rm{  } } - 1 < x \le 1</script></li>
+<li><script type="math/tex; mode=display">
+\arctan x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n + 1} } } } { {2n + 1} } } {\rm{  ,  } } - 1 \le x \le 1</script></li>
+<li><script type="math/tex; mode=display">
+{e^x} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^n} } } { {n!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
+<li><script type="math/tex; mode=display">
+\frac{ { {e^x} + {e^{ - x} } } }{2} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^{2n} } } } { {(2n)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
+<li><script type="math/tex; mode=display">
+\cos x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n} } } } { {(2n)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
+<li><script type="math/tex; mode=display">
+\frac{ { {e^x} - {e^{ - x} } } }{2} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^{2n + 1 } } } } { {(2n + 1)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
+<li><script type="math/tex; mode=display">
+\sin x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n + 1} } } } { {(2n + 1)!} }{\rm{  ,  } } }  - \infty  < x <  + \infty</script></li>
+<li><script type="math/tex; mode=display">
+\frac{1}{ {1 + x} } = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n}{x^n}{\rm{  ,  } } } -1 < x < 1</script></li>
+<li><script type="math/tex; mode=display">
+\frac{1}{ {1 - x} } = \sum\limits_{n = 0}^\infty  { {x^n}{\rm{  ,  } } }  - 1 < x < 1</script></li>
+<li><script type="math/tex; mode=display">
+{(1 + x)^a} = 1 + ax + \frac{ {a(a - 1)} }{ {2!} }{x^2} +  \cdots  + \frac{ {a(a - 1) \cdots (a - n + 1)} }{ {n!} }{x^n} +  \cdots {\rm{  ,  } }\left\{ \begin{array}{l} x \in ( - 1,1){\rm{  ,  } }a \le  - 1,\\ x \in ( - 1,1]{\rm{  ,  } } - 1 < a < 0,\\ x \in [ - 1,1]{\rm{  ,  } }a > 0.\end{array} \right.</script></li>
+<li><script type="math/tex; mode=display">
+\tan x = x + \frac{1}{3}{x^3} + o({x^3})</script></li>
+<li><script type="math/tex; mode=display">
+\arcsin x = x + \frac{1}{6}{x^3} + o({x^3})</script></li>
+</ol>
+]]></content>
+      <categories>
+        <category>gallery</category>
+      </categories>
+      <tags>
+        <tag>高等数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1371,59 +1410,20 @@
       </tags>
   </entry>
   <entry>
-    <title>高数常用展开式</title>
-    <url>/jjymsworld/2022/11/29/%E9%AB%98%E6%95%B0%E5%B8%B8%E7%94%A8%E5%B1%95%E5%BC%80%E5%BC%8F/</url>
-    <content><![CDATA[<p>无穷级数，数列极限，微分学常用展开式</p>
-<ol>
-<li><script type="math/tex; mode=display">
-\ln (1 + x) = \sum\limits_{n = 1}^\infty  { { {( - 1)}^{n - 1} } \cdot \frac{ { {x^n} } } {n} } {\rm{  } },{\rm{ } } - 1 < x \le 1</script></li>
-<li><script type="math/tex; mode=display">
-\frac{1}{2}\ln (1 + x) = \sum\limits_{n = 1}^\infty  { { {( - 1)}^{n - 1} } \cdot \frac{ { {x^n} } }{2n} } {\rm{  } },{\rm{  } } - 1 < x \le 1</script></li>
-<li><script type="math/tex; mode=display">
-\arctan x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n + 1} } } } { {2n + 1} } } {\rm{  ,  } } - 1 \le x \le 1</script></li>
-<li><script type="math/tex; mode=display">
-{e^x} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^n} } } { {n!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
-<li><script type="math/tex; mode=display">
-\frac{ { {e^x} + {e^{ - x} } } }{2} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^{2n} } } } { {(2n)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
-<li><script type="math/tex; mode=display">
-\cos x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n} } } } { {(2n)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
-<li><script type="math/tex; mode=display">
-\frac{ { {e^x} - {e^{ - x} } } }{2} = \sum\limits_{n = 0}^\infty  {\frac{ { {x^{2n + 1 } } } } { {(2n + 1)!} }{\rm{  ,  } } - \infty  < x <  + \infty }</script></li>
-<li><script type="math/tex; mode=display">
-\sin x = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n} \cdot \frac{ { {x^{2n + 1} } } } { {(2n + 1)!} }{\rm{  ,  } } }  - \infty  < x <  + \infty</script></li>
-<li><script type="math/tex; mode=display">
-\frac{1}{ {1 + x} } = \sum\limits_{n = 0}^\infty  { { {( - 1)}^n}{x^n}{\rm{  ,  } } } -1 < x < 1</script></li>
-<li><script type="math/tex; mode=display">
-\frac{1}{ {1 - x} } = \sum\limits_{n = 0}^\infty  { {x^n}{\rm{  ,  } } }  - 1 < x < 1</script></li>
-<li><script type="math/tex; mode=display">
-{(1 + x)^a} = 1 + ax + \frac{ {a(a - 1)} }{ {2!} }{x^2} +  \cdots  + \frac{ {a(a - 1) \cdots (a - n + 1)} }{ {n!} }{x^n} +  \cdots {\rm{  ,  } }\left\{ \begin{array}{l} x \in ( - 1,1){\rm{  ,  } }a \le  - 1,\\ x \in ( - 1,1]{\rm{  ,  } } - 1 < a < 0,\\ x \in [ - 1,1]{\rm{  ,  } }a > 0.\end{array} \right.</script></li>
-<li><script type="math/tex; mode=display">
-\tan x = x + \frac{1}{3}{x^3} + o({x^3})</script></li>
-<li><script type="math/tex; mode=display">
-\arcsin x = x + \frac{1}{6}{x^3} + o({x^3})</script></li>
-</ol>
+    <title>解决React中修改value不能触发input事件</title>
+    <url>/jjymsworld/2022/07/16/%E8%A7%A3%E5%86%B3React%E4%B8%AD%E4%BF%AE%E6%94%B9value%E4%B8%8D%E8%83%BD%E8%A7%A6%E5%8F%91input%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>解决方法，见如下代码：</p>
+<p>原例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> input = someInput; </span><br><span class="line"><span class="keyword">let</span> lastValue = input.<span class="property">value</span>;</span><br><span class="line">input.<span class="property">value</span> = <span class="string">&#x27;new value&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// hack React15</span></span><br><span class="line">event.<span class="property">simulated</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// hack React16 内部定义了descriptor拦截value，此处重置状态</span></span><br><span class="line"><span class="keyword">let</span> tracker = input.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span> (tracker) &#123;</span><br><span class="line">  tracker.<span class="title function_">setValue</span>(lastValue);</span><br><span class="line">&#125;</span><br><span class="line">input.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
+<p>js操作示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;input.m-addr-input &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">test.<span class="property">value</span> = <span class="string">&quot;蒋毅&quot;</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123;<span class="attr">bubbles</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> tracker = test.<span class="property">_valueTracker</span>;</span><br><span class="line"><span class="keyword">if</span>(tracker)&#123;</span><br><span class="line">    tracker.<span class="title function_">setValue</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">test.<span class="title function_">dispatchEvent</span>(event);</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/facebook/react/issues/11488#issuecomment-347775628">原始资料地址</a></p>
 ]]></content>
       <categories>
         <category>gallery</category>
       </categories>
       <tags>
-        <tag>高等数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>给NvChad配置代码执行功能</title>
-    <url>/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为平时习惯了使用vim进行一些简单代码的编写和一些目录结构比较简单的项目开发，效率也非常高，但是因为要经常在本地和服务器进行切换，懒得进行配置了，之前是整理了一套spacevim的配置流程，每换个设备就配置一下也非常快，但是最近越发觉得spacevim过于臃肿了，很多功能用不到，启动速度也比较慢，甚至快不如vscode了，于是切换到了更加轻量化的NvChad，但是NvChad没有spacevim那样的直接<code>spec l r</code>就直接运行代码的功能，遂打算自己配置一个，这里使用 jaq-nvim[<a href="https://github.com/is0n/jaq-nvim">https://github.com/is0n/jaq-nvim</a>] 来进行对neovim配置代码执行功能。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>首先，NvChad是使用lazyvim进行插件管理的，我们先去进行插件的安装，首先进入到NvChad的插件配置文件里面，这里我是在<code>nvim\lua\custom\plugins.lua</code>中进行配置<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272035330.png" alt=""><br>在这里进行插件的安装。</p>
-<h3 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h3><p>接下来到<code>configs\override.lua</code>中对插件进行配置<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272120646.png" alt=""><br>这里我是直接参考的官方的文档进行配置的，可以去作者的GitHub上进行查看，当然作者没有给c和cpp的执行指令，这里是我自己进行配置的，可以参考，具体的作用是创建<code>build</code>文件夹，然后将编译出的可执行文件放入build文件夹中，避免污染当前目录，然后执行编译出的可执行文件。  </p>
-<h3 id="启用插件"><a href="#启用插件" class="headerlink" title="启用插件"></a>启用插件</h3><p>到<code>nvim\lua\plugins\init.lua</code>中启用插件<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272047201.png" alt="">  </p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>经过上面的配置，已经可以直接进行代码执行，直接执行<code>:Jaq</code>指令即可<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272054241.png" alt=""><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202401272121002.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>gallery</category>
-      </categories>
-      <tags>
-        <tag>neovim</tag>
+        <tag>JavaScript,React</tag>
       </tags>
   </entry>
   <entry>
