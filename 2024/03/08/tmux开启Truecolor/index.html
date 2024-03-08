@@ -14,7 +14,7 @@
 
 
 
-<title>Category: gallery | YiMing</title>
+<title>tmux开启true color | YiMing</title>
 
 
 
@@ -118,116 +118,100 @@
 
       <div class="main">
         <div class="flex-container">
-          <div id="category">
-  <div class="post-gallery">
-    <div class="post-gallery-list">
-        
-            <div class="post-gallery-item">
-                <div class="post-info">
-                    <div class="tag-list">
-                        
-                            
-                                <span class="post-tag">
-                                    <a href="/jjymsworld/tags/Golang/">
-                                        Golang
-                                    </a>
-                                </span>   
-                                       
-                        
-                    </div>
-                    <div class="post-title">
-                        <a href="/jjymsworld/2022/07/16/GoModules%E4%BD%BF%E7%94%A8/"</a>
-                            
-                                GoModules使用
-                            
-                        </a>
-                    </div>
-                    <span class="post-date">
-                        7月 16, 2022
-                    </span>
-                </div>
-                <div class="post-img">
-                  
-                </div>
-            </div>
-            <div class="h-line-secondary"></div>
-        
-            <div class="post-gallery-item">
-                <div class="post-info">
-                    <div class="tag-list">
-                        
-                            
-                                <span class="post-tag">
-                                    <a href="/jjymsworld/tags/Golang/">
-                                        Golang
-                                    </a>
-                                </span>   
-                                       
-                        
-                    </div>
-                    <div class="post-title">
-                        <a href="/jjymsworld/2022/07/16/golang%E7%94%9F%E6%80%81/"</a>
-                            
-                                golang生态
-                            
-                        </a>
-                    </div>
-                    <span class="post-date">
-                        7月 16, 2022
-                    </span>
-                </div>
-                <div class="post-img">
-                  
-                </div>
-            </div>
-            <div class="h-line-secondary"></div>
-        
-            <div class="post-gallery-item">
-                <div class="post-info">
-                    <div class="tag-list">
-                        
-                            
-                                <span class="post-tag">
-                                    <a href="/jjymsworld/tags/C/">
-                                        C++
-                                    </a>
-                                </span>   
-                                       
-                        
-                    </div>
-                    <div class="post-title">
-                        <a href="/jjymsworld/2022/07/16/C-%E4%B8%ADstruct%E4%B8%8Eclass%E7%9A%84%E5%8C%BA%E5%88%AB/"</a>
-                            
-                                C++中struct与class的区别
-                            
-                        </a>
-                    </div>
-                    <span class="post-date">
-                        7月 16, 2022
-                    </span>
-                </div>
-                <div class="post-img">
-                  
-                </div>
-            </div>
-            <div class="h-line-secondary"></div>
-        
-    </div>
-    <div id="paginator">
-        
-    <div class=paginator>
-        <div class="h-line-primary"></div>
-        <nav class="pagination">
-            <a class="page-number" href="/jjymsworld/categories/gallery/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jjymsworld/categories/gallery/page/4/">4</a><span class="page-number current">5</span>
-        </nav>
-    </div>
+          <article id="post">
 
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/tmux/">
+                            tmux
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                tmux开启true color
+            
+            
+        </div>
+        <span class="post-date">
+            3月 8, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
     </div>
 </div>
+    <div class="post-content">
+    <p>在<code>.tmux.conf</code>中添加以下内容  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set -g default-terminal screen-256color</span><br><span class="line">set-option -ga terminal-overrides &quot;,*256col*:Tc&quot; # 这句是关键|</span><br></pre></td></tr></table></figure>
+<p>然后关闭所有tmux会话，关闭重新开启tmux即可。</p>
 
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
 </div>
 
+    
+      <div class="post-comment">
 
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/03/08/tmux%E5%BC%80%E5%90%AFTruecolor/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/03/08/tmux开启Truecolor/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
         </div>
       </div>
       
