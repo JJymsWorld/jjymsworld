@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>neovim(NvChad主题)配置sniprun | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/neovim/">
+                            neovim
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/nvchad/">
+                            nvchad
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                neovim(NvChad主题)配置sniprun
+            
+            
+        </div>
+        <span class="post-date">
+            3月 13, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>此插件不支持windows，配置过程在ubuntu进行，windows目前使用Jaq进行代码执行</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>lazyvim<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">lvim.plugins = &#123; <span class="comment">-- only for lunarvim</span></span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;michaelb/sniprun&quot;</span>,</span><br><span class="line">    branch = <span class="string">&quot;master&quot;</span>,</span><br><span class="line"></span><br><span class="line">    build = <span class="string">&quot;sh install.sh&quot;</span>,</span><br><span class="line">    <span class="comment">-- do &#x27;sh install.sh 1&#x27; if you want to force compile locally</span></span><br><span class="line">    <span class="comment">-- (instead of fetching a binary from the github release). Requires Rust &gt;= 1.65</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">config</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      <span class="built_in">require</span>(<span class="string">&quot;sniprun&quot;</span>).setup(&#123;</span><br><span class="line">      <span class="comment">-- your options</span></span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#125; <span class="comment">-- only for lunar vim</span></span><br></pre></td></tr></table></figure>
+这样安装之后<code>:SnipInfo</code>命令报错，原因是sniprun二进制可执行文件未下载成功，解决方法是我们手动去<a target="_blank" rel="noopener" href="https://github.com/michaelb/sniprun/releases">Releases · michaelb&#x2F;sniprun (github.com)</a>下载sniprun之后放到<code>~/.local/share/nvim/lazy/sniprun/target/release</code>目录下，并且修改权限<code>sudo chmod a+x ./sniprun</code>，然后在测试<code>:SnipInfo</code>即可正常显示</li>
+</ul>
+<h2 id="快捷键映射"><a href="#快捷键映射" class="headerlink" title="快捷键映射"></a>快捷键映射</h2><p>这里有两个地方可以进行按键映射，一个是在Lazyvim配置插件部分可直接进行配置，如下例所示</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Example for neo-tree.nvim</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;nvim-neo-tree/neo-tree.nvim&quot;</span>,</span><br><span class="line">    keys = &#123;</span><br><span class="line">      &#123; <span class="string">&quot;&lt;leader&gt;ft&quot;</span>, <span class="string">&quot;&lt;cmd&gt;Neotree toggle&lt;cr&gt;&quot;</span>, desc = <span class="string">&quot;NeoTree&quot;</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">config</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      <span class="built_in">require</span>(<span class="string">&quot;neo-tree&quot;</span>).setup()</span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结合SnipRun官方给的示例进行配置即可</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;v&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;&lt;Plug&gt;SnipRun&#x27;</span>, &#123;silent = <span class="literal">true</span>&#125;)</span><br><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;f&#x27;</span>, <span class="string">&#x27;&lt;Plug&gt;SnipRunOperator&#x27;</span>, &#123;silent = <span class="literal">true</span>&#125;)</span><br><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;ff&#x27;</span>, <span class="string">&#x27;&lt;Plug&gt;SnipRun&#x27;</span>, &#123;silent = <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>另一种方法是在Nvchad的<code>mappings.lua</code>文件中进行配置，在文件最后追加下面内容(这里是我的配置，可根据需要调整)</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">map(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;leader&gt;lr&quot;</span>, <span class="string">&quot;&lt;Plug&gt;SnipRun&quot;</span>, &#123; desc=<span class="string">&quot;SnipRun&quot;</span>, silent=<span class="literal">true</span> &#125;)</span><br><span class="line">map(<span class="string">&quot;v&quot;</span>, <span class="string">&quot;f&quot;</span>, <span class="string">&quot;&lt;Plug&gt;SnipRun&quot;</span>, &#123; desc=<span class="string">&quot;SnipRun(visual mode)&quot;</span>, silent=<span class="literal">true</span> &#125;)</span><br><span class="line">map(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;leader&gt;ln&quot;</span>, <span class="string">&quot;&lt;Plug&gt;SnipRunOperator&quot;</span>, &#123; desc=<span class="string">&quot;SnipRun(normal mode)&quot;</span>, silent=<span class="literal">true</span> &#125;)</span><br><span class="line">map(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;leader&gt;lc&quot;</span>, <span class="string">&quot;&lt;Plug&gt;SnipReplMemoryClean&quot;</span>, &#123; desc=<span class="string">&quot;SnipReplMemoryClean&quot;</span>, silent=<span class="literal">true</span> &#125;)</span><br><span class="line">map(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;leader&gt;lx&quot;</span>, <span class="string">&quot;&lt;Plug&gt;SnipClose&quot;</span>, &#123; desc=<span class="string">&quot;SnipClose&quot;</span>, silent=<span class="literal">true</span> &#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><p>官方Wiki：<a target="_blank" rel="noopener" href="https://michaelb.github.io/sniprun/sources/README.html">Introduction — Welcome to sniprun documentation (michaelb.github.io)</a><br>最后附上sniprun的一些配置</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">lua &lt;&lt; EOF</span><br><span class="line"><span class="built_in">require</span><span class="string">&#x27;sniprun&#x27;</span>.setup(&#123;</span><br><span class="line">  selected_interpreters = &#123;&#125;,     <span class="comment">--# use those instead of the default for the current filetype</span></span><br><span class="line">  repl_enable = &#123;&#125;,               <span class="comment">--# enable REPL-like behavior for the given interpreters</span></span><br><span class="line">  repl_disable = &#123;&#125;,              <span class="comment">--# disable REPL-like behavior for the given interpreters</span></span><br><span class="line"></span><br><span class="line">  interpreter_options = &#123;         <span class="comment">--# interpreter-specific options, see doc / :SnipInfo &lt;name&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--# use the interpreter name as key</span></span><br><span class="line">    GFM_original = &#123;</span><br><span class="line">      use_on_filetypes = &#123;<span class="string">&quot;markdown.pandoc&quot;</span>&#125;    <span class="comment">--# the &#x27;use_on_filetypes&#x27; configuration key is</span></span><br><span class="line">                                                <span class="comment">--# available for every interpreter</span></span><br><span class="line">    &#125;,</span><br><span class="line">    Python3_original = &#123;</span><br><span class="line">        error_truncate = <span class="string">&quot;auto&quot;</span>         <span class="comment">--# Truncate runtime errors &#x27;long&#x27;, &#x27;short&#x27; or &#x27;auto&#x27;</span></span><br><span class="line">                                        <span class="comment">--# the hint is available for every interpreter</span></span><br><span class="line">                                        <span class="comment">--# but may not be always respected</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,      </span><br><span class="line"></span><br><span class="line">  <span class="comment">--# you can combo different display modes as desired and with the &#x27;Ok&#x27; or &#x27;Err&#x27; suffix</span></span><br><span class="line">  <span class="comment">--# to filter only sucessful runs (or errored-out runs respectively)</span></span><br><span class="line">  display = &#123;</span><br><span class="line">    <span class="string">&quot;Classic&quot;</span>,                    <span class="comment">--# display results in the command-line  area</span></span><br><span class="line">    <span class="string">&quot;VirtualTextOk&quot;</span>,              <span class="comment">--# display ok results as virtual text (multiline is shortened)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- &quot;VirtualText&quot;,             --# display results as virtual text</span></span><br><span class="line">    <span class="comment">-- &quot;TempFloatingWindow&quot;,      --# display results in a floating window</span></span><br><span class="line">    <span class="comment">-- &quot;LongTempFloatingWindow&quot;,  --# same as above, but only long results. To use with VirtualText[Ok/Err]</span></span><br><span class="line">    <span class="comment">-- &quot;Terminal&quot;,                --# display results in a vertical split</span></span><br><span class="line">    <span class="comment">-- &quot;TerminalWithCode&quot;,        --# display results and code history in a vertical split</span></span><br><span class="line">    <span class="comment">-- &quot;NvimNotify&quot;,              --# display with the nvim-notify plugin</span></span><br><span class="line">    <span class="comment">-- &quot;Api&quot;                      --# return output to a programming interface</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  live_display = &#123; <span class="string">&quot;VirtualTextOk&quot;</span> &#125;, <span class="comment">--# display mode used in live_mode</span></span><br><span class="line"></span><br><span class="line">  display_options = &#123;</span><br><span class="line">    terminal_scrollback = vim.o.scrollback, <span class="comment">--# change terminal display scrollback lines</span></span><br><span class="line">    terminal_line_number = <span class="literal">false</span>, <span class="comment">--# whether show line number in terminal window</span></span><br><span class="line">    terminal_signcolumn = <span class="literal">false</span>,  <span class="comment">--# whether show signcolumn in terminal window</span></span><br><span class="line">    terminal_position = <span class="string">&quot;vertical&quot;</span>, <span class="comment">--# or &quot;horizontal&quot;, to open as horizontal split instead of vertical split</span></span><br><span class="line">    terminal_width = <span class="number">45</span>,          <span class="comment">--# change the terminal display option width (if vertical)</span></span><br><span class="line">    terminal_height = <span class="number">20</span>,         <span class="comment">--# change the terminal display option height (if horizontal)</span></span><br><span class="line">    notification_timeout = <span class="number">5</span>      <span class="comment">--# timeout for nvim_notify output</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">--# You can use the same keys to customize whether a sniprun producing</span></span><br><span class="line">  <span class="comment">--# no output should display nothing or &#x27;(no output)&#x27;</span></span><br><span class="line">  show_no_output = &#123;</span><br><span class="line">    <span class="string">&quot;Classic&quot;</span>,</span><br><span class="line">    <span class="string">&quot;TempFloatingWindow&quot;</span>,      <span class="comment">--# implies LongTempFloatingWindow, which has no effect on its own</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">--# customize highlight groups (setting this overrides colorscheme)</span></span><br><span class="line">  snipruncolors = &#123;</span><br><span class="line">    SniprunVirtualTextOk   =  &#123;bg=<span class="string">&quot;#66eeff&quot;</span>,fg=<span class="string">&quot;#000000&quot;</span>,ctermbg=<span class="string">&quot;Cyan&quot;</span>,cterfg=<span class="string">&quot;Black&quot;</span>&#125;,</span><br><span class="line">    SniprunFloatingWinOk   =  &#123;fg=<span class="string">&quot;#66eeff&quot;</span>,ctermfg=<span class="string">&quot;Cyan&quot;</span>&#125;,</span><br><span class="line">    SniprunVirtualTextErr  =  &#123;bg=<span class="string">&quot;#881515&quot;</span>,fg=<span class="string">&quot;#000000&quot;</span>,ctermbg=<span class="string">&quot;DarkRed&quot;</span>,cterfg=<span class="string">&quot;Black&quot;</span>&#125;,</span><br><span class="line">    SniprunFloatingWinErr  =  &#123;fg=<span class="string">&quot;#881515&quot;</span>,ctermfg=<span class="string">&quot;DarkRed&quot;</span>&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  live_mode_toggle=<span class="string">&#x27;off&#x27;</span>      <span class="comment">--# live mode toggle, see Usage - Running for more info   </span></span><br><span class="line"></span><br><span class="line">  <span class="comment">--# miscellaneous compatibility/adjustement settings</span></span><br><span class="line">  inline_messages = <span class="literal">false</span>,    <span class="comment">--# boolean toggle for a one-line way to display messages</span></span><br><span class="line">                              <span class="comment">--# to workaround sniprun not being able to display anything</span></span><br><span class="line"></span><br><span class="line">  borders = <span class="string">&#x27;single&#x27;</span>,         <span class="comment">--# display borders around floating windows</span></span><br><span class="line">                              <span class="comment">--# possible values are &#x27;none&#x27;, &#x27;single&#x27;, &#x27;double&#x27;, or &#x27;shadow&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/03/12/%E6%96%B0%E7%89%88NvChad%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97(Jaq%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%92%8C%E5%B9%B3%E6%BB%91%E6%BB%9A%E5%8A%A8%E6%8F%92%E4%BB%B6)/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/03/13/neovim(NvChad%E4%B8%BB%E9%A2%98)%E9%85%8D%E7%BD%AEsniprun/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/03/13/neovim(NvChad主题)配置sniprun/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
