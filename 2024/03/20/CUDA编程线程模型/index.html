@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>CUDA编程线程模型 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/CUDA/">
+                            CUDA
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                CUDA编程线程模型
+            
+            
+        </div>
+        <span class="post-date">
+            3月 20, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/202403202054483.png"></p>
+<ul>
+<li>grid：每一个核函数对应一个grid</li>
+<li>block：每一个grid内部包含若干block</li>
+<li>Thread：每一个block内部又包含若干Thread<br>（线程分块是逻辑上的划分，物理上线程不分块）</li>
+</ul>
+<p>调用核函数时<code>&lt;&lt;&lt;grid_size, block_size&gt;&gt;&gt;</code>是对对线程块的配置（线程数量可以高于GPU上Core的数量）</p>
+<p>block中最多允许1024个线程，grid中最多允许 $2^{31}-1$ 个block块</p>
+<h2 id="一维线程模型"><a href="#一维线程模型" class="headerlink" title="一维线程模型"></a>一维线程模型</h2><ol>
+<li>每个线程在核函数中都有一个唯一的身份标识</li>
+<li>每个线程的唯一标识由<code>&lt;&lt;&lt;grid_size, block_size&gt;&gt;&gt;</code>确定，<code>grid_size, block_size</code>保存在内建变量(build-in variable)中。<ol>
+<li><code>gridDim.x</code>：该变量的数值等于执行配置中变量<code>grid_size</code>的值</li>
+<li><code>blockDim.x</code>：该变量的数值等于执行配置中变量<code>block_size</code>的值</li>
+</ol>
+</li>
+<li>线程索引保存成内建变量：<ol>
+<li>blockIdx.x：该变量指定一个线程在一个王哥中的线程快索引值，范围为<code>0~gridDim.x-1</code></li>
+<li>threadIdx.x：该变量指定一个线程在一个线程快中的线程索引值，范围为<code>0~blockDim.x-1</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="推广到多维线程"><a href="#推广到多维线程" class="headerlink" title="推广到多维线程"></a>推广到多维线程</h2><ul>
+<li>CUDA可以组织三维的grid和block</li>
+<li>blockIdx和threadIdx是类型为uint3的变量，该类型是一个结构体，具有x,y,z三个成员（3个成员都为无符号类型的成员构成）：<ul>
+<li>$\begin{cases}blockIdx.x\blockIdx.y\blockIdx.z\end{cases}$</li>
+<li>$\begin{cases}threadIdx.x\threadIdx.y\threadIdx.z\end{cases}$</li>
+</ul>
+</li>
+<li>gridDim和blockDim是类型为dim3的变量，该类型是一个结构体，具有x,y,z三个成员<ul>
+<li>$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$</li>
+<li>$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$</li>
+</ul>
+</li>
+<li>取值范围<ul>
+<li>blockIdx.x范围：[0, gridDim.x-1]</li>
+<li>blockIdx.y范围：[0, gridDim.y-1]</li>
+<li>blockIdx.z范围：[0, gridDim.z-1]</li>
+<li>threadIdx.x范围：[0, threadIdx.x-1]</li>
+<li>threadIdx.y范围：[0, threadIdx.y-1]</li>
+<li>threadIdx.z范围：[0, threadIdx.z-1]<br>(内建变量仅在核函数内有效，且无需定义)</li>
+</ul>
+</li>
+</ul>
+<p>gridDim和blockDim没有指定的维度默认为1，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello&lt;&lt;&lt;2, 4&gt;&gt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>这里：<br>$\begin{cases}blockDim.x &#x3D; grid_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$</p>
+<p>$\begin{cases}blockDim.x &#x3D; block_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$</p>
+<p>定义多维网格和线程块(C++构造函数语法)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dim3 <span class="title">grid_size</span><span class="params">(Gx, Gy, Gz)</span></span>;</span><br><span class="line"><span class="function">dim3 <span class="title">block_size</span><span class="params">(Bx, By, Bz)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如</span></span><br><span class="line"><span class="function">dim3 <span class="title">grid_size</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"><span class="comment">//等价于dim3 grid_size(2, 2, 1)</span></span></span><br><span class="line"><span class="function">dim3 <span class="title">block_size</span><span class="params">(<span class="number">5</span>, <span class="number">3</span>)</span></span></span><br><span class="line"><span class="function"><span class="comment">//等价于dim3 block_size(5, 3, 1)</span></span></span><br></pre></td></tr></table></figure>
+
+<pre><code>注意：索引块的排序与平常的矩阵排序略有不同，按照图一所示的方式进行排序
+
+注意：多维网格和多维线程块本质是一维的，GPU物理上不分块
+</code></pre>
+<p>对于二维线程模型，如图一所示，每个线程的唯一标识计算如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> tid = threadIdx.y * blockDim.x + threadIdx.x;</span><br><span class="line"><span class="type">int</span> bid = blockIdx.y * gridDim.x + blockIdx.x;</span><br></pre></td></tr></table></figure>
+<p>多维线程块中的线程索引与多维网格中的线程块索引：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> tid = threadIdx.z * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> bid = blockIdx.z * gridDim.x * gridDim.y + blockIdx.y * gridDim.x + blockIdx.x;</span><br></pre></td></tr></table></figure>
+<h3 id="网格和线程块的限制条件"><a href="#网格和线程块的限制条件" class="headerlink" title="网格和线程块的限制条件"></a>网格和线程块的限制条件</h3><ul>
+<li>网格大小限制<ul>
+<li>gridDim.x最大值———$2^{31}-1$</li>
+<li>gridDim.y最大值———$2^{16}-1$</li>
+<li>gridDim.z最大值———$2^{16}-1$</li>
+</ul>
+</li>
+<li>线程块大小限制<ul>
+<li>blockDim.x最大值———1024</li>
+<li>blockDim.y最大值———1024</li>
+<li>blockDim.z最大值———64<br>（注意：线程快总的大小最大为1024！）</li>
+</ul>
+</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/03/17/x11forwarding%E5%B0%86%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8GUI%E6%98%BE%E7%A4%BA%E5%88%B0%E6%9C%AC%E5%9C%B0/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/03/20/CUDA%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/03/20/CUDA编程线程模型/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
