@@ -176,13 +176,13 @@
 <h2 id="推广到多维线程"><a href="#推广到多维线程" class="headerlink" title="推广到多维线程"></a>推广到多维线程</h2><ul>
 <li>CUDA可以组织三维的grid和block</li>
 <li>blockIdx和threadIdx是类型为uint3的变量，该类型是一个结构体，具有x,y,z三个成员（3个成员都为无符号类型的成员构成）：<ul>
-<li>$\begin{cases}blockIdx.x\blockIdx.y\blockIdx.z\end{cases}$</li>
-<li>$\begin{cases}threadIdx.x\threadIdx.y\threadIdx.z\end{cases}$</li>
+<li>$$\begin{cases}blockIdx.x\blockIdx.y\blockIdx.z\end{cases}$$</li>
+<li>$$\begin{cases}threadIdx.x\threadIdx.y\threadIdx.z\end{cases}$$</li>
 </ul>
 </li>
 <li>gridDim和blockDim是类型为dim3的变量，该类型是一个结构体，具有x,y,z三个成员<ul>
-<li>$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$</li>
-<li>$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$</li>
+<li>$$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$$</li>
+<li>$$\begin{cases}blockDim.x\blockDim.y\blockDim.z\end{cases}$$</li>
 </ul>
 </li>
 <li>取值范围<ul>
@@ -197,8 +197,8 @@
 </ul>
 <p>gridDim和blockDim没有指定的维度默认为1，例如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello&lt;&lt;&lt;2, 4&gt;&gt;&gt;();</span><br></pre></td></tr></table></figure>
-<p>这里：<br>$\begin{cases}blockDim.x &#x3D; grid_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$</p>
-<p>$\begin{cases}blockDim.x &#x3D; block_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$</p>
+<p>这里：<br>$$\begin{cases}blockDim.x &#x3D; grid_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$$</p>
+<p>$$\begin{cases}blockDim.x &#x3D; block_size\blockDim.y &#x3D; 1\blockDim.z &#x3D; 1\end{cases}$$</p>
 <p>定义多维网格和线程块(C++构造函数语法)：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dim3 <span class="title">grid_size</span><span class="params">(Gx, Gy, Gz)</span></span>;</span><br><span class="line"><span class="function">dim3 <span class="title">block_size</span><span class="params">(Bx, By, Bz)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如</span></span><br><span class="line"><span class="function">dim3 <span class="title">grid_size</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"><span class="comment">//等价于dim3 grid_size(2, 2, 1)</span></span></span><br><span class="line"><span class="function">dim3 <span class="title">block_size</span><span class="params">(<span class="number">5</span>, <span class="number">3</span>)</span></span></span><br><span class="line"><span class="function"><span class="comment">//等价于dim3 block_size(5, 3, 1)</span></span></span><br></pre></td></tr></table></figure>
 
@@ -212,9 +212,9 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> tid = threadIdx.z * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> bid = blockIdx.z * gridDim.x * gridDim.y + blockIdx.y * gridDim.x + blockIdx.x;</span><br></pre></td></tr></table></figure>
 <h3 id="网格和线程块的限制条件"><a href="#网格和线程块的限制条件" class="headerlink" title="网格和线程块的限制条件"></a>网格和线程块的限制条件</h3><ul>
 <li>网格大小限制<ul>
-<li>gridDim.x最大值———$2^{31}-1$</li>
-<li>gridDim.y最大值———$2^{16}-1$</li>
-<li>gridDim.z最大值———$2^{16}-1$</li>
+<li>gridDim.x最大值——— $$2^{31}-1$$</li>
+<li>gridDim.y最大值——— $$2^{16}-1$$</li>
+<li>gridDim.z最大值——— $$2^{16}-1$$</li>
 </ul>
 </li>
 <li>线程块大小限制<ul>
