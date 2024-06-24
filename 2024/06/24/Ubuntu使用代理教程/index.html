@@ -14,7 +14,7 @@
 
 
 
-<title>单显示器多主机快捷键切换信号源（双windows系统） | YiMing</title>
+<title>Ubuntu使用代理教程 | YiMing</title>
 
 
 
@@ -127,14 +127,8 @@
             
                 
                     <span class="post-tag">
-                        <a href="/jjymsworld/tags/windows/">
-                            windows
-                        </a>
-                    </span>    
-                
-                    <span class="post-tag">
-                        <a href="/jjymsworld/tags/%E6%98%BE%E7%A4%BA%E5%99%A8%E5%BF%AB%E6%8D%B7%E5%88%87%E6%8D%A2%E4%BF%A1%E5%8F%B7%E6%BA%90/">
-                            显示器快捷切换信号源
+                        <a href="/jjymsworld/tags/Ubuntu/">
+                            Ubuntu
                         </a>
                     </span>    
                            
@@ -143,12 +137,12 @@
         <div class="post-title">
             
             
-                单显示器多主机快捷键切换信号源（双windows系统）
+                Ubuntu使用代理教程
             
             
         </div>
         <span class="post-date">
-            6月 22, 2024
+            6月 24, 2024
         </span>
     </div>
     <div class="post-img">
@@ -158,9 +152,25 @@
     </div>
 </div>
     <div class="post-content">
-    <p>首先下载两个软件，分别是<a href="https://sspai.com/link?target=http://www.nirsoft.net/utils/control_my_monitor.html">Controlmymonitor</a>和<a href="https://sspai.com/link?target=http://www.directedge.us/content/winhotkey">WinHotKey</a><br>下载完成后，打开Controlmymonitor<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240622143900.png"><br>进去找到Input Select，这个就是输入信号源，确定其对应的VCP Code，等会设置指令时要使用，然后看后面的Current Value对应的值为16，我目前使用的显示器有两个hdmi，两个DP接口，当前截图使用的这个信号源为DP2接口，对应的值为16，另一个主机使用的DP1接口，我想实现两个信号源之间的快速切换，那么现确定另一个DP1接口对应的值是多少，这里可以使用命令来进行测试。</p>
-<p>首先在当前文件夹下打开cmd窗口<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240622144216.png"><br>使用这条命令来进行尝试切换信号源，如果切换到你想要切换的那个信号源，说明值就对应上了，命令中60代表Input Select的VCP Code，16代表信号源对应的值。这里我确定好DP1对应的值为15，那么我就在WinHotKey中去设置一个快捷键，来快速执行这条命令。</p>
-<p>首先安装好WinHotKey，默认是会设置开机自动启动的，这个最好不要改了，开机自动启动也方便使用。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240622144454.png"><br>打开之后，点击New HotKey<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240622144655.png"><br>点击Advanced<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240622144744.png"><br>然后就大功告成，这个时候使用快捷键就可以进行切换信号源了，当然你有两台主机设备，两台主机设备的都要配置一遍，才能都可以使用快捷键进行切换。</p>
+    <p>首先，根据我的方法，Ubuntu命令行使用代理需要使用到<code>proxychains</code>这个软件，目前在我们能使用的服务器上应该都已经安装过了，如果没有安装的可以找我。配置文件也应该都已经配置好了，如果想自己操作的自行百度。</p>
+<p>接着你需要一个你正在使用的clash for windows，这里面如果你正在使用的话，应该已经有购买好的梯子了，这里我们需要获取配置文件，两个方法，第一个方法是根据订阅链接直接下载下来，记住也要下载clash能使用的，不多介绍了。另一个方法就是打开你windows下的clash for windows，点击Profiles，右键点击你的配置文件，点击Show in folder，这时候会在资源管理器中看到你的配置文件。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624214008.png"></p>
+<p>如果有多个配置文件的话确定好你要用的那个配置文件是哪个，然后复制一个出来到桌面或者任何你能找到的地方。使用任何文本编辑软件打开配置问文件，将这些包含port的都删掉，然后添加一个<code>mixed-port</code>，参考下图：<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624214415.png"></p>
+<p>然后你需要linux上面的clash可执行文件，下载链接<a target="_blank" rel="noopener" href="https://github.com/Kuingsmile/clash-core/releases/download/1.18/clash-linux-amd64-v1.18.0.gz%EF%BC%8C%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E8%87%AA%E8%A1%8C%E8%A7%A3%E5%8E%8B%E5%87%BA%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%9C%A8%E4%BB%BB%E4%BD%95%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%8C%E4%B8%80%E8%88%AC%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%E4%BD%BF%E7%94%A8%E6%94%BE%E5%9C%A8%E4%BD%A0%E7%9A%84%E7%94%A8%E6%88%B7%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%8D%B3%E5%8F%AF%E3%80%82">https://github.com/Kuingsmile/clash-core/releases/download/1.18/clash-linux-amd64-v1.18.0.gz，下载下来自行解压出可执行文件，这个可执行文件可以放在任何目录下，一般为了方便使用放在你的用户目录下即可。</a><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624220133.png"></p>
+<p>然后在包含可执行文件的这个目录下面执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+x ./clash-linux-amd64</span><br></pre></td></tr></table></figure>
+<p>执行完毕后，可以使用命令来运行可执行文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./clash-linux-amd64</span><br></pre></td></tr></table></figure>
+<p>但是这里还没有配置文件，所以不可用，可以先执行一次，让程序自动创建配置文件目录，方便后续拷贝配置文件到指定的目录，关闭代理程序的方法是直接Ctrl+C强行关闭。</p>
+<blockquote>
+<p>注意：一台机器上一个端口只能启动一个代理，也就是说7890这个端口如果你开了，那么别人的代理就启动不了了。</p>
+</blockquote>
+<p>这里启动的时候通常可能会报错（如果没抱错那就没问题），缺少<code>Country.mmdb</code>这个文件，解决方法是，下载这个文件放到配置文件目录下，下载链接：blob:<a target="_blank" rel="noopener" href="https://github.com/92f61ae2-a293-4e5b-8477-1dff842805fd">https://github.com/92f61ae2-a293-4e5b-8477-1dff842805fd</a> ，或者链接失效的话直接百度这个错误，有很多下载链接，下载好之后拷贝这个文件到配置文件目录下，参考下面的命令：<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624220720.png"></p>
+<p>最后使用<code>scp</code>命令将之前修改过的配置文件复制到远程服务器的<code>/home/你的用户的名字/.config/clash/config.yaml</code>,命令参考下图：<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624214710.png"></p>
+<blockquote>
+<p>注意：如果你的文件目录下面没有配置文件的文件夹，需要首先创建这个文件夹</p>
+</blockquote>
+<p>再去启动clash的可执行文件即可开启代理。</p>
+<p>这里建议使用tmux开启一个新的窗口来启动代理，然后使用另一个窗口去使用代理，代理的具体使用方法是，开启代理之后，在你可能需要使用代理的命令前加上<code>proxychains</code>命令即可使用，可以使用<code>proxychains curl www.google.com</code>来测试是否成功启动代理，如果成功会返回很多东西，参考下图：<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240624221011.png"></p>
 
 </div> 
 
@@ -172,17 +182,12 @@
     <nav class="post-nav">
         <div class="prev-item">
            
-                <div class="icon arrow-left"></div>
-                <div class="post-link">
-                    <a href="/jjymsworld/2024/06/24/Ubuntu%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%95%99%E7%A8%8B/">Prev</a>
-                </div>
-            
         </div>
         <div class="next-item">
             
                 <div class="icon arrow-right"></div>
                 <div class="post-link">
-                  <a href="/jjymsworld/2024/01/27/%E7%BB%99NvChad%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD/">Next</a>  
+                  <a href="/jjymsworld/2024/06/22/%E5%8D%95%E6%98%BE%E7%A4%BA%E5%99%A8%E5%A4%9A%E4%B8%BB%E6%9C%BA%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%88%87%E6%8D%A2%E4%BF%A1%E5%8F%B7%E6%BA%90%EF%BC%88%E5%8F%8Cwindows%E7%B3%BB%E7%BB%9F%EF%BC%89/">Next</a>  
                 </div>  
             
         </div>
@@ -202,8 +207,8 @@
             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
             
             var disqus_config = function () {
-                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/06/22/%E5%8D%95%E6%98%BE%E7%A4%BA%E5%99%A8%E5%A4%9A%E4%B8%BB%E6%9C%BA%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%88%87%E6%8D%A2%E4%BF%A1%E5%8F%B7%E6%BA%90%EF%BC%88%E5%8F%8Cwindows%E7%B3%BB%E7%BB%9F%EF%BC%89/';  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = '2024/06/22/单显示器多主机快捷键切换信号源（双windows系统）/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/06/24/Ubuntu%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%95%99%E7%A8%8B/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/06/24/Ubuntu使用代理教程/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                 this.language = 'en'
             };
             
