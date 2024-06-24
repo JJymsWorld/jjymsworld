@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>Ubuntu解决nvidia-smi与nvcc --version版本不一致问题 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/Ubuntu/">
+                            Ubuntu
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Ubuntu解决nvidia-smi与nvcc --version版本不一致问题
+            
+            
+        </div>
+        <span class="post-date">
+            6月 24, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>最简单的方法，再装一个CUDA Toolkit，让两者一致即可，此方法同样可实现多个CUDA版本共存，并且指定你自己想要使用的CUDA版本  </p>
+<ol>
+<li>NVIDIA官方下载CUDA-Toolkit，<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA-Toolkit</a>,找到你要下载的版本<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20240624223413.png"></li>
+<li>根据上图中最下面的指令，进行安装CUDA-Toolkit，但是千万注意不要勾选安装器驱动的选项，只安装CUDA-Toolkit即可（<strong>否则后果自负！！！</strong>）<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20240624223715.png"></li>
+<li>安装好之后在<code>/usr/local</code>目录下应该能看到已经安装好的文件夹，参考下图<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20240624223835.png"></li>
+<li>接着回到我们自己的用户目录，修改<code>.bashrc</code>文件来指定我们要使用的CUDA版本，使用vim或者vscode来编辑<code>.bashrc</code>文件，在文件内容的最下面添加两行代码：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/local/cuda-12.1/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:<span class="variable">$LD_LIBRARY_PATH</span></span><br></pre></td></tr></table></figure></li>
+<li>然后命令行使用<code>nvcc --version</code>来判断是否修改环境变量成功<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/20240624224420.png"></li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/06/24/Ubuntu%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E6%95%99%E7%A8%8B/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/06/24/Ubuntu%E8%A7%A3%E5%86%B3nvidia-smi%E4%B8%8Envcc-version%E7%89%88%E6%9C%AC%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/06/24/Ubuntu解决nvidia-smi与nvcc-version版本不一致问题/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
