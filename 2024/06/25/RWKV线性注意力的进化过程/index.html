@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>RWKV线性注意力的进化过程 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/RWKV/">
+                            RWKV
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                RWKV线性注意力的进化过程
+            
+            
+        </div>
+        <span class="post-date">
+            6月 25, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240625110624.png"><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240625110634.png"><br>图中上部分是标准的Attention，下部分是AFT Attention  </p>
+<h3 id="Transformer-Attention向量版："><a href="#Transformer-Attention向量版：" class="headerlink" title="Transformer Attention向量版："></a>Transformer Attention向量版：</h3><p>$$\mathrm{Attn}(Q,K,V)<em>t&#x3D;\frac{\sum</em>{i&#x3D;1}^Te^{q_t^\top k_i}v_i}{\sum_{i&#x3D;1}^Te^{q_t^\top k_i}}.$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># equation 8: self-attention as vector operations</span></span><br><span class="line">O = torch.zeros(T, D)</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(T):</span><br><span class="line">    Z = <span class="number">0</span></span><br><span class="line">    ot = torch.zeros(D)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(T):</span><br><span class="line">        att = (Q[t] @ K[i]).exp()</span><br><span class="line">        ot += att * V[i]</span><br><span class="line">        Z += att</span><br><span class="line">    ot /= Z</span><br><span class="line">    O[t] = ot</span><br><span class="line"><span class="built_in">print</span>(O)</span><br></pre></td></tr></table></figure>
+
+<p>代码中，O是注意力矩阵，对每个token，初始化注意力向量，然后从第一个token往后遍历，计算当前token与第i个token的注意力分数，最后乘以V[i]，再进行归一化处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># standart self-attention 矩阵版</span></span><br><span class="line">attn = torch.softmax(Q @ K.t(), dim=-<span class="number">1</span>)</span><br><span class="line">O_sa = attn @ V</span><br><span class="line"><span class="built_in">print</span>(O_sa)</span><br><span class="line"><span class="keyword">assert</span> torch.allclose(O, O_sa)</span><br></pre></td></tr></table></figure>
+
+<h3 id="AFT的线性Attention："><a href="#AFT的线性Attention：" class="headerlink" title="AFT的线性Attention："></a>AFT的线性Attention：</h3><p>$$\mathrm{Attn}^+(W,K,V)<em>t&#x3D;\frac{\sum</em>{i&#x3D;1}^te^{w_{t,i}+k_i}v_i}{\sum_{i&#x3D;1}^te^{w_{t,i}+k_i}}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># attention free transformer</span></span><br><span class="line">O_aft = torch.zeros(T, D)</span><br><span class="line"><span class="comment"># pair-wise position bias</span></span><br><span class="line"></span><br><span class="line">W = torch.randn(T, T) <span class="comment">## 这里相当于是创建了一个token和token之间的偏置矩阵，模型就是要学习这个固定的静态的偏置</span></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(T):</span><br><span class="line">    Z_aft = <span class="number">0</span></span><br><span class="line">    o_aft = torch.zeros(D)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(t+<span class="number">1</span>):</span><br><span class="line">        att_aft = (W[t, i] + K[i]).exp()</span><br><span class="line">        o_aft += att_aft * V[i]</span><br><span class="line">        Z_aft += att_aft</span><br><span class="line">    O_aft[t] = o_aft / Z_aft</span><br><span class="line"><span class="built_in">print</span>(O_aft)</span><br></pre></td></tr></table></figure>
+
+<p>线性attention，就是取消了Q，将其替换为了w，即token与token之间的偏置值，是模型要学习的部分。</p>
+<h3 id="RWKV的线性Attention："><a href="#RWKV的线性Attention：" class="headerlink" title="RWKV的线性Attention："></a>RWKV的线性Attention：</h3><p>$$wkv_t&#x3D;\frac{\sum_{i&#x3D;1}^{t-1}e^{-(t-1-i)w+k_i}v_i+e^{u+k_i}\odot v_t}{\sum_{i&#x3D;1}^{t-1}e^{-(t-1-i)w+k_i}+e^{u+k_i}}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set W and U first</span></span><br><span class="line">W_rwkv = torch.randn(D)</span><br><span class="line">U_rwkv = torch.randn(D)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rwkv attention</span></span><br><span class="line"><span class="comment"># 随时间u, 0, -w, -2w这样衰减</span></span><br><span class="line"><span class="comment"># exp(u+k)v + exp(k)v + exp(-w+k)v + exp(-2w+k)v</span></span><br><span class="line">O_rwkv = torch.zeros(T, D)</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(T):</span><br><span class="line">    Z_rwkv = <span class="number">0</span></span><br><span class="line">    O_rwkv_t = torch.zeros(D)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(t):</span><br><span class="line">        att_rwkv = (-(t-(i+<span class="number">1</span>)) * W_rwkv + K[i]).exp()</span><br><span class="line">        O_rwkv += att_rwkv * V[i]</span><br><span class="line">        Z_rwkv += att_rwkv</span><br><span class="line">    att_rwkv = (U_rwkv + K[t]).exp()</span><br><span class="line">    O_rwkv += att_rwkv * V[t]</span><br><span class="line">    Z_rwkv += att_rwkv</span><br><span class="line">    O_rwkv[t] = O_rwkv_t / Z_rwkv</span><br><span class="line"><span class="built_in">print</span>(O_rwkv)</span><br><span class="line"></span><br><span class="line"><span class="comment">##</span></span><br><span class="line">o0 = (U_rwkv + K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>]</span><br><span class="line"><span class="comment">## so a0 = 0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">o1 = (K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>] + (U_rwkv + K[<span class="number">1</span>]).exp() * V[<span class="number">1</span>]</span><br><span class="line">a1 = (K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># print(1, a1)</span></span><br><span class="line">o2 = (-W_rwkv + K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>] + (K[<span class="number">1</span>]).exp() * V[<span class="number">1</span>] + (U_rwkv + K[<span class="number">2</span>]).exp() * V[<span class="number">2</span>]</span><br><span class="line">a2 = (-W_rwkv + K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>] + (K[<span class="number">1</span>]).exp() * V[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># print(2, a2)</span></span><br></pre></td></tr></table></figure>
+
+<p>RWKV这里的也是没有Q，但是多了W和U，其中W是时间衰减向量，他的意思就是，比如我给的当前token一个bonus(奖励)即U，那么认为当前token是对模型更重要的，之前的token的注意力分数按照当前是U，上一个是0， 上上一个是-W，再往前一个是-2W这样进行时间衰减。</p>
+<h3 id="RWKV可以写成RNN的递归形式"><a href="#RWKV可以写成RNN的递归形式" class="headerlink" title="RWKV可以写成RNN的递归形式"></a>RWKV可以写成RNN的递归形式</h3><p>$$wkv_t&#x3D;\frac{a_{t-1}+e^{u+k_t}\odot v_t}{b_{t-1}+e^{u+k_t}}$$<br>$$a_t&#x3D;e^{-w}\odot a_{t-1}+e^{k_t}\odot v_t$$<br>$$b_t&#x3D;e^{-w}\odot b_{t-1}+e^{k_t}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rwkv attention</span></span><br><span class="line">O_rwkv = torch.zeros(T, D)</span><br><span class="line">O_rwkv[<span class="number">0</span>] = V[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># a0, b0 not zero, but</span></span><br><span class="line">a = (K[<span class="number">0</span>]).exp() * V[<span class="number">0</span>]</span><br><span class="line">b = (K[<span class="number">0</span>]).exp()</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, T):</span><br><span class="line">    O_rwkv[t] = (a + torch.exp(U_rwkv + K[t]) * V[t]) / (b + torch.exp(U_rwkv + K[t]))</span><br><span class="line">    a = torch.exp(-W_rwkv) * a + torch.exp(K[t]) * V[t]</span><br><span class="line">    b = torch.exp(-W_rwkv) * b + torch.exp(K[t])</span><br><span class="line"><span class="built_in">print</span>(O_rwkv)</span><br></pre></td></tr></table></figure>
+
+<p>RNN的递归形式，相当于是将a和b当做RNN 中的state或者理解成cache也可以，来进行传递，能够减少计算量。</p>
+<h3 id="数值稳定版"><a href="#数值稳定版" class="headerlink" title="数值稳定版"></a>数值稳定版</h3><p>exp(k)很容易溢出，特别是float16（最大数字是65504）训练时，所以我们还需要对代码进行一些改造</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#RWKV attenton</span></span><br><span class="line">O_rwkv = torch.zeros(T, D)</span><br><span class="line"><span class="comment">#init</span></span><br><span class="line"></span><br><span class="line">pp = K[<span class="number">0</span>]</span><br><span class="line">aa = V[<span class="number">0</span>]</span><br><span class="line">bb = <span class="number">1</span></span><br><span class="line">O_rwkv[<span class="number">0</span>] = V[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, T):</span><br><span class="line">    ww = U_rwkv + K[t]</span><br><span class="line">    qq = torch.<span class="built_in">max</span>(ww, pp)</span><br><span class="line">    e1 = torch.exp(pp - qq)</span><br><span class="line">    e2 = torch.exp(ww - qq)</span><br><span class="line">    a = e1 * aa + e2 * V[t]</span><br><span class="line">    b = e1 * bb + e2</span><br><span class="line">    O_rwkv[t] = a / b</span><br><span class="line">    ww = pp - W_rwkv</span><br><span class="line">    qq = torch.maximum(ww, K[t])</span><br><span class="line">    e1 = torch.exp(ww - qq)</span><br><span class="line">    e2 = torch.exp(K[t] - qq)</span><br><span class="line">    aa = e1 * aa + e2 * V[t]</span><br><span class="line">    bb = e1 * bb + e2</span><br><span class="line">    pp = qq</span><br><span class="line"><span class="built_in">print</span>(O_rwkv)</span><br></pre></td></tr></table></figure>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/07/22/WPF%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8pythonnet%E8%B0%83%E7%94%A8python%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%83%AD%E5%8A%9B%E5%9B%BE/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/06/22/%E5%8D%95%E6%98%BE%E7%A4%BA%E5%99%A8%E5%A4%9A%E4%B8%BB%E6%9C%BA%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%88%87%E6%8D%A2%E4%BF%A1%E5%8F%B7%E6%BA%90%EF%BC%88%E5%8F%8Cwindows%E7%B3%BB%E7%BB%9F%EF%BC%89/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/06/25/RWKV%E7%BA%BF%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E8%BF%9B%E5%8C%96%E8%BF%87%E7%A8%8B/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/06/25/RWKV线性注意力的进化过程/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

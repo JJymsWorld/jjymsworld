@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>RWKV | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/RWKV/">
+                            RWKV
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                RWKV
+            
+            
+        </div>
+        <span class="post-date">
+            6月 17, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="核心优势"><a href="#核心优势" class="headerlink" title="核心优势"></a>核心优势</h2><p>O(1)推理复杂度：</p>
+<ul>
+<li><p>单token推理时间恒定，总推理时间随序列长度线性增加，transformer平方增长</p>
+</li>
+<li><p>内存占用恒定，不随序列长度增加</p>
+</li>
+<li><p>推理时间和内存占用随模型尺寸线性增长<br>这意味着：</p>
+</li>
+<li><p>大模型的硬件限制和部署成本将大幅降低，CPU以及非NV加速卡均可部署</p>
+</li>
+<li><p>服务器上部署大模型的成本将大幅降低，普通台式机和笔记本将能在本地部署大模型，手机端部署也成为可能</p>
+<h2 id="RNN和Transformer各自的局限性"><a href="#RNN和Transformer各自的局限性" class="headerlink" title="RNN和Transformer各自的局限性"></a>RNN和Transformer各自的局限性</h2></li>
+<li><p>RNN在训练长序列时容易出现梯度消失问题</p>
+</li>
+<li><p>RNN在训练过程中无法在时间维度上进行并行化，限制了其可扩展性</p>
+</li>
+<li><p>Transformer具有二次复杂度，长序列任务中计算成本高和占用内存多<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240617172547.png"></p>
+<h2 id="文章贡献"><a href="#文章贡献" class="headerlink" title="文章贡献"></a>文章贡献</h2></li>
+<li><p>提出了RWKC网络架构，结合了RNNs和Transformer的有点，同时缓解了它们已知的限制</p>
+</li>
+<li><p>提出了一种新的线性注意力机制</p>
+</li>
+<li><p>展示了RWKV在处理涉及大规模模型和长距离依赖关系的任务时的性能、效率和扩展能力</p>
+<h1 id="RWKV架构"><a href="#RWKV架构" class="headerlink" title="RWKV架构"></a>RWKV架构</h1><h2 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h2><p>R：作为过去信息的接受程度的接受向量<br>W：位置权重衰减向量。可训练的模型参数<br>K：键向量，类似于传统注意力机制中的K<br>V：值向量，类似于传统注意力机制中的V</p>
+<h2 id="像Transformer一样训练"><a href="#像Transformer一样训练" class="headerlink" title="像Transformer一样训练"></a>像Transformer一样训练</h2></li>
+<li><p>RWKV高度并行化，提高了可扩展性</p>
+</li>
+<li><p>处理批大小为B，长度为T的序列的时间复杂度为O($BTd^{2}$)</p>
+</li>
+<li><p>计算$wk{v_t}$ 依靠串行扫描复杂度为O(BTd)</p>
+<h2 id="三种机制捕捉序列信息"><a href="#三种机制捕捉序列信息" class="headerlink" title="三种机制捕捉序列信息"></a>三种机制捕捉序列信息</h2><p>RKWV通过三种机制（循环、时间衰减和token-shift）的组合来捕捉和传播序列信息：</p>
+</li>
+<li><p>循环：通过时间步传递局部信息和捕捉序列中的复杂关系</p>
+</li>
+<li><p>时间衰减：通过逐渐减小过去信息的影响，隐式地引入位置信息</p>
+</li>
+<li><p>token-shift：引入bi-gram，在当前输入和上一个输入之间线性插值，模型自然地聚合和控制输入通道中的信息</p>
+<h2 id="CPU高速运行RWKV"><a href="#CPU高速运行RWKV" class="headerlink" title="CPU高速运行RWKV"></a>CPU高速运行RWKV</h2><p>CPU上可以INT4&#x2F;INT5&#x2F;INT8告诉运行RWKV</p>
+</li>
+<li><p>INT8模式，速度快，精度损失小</p>
+</li>
+<li><p>可以直接编译出独立运行的exe，支持全平台，包括Linux Windows Mac ARM</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>RWKV提出了几个关键改进和策略，使其能够捕捉局部性和长距离依赖关系，并通过以下方式解决了当前架构的局限性：</p>
+</li>
+<li><p>实现线性注意力的RNN，将计算复杂度从Transformer的$O({T^2}d)$ 降低为$O(Td)$ </p>
+</li>
+<li><p>实现了高效的并行训练和高效的串行推理</p>
+</li>
+<li><p>提出了一些更好的训练初始化方法</p>
+<h1 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h1></li>
+<li><p>RWKV的线性注意力虽然带来了显著的效率提升，但也可能限制了模型在非常长的上下文中回忆细节的能力。相比标准Transformer的二次注意力所保持的全部信息，RWKV通过单个向量表示在时间步上进行信息传递。相对于传统的自注意力机制，模型的循环架构本身限制了其”回望“之前信息的能力。虽然时间衰减有助于防止信息丢失，但与完全的自注意力机制相比，它在机制上存在一定的限制。</p>
+</li>
+<li><p>与标准的Transformer模型相比，prompt engineering的重要性增加了。RWKV中的线性注意力机制限制了prompt的信息传递。因此，精心设计prompt可能对模型在任务上的表现更加关键。</p>
+<h1 id="未来工作"><a href="#未来工作" class="headerlink" title="未来工作"></a>未来工作</h1></li>
+<li><p>通过改进时间衰减公式和在保持效率的同时探索初始模型状态，提高模型表达能力</p>
+</li>
+<li><p>在$wk{v_t}$ 计算中应用并行扫描（parallel scan），将计算成本降低到$O(B\log (T)d)$ ,进一步提高RWKV的计算效率</p>
+</li>
+<li><p>研究将RWKV应用与encoder-decoder架构，是的RWKV可以应用与更丰富的场景，如seq2seq和多模态  </p>
+</li>
+<li><p>利用RWKV的状态(或上下文)进行序列数据的可解释性、可预测性和安全性研究</p>
+</li>
+<li><p>把LoRA等参数高效的微调方法引入RWKV</p>
+</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/06/17/RWKV%E3%80%81RNN%E3%80%81Transformer/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/05/15/CUDA%E7%BC%93%E5%AD%98/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/06/17/RWKV%E7%AE%80%E8%AE%B0/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/06/17/RWKV简记/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

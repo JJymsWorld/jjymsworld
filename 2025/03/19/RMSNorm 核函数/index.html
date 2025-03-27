@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>RMSNorm 核函数 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/CUDA/">
+                            CUDA
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/%E7%AE%97%E5%AD%90/">
+                            算子
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                RMSNorm 核函数
+            
+            
+        </div>
+        <span class="post-date">
+            3月 19, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="cpu版本"><a href="#cpu版本" class="headerlink" title="cpu版本"></a>cpu版本</h2><h3 id="初版本"><a href="#初版本" class="headerlink" title="初版本"></a>初版本</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">rmsnorm_kernel_cpu</span><span class="params">(<span class="type">const</span> tensor::Tensor&amp; input, <span class="type">const</span> tensor::Tensor&amp; weight, <span class="type">const</span> tensor::Tensor&amp; output, <span class="type">void</span>* stream)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">float</span>* in_ptr = <span class="built_in">const_cast</span>&lt;<span class="type">float</span>*&gt;(input.<span class="built_in">ptr</span>&lt;<span class="type">float</span>&gt;());</span><br><span class="line">	<span class="type">float</span>* out_ptr = <span class="built_in">const_cast</span>&lt;<span class="type">float</span>*&gt;(input.<span class="built_in">ptr</span>&lt;<span class="type">float</span>&gt;());</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> size = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(input.<span class="built_in">size</span>());</span><br><span class="line">	<span class="type">float</span> sum = <span class="number">0.f</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;size;i++)&#123;</span><br><span class="line">		<span class="type">float</span> input_value = input.<span class="built_in">index</span>&lt;<span class="type">float</span>&gt;(i);</span><br><span class="line">		sum += input_value * input_value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> eps = <span class="number">1e-5</span>f;</span><br><span class="line">	<span class="type">float</span> mean = sum / <span class="built_in">float</span>(size) + eps;</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> rsqrt = <span class="number">1.f</span> / std::<span class="built_in">sqrt</span>(mean);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;size;i++)&#123;</span><br><span class="line">		*(out_ptr + i) = weight.<span class="built_in">index</span>&lt;<span class="type">float</span>&gt;(i) * (rsqrt * (*(in_ptr + i)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最终版"><a href="#最终版" class="headerlink" title="最终版"></a>最终版</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;armadillo&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">rmsnorm_kernel_cpu</span><span class="params">(<span class="type">const</span> tensor::Tensor&amp; input, <span class="type">const</span> tensor::Tensor&amp; weight, <span class="type">const</span> tensor::Tensor&amp; output)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">CHECK</span>(!input.<span class="built_in">empty</span>());</span><br><span class="line">	<span class="built_in">CHECK</span>(!weight.<span class="built_in">empty</span>());</span><br><span class="line">	<span class="built_in">CHECK</span>(!output.<span class="built_in">empty</span>());</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CHECK</span>(input.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceCPU &amp;&amp;</span><br><span class="line">		weight.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceCPU &amp;&amp;</span><br><span class="line">		output.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceCPU);</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">float</span>* in_ptr = input.<span class="built_in">ptr</span>&lt;<span class="type">float</span>&gt;();</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span>* wei_ptr = weight.<span class="built_in">ptr</span>&lt;<span class="type">float</span>&gt;();</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span>* out_prt = output.<span class="built_in">ptr</span>&lt;<span class="type">float</span>&gt;();</span><br><span class="line">	<span class="type">const</span> <span class="type">int32_t</span> dim = <span class="built_in">static_cast</span>&lt;<span class="type">int32_t</span>&gt;(input.<span class="built_in">size</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里的第三个参数用于控制是否复制数据，如果为false则表示不复制数据，创建的arma::fvec对象会直接使用玩不的数据，不会复制到arma::fvec对象内部</span></span><br><span class="line"><span class="comment">//第四个参数用于控制是否接管外部数据的内存管理，为true时，arma::fvec不会接管外部数据的内存管理，不会再对象销毁时释放外部数据所占用的内存，若为false，则会进行管理</span></span><br><span class="line">	<span class="function">arma::fvec <span class="title">in_tensor</span><span class="params">(<span class="keyword">const_cast</span>&lt;<span class="type">float</span>*&gt;(in_ptr), dim, <span class="literal">false</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line">	<span class="function">arma::fvec <span class="title">out_tensor</span><span class="params">(<span class="keyword">const_cast</span>&lt;<span class="type">float</span>*&gt;(out_ptr), dim, <span class="literal">false</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line">	<span class="function">arma::fvec <span class="title">wei_tensor</span><span class="params">(<span class="keyword">const_cast</span>&lt;<span class="type">float</span>*&gt;(wei_ptr), dim, <span class="literal">false</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> eps = <span class="number">1e-5</span>f;</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> mean = arma::<span class="built_in">as_scalar</span>(arma::<span class="built_in">mean</span>(arma::<span class="built_in">pow</span>(in_tensor, <span class="number">2</span>))) + eps;</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> rsqrt = <span class="number">1.f</span> / std::<span class="built_in">sqrt</span>(mean);</span><br><span class="line">	out_tensor = wei_tensor % (in_tensor * rsqrt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="cuda版本"><a href="#cuda版本" class="headerlink" title="cuda版本"></a>cuda版本</h2><h3 id="简单版本"><a href="#简单版本" class="headerlink" title="简单版本"></a>简单版本</h3><p>这个代码是有问题的，如果使用的threads数量大于128个，而warpSize为32个，则会有多个线程有相同的lane_id，而CUDA又是以warp为基本的调度单位，所以会有多个相同的线程执行对相同的数据执行操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> __global__ <span class="type">void</span> <span class="title">row_rmsnorm_f32</span><span class="params">(<span class="type">float</span>* in, <span class="type">float</span>* wei， <span class="type">float</span>* out， <span class="type">int</span> size, <span class="type">float</span> eps)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">const</span> tid = threadIdx.x;</span><br><span class="line">	<span class="comment">//warpSize通常为32</span></span><br><span class="line">	<span class="type">const</span> lane_id = tid % warpSize;</span><br><span class="line">	<span class="type">float</span> sum = <span class="number">0.f</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=lane_id;i&lt;size;i+=warpSize)&#123;</span><br><span class="line">		sum += in[i] * in[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">using</span> WarpReduce = cub::WarpReduce&lt;<span class="type">float</span>, <span class="number">32</span>&gt;;</span><br><span class="line">	__shared__ <span class="keyword">typename</span> WarpReduce::TempStorage temp;</span><br><span class="line">	__shared__ <span class="type">float</span> shared_val;</span><br><span class="line">	sum = <span class="built_in">WarpReduce</span>(temp).<span class="built_in">Reduce</span>(sum, cub::<span class="built_in">Sum</span>());</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> scaler = <span class="built_in">rsqrtf</span>(sum / <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(size) + eps);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=lane_id; i&lt;size;i += warpSize)&#123;</span><br><span class="line">		out[i] = in[i] * wei[i] * scalar;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动rms核函数"><a href="#启动rms核函数" class="headerlink" title="启动rms核函数"></a>启动rms核函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">rmsnorm_kernel_cu</span><span class="params">(<span class="type">const</span> tensor::Tensor&amp; input, <span class="type">const</span> tensor::Tensor&amp; weight, <span class="type">const</span> tensor::Tensor&amp; output, <span class="type">void</span>* stream)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">CHECK</span>(!input.<span class="built_in">is_empty</span>());</span><br><span class="line">	<span class="built_in">CHECK</span>(!output.<span class="built_in">is_empty</span>());</span><br><span class="line">	<span class="built_in">CHECK</span>(!weight.<span class="built_in">is_empty</span>());</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CHECK</span>(input.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceGPU &amp;&amp;</span><br><span class="line">		output.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceGPU &amp;&amp;</span><br><span class="line">		weight.<span class="built_in">device_type</span>() == base::DeviceType::KDeviceGPU);</span><br><span class="line">	</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> eps = <span class="number">1e-5</span>f;</span><br><span class="line">	<span class="type">const</span> <span class="type">int32_t</span> size = <span class="built_in">static_cast</span>&lt;<span class="type">int32_t</span>&gt;(input.<span class="built_in">size</span>());</span><br><span class="line">	<span class="type">float</span>* in_ptr = <span class="built_in">const_cast</span>&lt;<span class="type">float</span>*&gt;(input.<span class="built_in">ptr</span>&lt;<span class="type">float</span>*&gt;());</span><br><span class="line">	<span class="type">float</span>* out_ptr = <span class="built_in">const_cast</span>&lt;<span class="type">float</span>*&gt;(input.<span class="built_in">ptr</span>&lt;<span class="type">float</span>*&gt;());</span><br><span class="line">	<span class="type">float</span>* wei_ptr = <span class="built_in">const_cast</span>&lt;<span class="type">float</span>*&gt;(input.<span class="built_in">pyt</span>&lt;<span class="type">float</span>*&gt;());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">constexpr</span> <span class="type">int</span> threads_num = <span class="number">128</span>;</span><br><span class="line">	<span class="keyword">if</span>(stream)&#123;</span><br><span class="line">		cudaSteam_t stream_ = <span class="built_in">static_cast</span>&lt;cudaStream_t&gt;(stream);</span><br><span class="line">		row_rmsnorm_f32&lt;&lt;&lt;<span class="number">1</span>, threads_num, <span class="number">0</span>, stream_&gt;&gt;&gt;(in_ptr, wei_ptr, out_ptr, size, eps);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		row_rmsnorm_f32&lt;&lt;&lt;<span class="number">1</span>, threads_num&gt;&gt;&gt;(in_ptr, wei_ptr, out_ptr, size, eps);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优化版本"><a href="#优化版本" class="headerlink" title="优化版本"></a>优化版本</h3><p>在上面的版本优化之后呢，不以warp为单位进行规约，而是以block为单位进行规约。但是CUDA又是以warp为单位进行调度，这就需要两次规约操作，假设总共1024个数据要处理，一个block包含128个线程，则每个线程要处理8个数据。</p>
+<p>每个线程处理完成8个数据之后，在所属的warp里先进行一次规约，即每32个进行一次规约，需要四次规约，并存储4个规约结果，将结果存放在shared_memory中，最后对这四个值，再进行一次规约得到block规约的结果。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> __global__ <span class="type">void</span> <span class="title">row_rmsnorm_f32</span><span class="params">(<span class="type">float</span>* in, <span class="type">float</span>* wei， <span class="type">float</span>* out， <span class="type">int</span> size, <span class="type">float</span> eps)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">const</span> tid = threadIdx.x;</span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> sum = <span class="number">0.f</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=tid;i&lt;size;i+= blockDim.x)&#123;</span><br><span class="line">		sum += in[i] * in[i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">using</span> BlockReduce = cub::BlockReduce&lt;<span class="type">float</span>, BLOCK_DIM&gt;;</span><br><span class="line">	__shared__ <span class="keyword">typename</span> BlockReduce::TempStorage temp;</span><br><span class="line">	__shared__ <span class="type">float</span> shared_val;</span><br><span class="line">	sum = <span class="built_in">BlockReduce</span>(temp).<span class="built_in">Sum</span>(sum);</span><br><span class="line">	<span class="keyword">if</span>(threadIdx.x == <span class="number">0</span>)&#123;</span><br><span class="line">		shared_val = sum;</span><br><span class="line">	&#125;</span><br><span class="line">	__syncthreads();</span><br><span class="line">	sum = shared_val;</span><br><span class="line">	<span class="type">const</span> <span class="type">float</span> scale = <span class="built_in">rsqrtf</span>(sum / <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(size) + eps);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;size;i+=blockDim.x)&#123;</span><br><span class="line">		out[i] = scale * in[i] * wei[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用向量化存储之后的版本-，更优版本"><a href="#使用向量化存储之后的版本-，更优版本" class="headerlink" title="使用向量化存储之后的版本 ，更优版本"></a>使用向量化存储之后的版本 ，更优版本</h3><p>使用float4进行读写</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> __global__ <span class="type">void</span> <span class="title">row_rmsnorm_f32</span><span class="params">(<span class="type">float</span>* in, <span class="type">float</span>* wei, <span class="type">float</span>* out, <span class="type">int</span> size, <span class="type">float</span> eps)</span> </span>&#123;</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> tid = threadIdx.x;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constexpr</span> <span class="type">int</span> pack_size = <span class="number">4</span>;</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> pack_num = size / pack_size;</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> pack_off = pack_size * pack_num;</span><br><span class="line"></span><br><span class="line">  <span class="type">float</span> sum = <span class="number">0.0f</span>;</span><br><span class="line">  float4* in_pack = <span class="built_in">reinterpret_cast</span>&lt;float4*&gt;(in);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = tid; i &lt; pack_num; i += blockDim.x) &#123;</span><br><span class="line">    float4 in_float4 = *(in_pack + i);</span><br><span class="line">    sum += in_float4.x * in_float4.x;</span><br><span class="line">    sum += in_float4.y * in_float4.y;</span><br><span class="line">    sum += in_float4.z * in_float4.z;</span><br><span class="line">    sum += in_float4.w * in_float4.w;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = pack_off + tid; i &lt; size; i += blockDim.x) &#123;</span><br><span class="line">    sum += in[i] * in[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">using</span> BlockReduce = cub::BlockReduce&lt;<span class="type">float</span>, BLOCK_DIM&gt;;</span><br><span class="line">  __shared__ <span class="keyword">typename</span> BlockReduce::TempStorage temp;</span><br><span class="line">  __shared__ <span class="type">float</span> shared_val;</span><br><span class="line">  sum = <span class="built_in">BlockReduce</span>(temp).<span class="built_in">Sum</span>(sum);</span><br><span class="line">  <span class="keyword">if</span> (threadIdx.x == <span class="number">0</span>) &#123;</span><br><span class="line">    shared_val = sum;</span><br><span class="line">  &#125;</span><br><span class="line">  __syncthreads();</span><br><span class="line">  sum = shared_val;</span><br><span class="line">  <span class="type">const</span> <span class="type">float</span> scale = <span class="built_in">rsqrtf</span>(sum / <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(size) + eps);</span><br><span class="line"></span><br><span class="line">  float4* wei_pack = <span class="built_in">reinterpret_cast</span>&lt;float4*&gt;(wei);</span><br><span class="line">  float4* out_pack = <span class="built_in">reinterpret_cast</span>&lt;float4*&gt;(out);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = tid; i &lt; pack_num; i += blockDim.x) &#123;</span><br><span class="line">    float4 in_float4 = *(in_pack + i);</span><br><span class="line">    float4 wei_float4 = *(wei_pack + i);</span><br><span class="line">    *(out_pack + i) =</span><br><span class="line">        <span class="built_in">make_float4</span>(scale * in_float4.x * wei_float4.x, scale * in_float4.y * wei_float4.y,</span><br><span class="line">                    scale * in_float4.z * wei_float4.z, scale * in_float4.w * wei_float4.w);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = pack_off + tid; i &lt; size; i += blockDim.x) &#123;</span><br><span class="line">    out[i] = wei[i] * in[i] * scale;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2025/03/19/%E8%BF%9C%E7%A8%8B%E4%BD%BF%E7%94%A8nsight-compute%E5%88%86%E6%9E%90%E7%AE%97%E5%AD%90%E6%80%A7%E8%83%BD/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2025/03/17/%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%90%8C%E7%9A%84%E8%AE%BE%E5%A4%87%E7%AE%97%E5%AD%90%E5%AE%9E%E7%8E%B0/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2025/03/19/RMSNorm%20%E6%A0%B8%E5%87%BD%E6%95%B0/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2025/03/19/RMSNorm 核函数/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

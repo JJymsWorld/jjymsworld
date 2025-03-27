@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>组内私有git仓库使用入门 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/git/">
+                            git
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                组内私有git仓库使用入门
+            
+            
+        </div>
+        <span class="post-date">
+            10月 17, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>首先，你得电脑上要安装好Git这个工具，注意是Git这个工具，不是Github。<br>官网：<a target="_blank" rel="noopener" href="https://git-scm.com/">Git (git-scm.com)</a>，到这里自行下载安装，一路下一步即可。安装完成后，在你的命令行中（cmd，powershell，git bash）就可以使用git命令了。关于git命令和很多用法参数自行了解，后面会介绍一些入门功能。</p>
+<h2 id="仓库使用"><a href="#仓库使用" class="headerlink" title="仓库使用"></a>仓库使用</h2><h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>每个人登录自己的账号之后，会进入到自己的主页。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017102702.png"><br>接着点击仓库列表右侧的加号，进入创建仓库页面。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017103024.png"><br>重点在于上面两个地方， 首先仓库名称必填，一般保持跟你项目文件夹名称相同即可，方便区分。<br><code>.gitignore</code>这个文件，是用于让git忽略一些文件，忽略掉的文件将不会被上传到远程仓库中（这里简单解释一下概念，远程仓库就是网页上的仓库，本地仓库就是你自己电脑上的文件夹），这里如果不选择任何模板，创建仓库的时候就不会自动创建<code>.gitignore</code>文件，默认的模板针对各种语言的中间生成文件和文件夹进行了忽略，比较方便，当然你可以不实用模，自行编写<code>.gitignore</code>文件，根据自己需求来，如果你使用下面的方法1，这里不要选择模板，如果你使用方法2，则选择对应语言即可。</p>
+<p>这里我创建好一个名位test的仓库。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112243.png"></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>这里简单讲一下两种使用方法，首先看一下我的本地项目文件夹。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017103642.png"><br>我希望将这个项目文件夹中的文件，上传到远程仓库中进行存储，并且进行版本控制。</p>
+<h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017103758.png"><br>首先在当前文件夹空白处点击右键点击<code>Open Git Bash here</code>打开<code>Git Bash</code>终端。<br>打开<code>Git Bash</code>终端之后，首先需要配置自己的邮箱和名称，此步骤仅需要在首次安装完成Git之后做一次即可，以后无需再做（如果已经在其他地方操作过也无需再次操作）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --global user.name &quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这两个配置分别标识你的用户以及你后续提交修改到远程仓库时的名称，邮箱与自己的账户邮箱一致。</p>
+<p>下面开始正式的步骤</p>
+<h5 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017104325.png"><br>此时，文件夹中会自动生成一个<code>.git</code>文件夹，如果你打开了显示隐藏项目的话就可以看到这个文件夹，此时相当于我们的本地仓库已经创建完成。</p>
+<h5 id="与远程仓库建立关联"><a href="#与远程仓库建立关联" class="headerlink" title="与远程仓库建立关联"></a>与远程仓库建立关联</h5><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017104639.png"><br>从上述红框中获取远程仓库地址，在<code>Git Bash</code>中输入以下命令建立关联：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin http://10.102.128.22:4000/jym/test.git</span><br></pre></td></tr></table></figure>
+
+<p>上述命令相当于，添加指定远程仓库地址，并且命名为<code>origin</code>，次后可以使用<code>origin</code>来代替远程仓库地址使用。</p>
+<h5 id="切换默认分支"><a href="#切换默认分支" class="headerlink" title="切换默认分支"></a>切换默认分支</h5><p>目前无论是在github上还是我们自己的私有git仓库中，创建的仓库的默认分支名称都为main。但是在使用Git工具创建的本地仓库中，默认分支为master，所以我们需要先进行默认仓库的切换。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017105057.png"><br>在<code>Git Bash</code>中输入以下命令切换分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b main //-b表示创建main分支</span><br><span class="line">//或者</span><br><span class="line">git switch -c main  //-c表示创建main分支</span><br></pre></td></tr></table></figure>
+
+<p>这里因为本地仓库中并没有main分支，所以需要先创建分支并切换。</p>
+<h5 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h5><p>使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>命令查看当前仓库提交状态。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017105451.png"><br>从上图结果中可以看到，On branch main标识当前状态为main分支。<br>No commits yet，表示为提交到远程仓库。<br>Untracked files列出了一系列文件，红色表示未添加到git仓库中，需要使用<code>git add</code>命令进行添加。</p>
+<h5 id="添加文件到本地仓库"><a href="#添加文件到本地仓库" class="headerlink" title="添加文件到本地仓库"></a>添加文件到本地仓库</h5><p>使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file name&gt;</span><br><span class="line">//或者</span><br><span class="line">git add . //.表示添加当前目录下所有文件，这里肯定有一些文件是我们不需要的，所以就需要之前提到过的.gitignore文件来标识出不需要添加的文件。</span><br></pre></td></tr></table></figure>
+
+<p>命令添加文件到本地仓库中等待提交。<br>这里我们只能手动在本地创建<code>.gitignore</code>文件，并手动输入需要忽略的文件和文件夹。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017110235.png"><br>这里我们手动创建了<code>.gitignore</code>文件，并且需要忽略掉红框框出来的文件和文件夹。接着编写<code>.gitignore</code>文件内容。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112413.png"><br>此时我们回到<code>Git Bash</code>中首先输入<code>git status</code>查看仓库状态<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017111356.png"><br>可以看到，相比于上面我们第一次使用<code>git status</code>查看的结果，已经被忽略的文件和文件夹没有出现在<code>Untracked files</code>列表中。<br>然后使用<code>git add .</code>命令添加目录下所有文件到本地仓库中等待提交。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017111513.png"><br>使用<code>git add .</code>之后，通常我们还会再使用<code>git status</code>一次查看添加之后的状态。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017111602.png"><br>可以看到，已经被添加的文件变成了绿色，并且上方的文字描述变成了等待提交的修改。</p>
+<h5 id="提交本地修改"><a href="#提交本地修改" class="headerlink" title="提交本地修改"></a>提交本地修改</h5><p>使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;描述&quot;</span><br></pre></td></tr></table></figure>
+
+<p>提交修改到远程仓库。<br>其中描述部分表示你要对此次提交进行的说明。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017111845.png"></p>
+<h5 id="推送已经提交的本地修改到远程仓库中"><a href="#推送已经提交的本地修改到远程仓库中" class="headerlink" title="推送已经提交的本地修改到远程仓库中"></a>推送已经提交的本地修改到远程仓库中</h5><p>使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<p>来推送修改到远程仓库，其中origin是我们前面绑定的远程仓库，main表示要推送的分支。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112459.png"><br>这样的结果就表示推送成功，回到远程仓库网页刷新界面即可看到。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112535.png"></p>
+<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><p>方法2和方法1最大的区别在于，在创建远程仓库时，如果你选择了<code>.gitignore</code>模板的话，方法2会快速许多，步骤大致相似，相同步骤不再细说。</p>
+<h5 id="创建仓库-1"><a href="#创建仓库-1" class="headerlink" title="创建仓库"></a>创建仓库</h5><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112734.png"><br>这里我选择了python的模板。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112746.png"><br>创建完成后像这样，远程仓库中已经存在了文件，所以不是空的仓库，不能采用方法1的方式去做，因为会涉及远程仓库和本地仓库的文件冲突。<br>这里最简单的方法，是在本地仓库中找一个文件夹，将远程仓库clone到本地。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017112931.png"><br>这样clone下来的这个文件夹就自动与远程仓库进行了绑定。</p>
+<h5 id="提交修改并推送"><a href="#提交修改并推送" class="headerlink" title="提交修改并推送"></a>提交修改并推送</h5><p>上面的操作之后，我们直接把本地项目的文件复制到clone下来的文件夹中，然后追加需要自定义的<code>.gitignore</code>内容。接着按照方法1中的，添加文件到本地仓库，查看仓库状态是否有问题，提交本地修改，推送到远程仓库的步骤执行即可。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017113344.png"><br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017113442.png"><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241017113452.png"></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>git仓库不仅仅是存储功能，更重要的是版本控制功能和协作功能，这涉及到本地仓库和远程仓库的冲突解决，分支管理与合并，本身并不难，自行找教程学习。</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/10/21/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%B0%E5%A2%9E%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98%E6%89%A9%E5%AE%B9/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/10/14/CUDA%E7%AE%80%E8%AE%B0/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/10/17/%E7%BB%84%E5%86%85%E7%A7%81%E6%9C%89git%E4%BB%93%E5%BA%93%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/10/17/组内私有git仓库使用入门/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

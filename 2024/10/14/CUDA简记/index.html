@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>CUDA简记 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/CUDA/">
+                            CUDA
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                CUDA简记
+            
+            
+        </div>
+        <span class="post-date">
+            10月 14, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <ul>
+<li><p>CUDA全称（Compute Unified Device Architecture）统一计算架构。</p>
+</li>
+<li><p>巨量的矩阵运算、归一化、softmax运算等，并行计算多。</p>
+</li>
+<li><p>并行GPU，顺序CPU。</p>
+<h3 id="数据处理方式"><a href="#数据处理方式" class="headerlink" title="数据处理方式"></a>数据处理方式</h3><h4 id="佛林分类法（根据指令和数据进入CPU的方式对计算机架构进行分类，分为以下四类）"><a href="#佛林分类法（根据指令和数据进入CPU的方式对计算机架构进行分类，分为以下四类）" class="headerlink" title="佛林分类法（根据指令和数据进入CPU的方式对计算机架构进行分类，分为以下四类）"></a>佛林分类法（根据指令和数据进入CPU的方式对计算机架构进行分类，分为以下四类）</h4></li>
+<li><p>单指令单数据（SISD）：传统的单核数据处理方式</p>
+</li>
+<li><p>单指令多数据（SIMD）：单核执行一条指令完成多数据处理（游戏中向量、矩阵）</p>
+</li>
+<li><p>多指令单数据（MISD）：多核执行不同的指令处理单个数据（少见）</p>
+</li>
+<li><p>多指令多数据（MIMD）：多核执行不同的指令处理多个数据<br>为了提高并行计算的能力，架构上实现下面这些提升性能：</p>
+</li>
+<li><p>降低延迟（latency）：指操作从开始到结束所需要的时间，一般用微秒计算，延迟越低越好</p>
+</li>
+<li><p>增加带宽（bandwidth）：单位时间内处理的数据量，一般用MB&#x2F;s或者GB&#x2F;s表示</p>
+</li>
+<li><p>增加吞吐（throughput）：单位时间内成功处理的运算数量</p>
+<h4 id="共享内存的多处理器系统"><a href="#共享内存的多处理器系统" class="headerlink" title="共享内存的多处理器系统"></a>共享内存的多处理器系统</h4></li>
+<li><p>包括单片多核，多片多核主要是针对同设备多核进行数据通讯，GPU是众核架构，表述为Single Instruction, Multiple Thread（SIMT），不同于SIMD，SIMT是真正的启动了多个线程，执行相同的指令，去完成数据的并行运算。</p>
+<h3 id="典型的CUDA程序处理流程"><a href="#典型的CUDA程序处理流程" class="headerlink" title="典型的CUDA程序处理流程"></a>典型的CUDA程序处理流程</h3></li>
+<li><p>分配内存（Host和Device），数据初始化，将Host数据拷贝到Device。</p>
+</li>
+<li><p>调用Kernel函数处理数据，然后存在Device上。</p>
+</li>
+<li><p>讲数据从Device拷贝回Host。</p>
+</li>
+<li><p>内存释放。</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014160957.png"></p>
+<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><table>
+<thead>
+<tr>
+<th align="center">标准C函数</th>
+<th align="center">CUDA函数</th>
+<th align="center">CUDA函数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">malloc</td>
+<td align="center">cudaMalloc</td>
+<td align="center">GPU分配内存</td>
+</tr>
+<tr>
+<td align="center">memcpy</td>
+<td align="center">cudaMemcpy</td>
+<td align="center">用于Host和Device之间的数据传输</td>
+</tr>
+<tr>
+<td align="center">memset</td>
+<td align="center">cudaMemset</td>
+<td align="center">设定数据填充到GPU内存中</td>
+</tr>
+<tr>
+<td align="center">free</td>
+<td align="center">cudaFree</td>
+<td align="center">释放GPU内存</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014161337.png"></p>
+<ul>
+<li><p>CUDA线程在执行期间可以访问多个内存空间的数据。</p>
+</li>
+<li><p>每个线程都有私有本地存储。</p>
+</li>
+<li><p>每个线程块都有对该块的所有线程可见的共享内存，并且与该块具有相同的生命周期。</p>
+</li>
+<li><p>线程块簇中的线程块可以对彼此的共享内存执行读、写和原子操作。所有线程都可以访问相同的全局内存。</p>
+</li>
+<li><p>还有两个可供所有线程访问的附加只读内存空间：常量内存空间和纹理内存空间。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014161728.png"></p>
+</li>
+<li><p>一个Kernel所launch的所有线程称为grid，他们共享相同的全局内存空间（global memory space）</p>
+</li>
+<li><p>一个grid由多个block（线程块）组成，block内部的线程可以通过以下两点进行协作（不同block间的线程不能协作）</p>
+<ul>
+<li>block本地同步（synchronization）</li>
+<li>block本地共享内存（sharedmemory）</li>
+</ul>
+</li>
+<li><p>一个线程通过blockIdx（grid内的index）和threadIdx（block内的index）这两个坐标变量（三维类型unit3）来唯一标识（线程运行的时候这两个变量会被CUDA赋上相应的坐标值，可以直接使用）</p>
+</li>
+<li><p>grid和block的维度信息通过gridDim和blockDim（dim3）来表示</p>
+<ul>
+<li><p>gridDim：表示一个grid里面有多少个blocks</p>
+</li>
+<li><p>blockDim：表示一个block里面有多少个threads</p>
+<h4 id="线程块结构"><a href="#线程块结构" class="headerlink" title="线程块结构"></a>线程块结构</h4><p>为了方便起见，threadIdx是一个3分量向量，因此可以使用一维、二维或三维线程索引 来标识线程，形成一维、二维或三维线程块，称为线程块。这提供了一种自然的方式来调用域中元素（例如向量、矩阵或体积）的计算。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014162138.png"><br>每个块的线程数量是有限的，因为块中的所有线程都应驻留在同一个流式多处理器核心上，并且必须共享该核心的有限内存资源。在当前的 GPU 上，一个线程块最多可以包含 1024 个线程。<br>然而，一个内核可以由多个形状相同的线程块来执行，因此线程总数等于每个块的线程数乘以块数。<br>块被组织成一维、二维或三维线程块网格，如图4所示。网格中线程块的数量通常由正在处理的数据的大小决定，该数据通常超过系统中处理器的数量。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014162444.png"></p>
+</li>
+</ul>
+</li>
+<li><p>随着 NVIDIA计算能力 9.0的推出，CUDA 编程模型引入了一个可选的层次结构级别，称为由线程块组成的线程块集群。与如何保证线程块中的线程在流式多处理器上共同调度类似，集群中的线程块也保证在 GPU 中的 GPU 处理集群 (GPC) 上共同调度</p>
+<h3 id="GPU架构"><a href="#GPU架构" class="headerlink" title="GPU架构"></a>GPU架构</h3><p>GPU架构就是由可扩展的流式多处理器（Streaming Multiprocessors简称SM）阵列所构建，整个硬件的并行就是不断复制这种架构实现的。通常每个GPU都有多个SM，每个SM都支持上百个线程的并行，所以GPU可以支持上千个线程的并行</p>
+<h4 id="SM中的核心部件"><a href="#SM中的核心部件" class="headerlink" title="SM中的核心部件"></a>SM中的核心部件</h4></li>
+<li><p>CUDA Cores：核心，是最小的执行单元</p>
+</li>
+<li><p>Shared Memory&#x2F;L1 Cache：共享内存和L1缓存，他们共用64KB空间，根据Bl</p>
+</li>
+<li><p>Register File：寄存器，根据线程划分</p>
+</li>
+<li><p>Load&#x2F;Store Units：16个数据读写单元，支持16个线程一起从Cache&#x2F;DRAM存取数据</p>
+</li>
+<li><p>Special Function Units：4个特殊函数处理单元，用于sin&#x2F;cos这类指令计算</p>
+</li>
+<li><p>Warp Scheduler：Warp调度器，所谓Warp就是32个线程组成的线程束，是最小的调度单元</p>
+<h4 id="GPU内存"><a href="#GPU内存" class="headerlink" title="GPU内存"></a>GPU内存</h4><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014162836.png"></p>
+</li>
+<li><p>寄存器：GPU上访问最快的存储空间，是SM中的稀缺资源，对于每个线程是私有的，Fermi架构中每个线程最多63个，Kepler结构扩展到255个。如果变量太多寄存器不够，会发生寄存器溢出，此时本地内存会存储多出来的变量，这种情况对性能影响较大。</p>
+</li>
+<li><p>本地内存：本质上是和全局内存放在同一块存储区域中（compute capability 2.0以上的设备，会放在SM的一级缓存，或者设备的二级缓存上）具有高延迟、低带宽，编译器可能会将以下变量存放于本地内存：</p>
+<ul>
+<li>编译时期无法确定索引引用的本地数组</li>
+<li>可能会消耗大量寄存器的较大本地数组&#x2F;结构体</li>
+<li>任何不满足核函数寄存器限定条件的变量</li>
+</ul>
+</li>
+<li><p>共享内存：因为是片上内存，所以相比全局内存和本地内存，具有较高的带宽和较低的延迟</p>
+<ul>
+<li>SM中的一级缓存，和共享内存共享一个64k的片上内存，L1不可编程，共享内存可以</li>
+<li>切勿过度使用共享内存，导致部分线程块无法被SM启动，影响Warp调度</li>
+<li>可以使用__syncthreads()来实现Block内线程的同步</li>
+</ul>
+</li>
+<li><p>常量内存：驻留在设备内存中，每个SM都有专用的常量内存缓存</p>
+<ul>
+<li>常量内存在核函数外，全局范围内声明，对于所有设备，只可以声明64k的常量内存</li>
+<li>核函数无法修改，Host端使用cudaMemcpyToSymbol接口初始化</li>
+</ul>
+</li>
+<li><p>纹理内存：驻留在设备内存中，在每个SM的只读缓存中缓存，对于2D数据的访问性能较好</p>
+</li>
+<li><p>全局内存：GPU上最大的内存空间，延迟最高，使用最常见的内存，访问是对齐访问，也就是一次要读取指定大小（32，64，128）整数倍字节的内存，所以当线程束执行内存加载&#x2F;存储时，需要满足的传输数量通常取决与以下两个因素：</p>
+<ul>
+<li><p>跨线程的内存地址分布</p>
+</li>
+<li><p>内存事务的对齐方式。<br><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020241014163312.png"></p>
+<h4 id="GPU缓存"><a href="#GPU缓存" class="headerlink" title="GPU缓存"></a>GPU缓存</h4><p>与CPU缓存类似，GPU缓存不可编程，其行为出厂是时已经设定好了。GPU上有4种缓存：</p>
+</li>
+</ul>
+</li>
+<li><p>一级缓存：每个SM都有一个一级缓存，与共享内存公用空间</p>
+</li>
+<li><p>二级缓存：所有SM公用一个二级缓存</p>
+</li>
+<li><p>只读常量缓存：每个SM有</p>
+</li>
+<li><p>只读纹理缓存：每个SM有</p>
+</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/10/17/%E7%BB%84%E5%86%85%E7%A7%81%E6%9C%89git%E4%BB%93%E5%BA%93%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/07/22/windows10%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E8%A7%A3%E5%86%B3%E7%AD%BE%E5%90%8D%E9%97%AE%E9%A2%98/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/10/14/CUDA%E7%AE%80%E8%AE%B0/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/10/14/CUDA简记/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

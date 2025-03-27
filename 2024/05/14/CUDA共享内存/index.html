@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>CUDA共享内存 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/CUDA/">
+                            CUDA
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                CUDA共享内存
+            
+            
+        </div>
+        <span class="post-date">
+            5月 14, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><ul>
+<li>共享内存在片上(on-chip)，与本地内存和全局内存相比具有更高的带宽和更低的延迟</li>
+<li>共享内存中的数据在线程块内所有线程可见，可用线程间通信，共享内存的生命周期也与所属线程块一致</li>
+<li>使用<code>__shared__</code>修饰的变量存放于共享内存中，共享内存可定义动态与静态两种</li>
+<li>每个SM的共享内存的数量是一定的，也就是说，如果在单个线程块中分配过度的共享内存，将会限制活跃线程束的数量</li>
+<li>访问共享内存必须加入同步机制，线程块内同步<code>void __syncthreads()</code></li>
+<li><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240514210445.png"></li>
+<li><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240514210535.png"></li>
+</ul>
+<h3 id="共享内存的作用"><a href="#共享内存的作用" class="headerlink" title="共享内存的作用"></a>共享内存的作用</h3><ul>
+<li>经常访问的数据由全局内存搬移到共享内存，提高访问效率</li>
+<li>改变全局内存的访问内存的内存事物方式，提高数据访问的带宽</li>
+</ul>
+<h3 id="静态共享内存"><a href="#静态共享内存" class="headerlink" title="静态共享内存"></a>静态共享内存</h3><ul>
+<li>共享内存的变量修饰符<code>__shared__</code></li>
+<li>静态共享内存声明:<code>__shared__ float tile[size, size]</code></li>
+<li>静态共享内存作用域：<ul>
+<li>核函数中声明，静态共享内存作用域局限在这个核函数中</li>
+<li>文件核函数声明外，静态内存作用域对所有核函数有效</li>
+</ul>
+</li>
+<li>静态共享内存在编译时就要确定内存大小</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cuda_runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;common.cuh&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> __shared__ <span class="type">float</span> s_array[]; <span class="comment">//动态共享内存, 中括号内必须为空</span></span><br><span class="line"></span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">Kernel_1</span><span class="params">(<span class="type">float</span> *d_A, <span class="type">const</span> <span class="type">int</span> N)</span></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> tid = threadIdx.x;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bid = blockIdx.x;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> n = bid * blockDim.x + tid;</span><br><span class="line">    <span class="comment">// __shared__ float s_array[32]; //静态共享内存</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n &lt; N)&#123;</span><br><span class="line">        s_array[tid] = d_A[n];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    __syncthreads();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(tid == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i++)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;kernel_1: %f, blockIdx: %d\n&quot;</span>, s_array[i], bid);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> devID = <span class="number">0</span>;</span><br><span class="line">    cudaDeviceProp deviceProps;</span><br><span class="line">    <span class="built_in">CUDA_CHECK</span>(<span class="built_in">cudaGetDeviceProperties</span>(&amp;deviceProps, devID));</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;运行GPU设备:&quot;</span> &lt;&lt; deviceProps.name &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> nElems = <span class="number">64</span>;</span><br><span class="line">    <span class="type">int</span> nbytes = nElems * <span class="built_in">sizeof</span>(<span class="type">float</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span>* h_A = <span class="literal">nullptr</span>;</span><br><span class="line">    h_A = (<span class="type">float</span>*)<span class="built_in">malloc</span>(nbytes);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nElems;i++)&#123;</span><br><span class="line">        h_A[i] = <span class="built_in">float</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">float</span>* d_A = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="built_in">CUDA_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_A, nbytes));</span><br><span class="line">    <span class="built_in">CUDA_CHECK</span>(<span class="built_in">cudaMemcpy</span>(d_A, h_A, nbytes, cudaMemcpyHostToDevice));</span><br><span class="line"></span><br><span class="line">    <span class="function">dim3 <span class="title">block</span><span class="params">(<span class="number">32</span>)</span></span>;</span><br><span class="line">    <span class="function">dim3 <span class="title">grid</span><span class="params">(<span class="number">2</span>)</span></span>;</span><br><span class="line">    Kernel_1&lt;&lt;&lt;grid, block, <span class="number">32</span>&gt;&gt;&gt;(d_A, nElems); <span class="comment">//最后加一个32指定共享内存大小</span></span><br><span class="line">    <span class="built_in">CUDA_CHECK</span>(<span class="built_in">cudaFree</span>(d_A));</span><br><span class="line">    <span class="built_in">free</span>(h_A);</span><br><span class="line">    <span class="built_in">CUDA_CHECK</span>(<span class="built_in">cudaDeviceReset</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/05/14/CUDA%E5%B8%B8%E9%87%8F%E5%86%85%E5%AD%98/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/05/09/Ubuntu%E4%B8%ADCMake%E5%8D%87%E7%BA%A7/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/05/14/CUDA%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/05/14/CUDA共享内存/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>

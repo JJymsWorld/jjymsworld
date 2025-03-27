@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>CUDA缓存 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo2.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/CUDA/">
+                            CUDA
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                CUDA缓存
+            
+            
+        </div>
+        <span class="post-date">
+            5月 15, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="GPU缓存"><a href="#GPU缓存" class="headerlink" title="GPU缓存"></a>GPU缓存</h2><h3 id="GPU缓存种类"><a href="#GPU缓存种类" class="headerlink" title="GPU缓存种类"></a>GPU缓存种类</h3><ul>
+<li>一级缓存(L1)</li>
+<li>二级缓存(L2)</li>
+<li>只读常量缓存</li>
+<li>只读纹理缓存</li>
+</ul>
+<h3 id="GPU缓存的作用"><a href="#GPU缓存的作用" class="headerlink" title="GPU缓存的作用"></a>GPU缓存的作用</h3><p><img src="https://cdn.jsdelivr.net/gh/JJymsWorld/Jymscloudiimmgg@main/img/Pasted%20image%2020240515111259.png"></p>
+<ul>
+<li>GPU缓存是不可编程的内存</li>
+<li>每个SM都有一个一级缓存，所有SM共享一个二级缓存</li>
+<li>L1缓存和L2缓存用来存储本地内存(local memory)和全局内存(global memory)的数据，也包括寄存器溢出的部分</li>
+<li>在GPU上只有内存加载可以被缓存，内存存储操作不能被缓存</li>
+<li>每个SM有一个只读常量缓存和只读纹理缓存，它们用于在设备内存中提高来自各自内存空间内的读取性能</li>
+</ul>
+<h4 id="L1缓存查询与设置"><a href="#L1缓存查询与设置" class="headerlink" title="L1缓存查询与设置"></a>L1缓存查询与设置</h4><ul>
+<li>GPU全局内存是否支持L1缓存查询指令：<code>cudaDeviceProp::globalL1CacheSupported</code></li>
+<li>默认情况下，数据不会缓存在统一的L1&#x2F;纹理缓存中，但可以通过编译指令启用缓存：<ul>
+<li>开启：<code>-Xptxas -dlcm=ca</code>，除了带有禁用缓存修饰符的内联汇编修饰的数据外，所有读取都将被缓存；</li>
+<li>开启：<code>-Xptxas -fscm=ca</code>，所有数据读取都将被缓存；</li>
+</ul>
+</li>
+</ul>
+<h4 id="L1缓存与共享内存"><a href="#L1缓存与共享内存" class="headerlink" title="L1缓存与共享内存"></a>L1缓存与共享内存</h4><p>计算能力为8.9的显卡为例：</p>
+<ol>
+<li>统一数据缓存大小为128KB，统一数据缓存包括共享内存、纹理缓存和L1缓存；</li>
+<li>共享内存从统一的数据缓存中分区出来，并且可以配置为各种大小，共享内存容量和设置为0,8,16,32,64和100KB，剩下的数据缓存用作L1缓存，也可由纹理单元使用；</li>
+<li>L1缓存与共享内存大小是可以进行配置的，但不一定生效，GPU会自动选择最优的配置；</li>
+</ol>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/jjymsworld/2024/06/17/RWKV%E7%AE%80%E8%AE%B0/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2024/05/14/CUDA%E5%B8%B8%E9%87%8F%E5%86%85%E5%AD%98/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2024/05/15/CUDA%E7%BC%93%E5%AD%98/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2024/05/15/CUDA缓存/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
