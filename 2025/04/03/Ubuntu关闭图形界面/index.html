@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>Ubuntu关闭图形界面 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo5.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/ubuntu/">
+                            ubuntu
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                Ubuntu关闭图形界面
+            
+            
+        </div>
+        <span class="post-date">
+            4月 3, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="临时关闭图形界面（无需重启）"><a href="#临时关闭图形界面（无需重启）" class="headerlink" title="临时关闭图形界面（无需重启）"></a>临时关闭图形界面（无需重启）</h2><h3 id="方法1：停止显示管理器服务"><a href="#方法1：停止显示管理器服务" class="headerlink" title="方法1：停止显示管理器服务"></a>方法1：停止显示管理器服务</h3><ol>
+<li>确定当前桌面环境：<ul>
+<li>GNOME（默认）：使用<code>gdm</code>服务</li>
+<li>KDE Plasma：使用<code>sddm</code>服务</li>
+<li>Ubuntu默认：使用<code>lightdm</code>服务</li>
+</ul>
+</li>
+<li>停止服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop gdm3</span><br></pre></td></tr></table></figure>
+执行后系统将进入纯文本模式(Ctrl+Alt+F1切换到tty1终端)</li>
+<li>恢复图形界面<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start gdm3 <span class="comment"># 或 lightdm/sddm</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="方法2：切换到多用户文本模式"><a href="#方法2：切换到多用户文本模式" class="headerlink" title="方法2：切换到多用户文本模式"></a>方法2：切换到多用户文本模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl isolate multi-user.target</span><br></pre></td></tr></table></figure>
+<p>此命令会关闭图形界面，但保留系统服务运行。若需恢复图形界面，重启系统即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl isolate graphical.target</span><br></pre></td></tr></table></figure>
+<p>切换回图形界面模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
+<p>设置默认启动为命令行模式</p>
+<h2 id="永久关闭图形界面（重启生效）"><a href="#永久关闭图形界面（重启生效）" class="headerlink" title="永久关闭图形界面（重启生效）"></a>永久关闭图形界面（重启生效）</h2><h3 id="方法1：修改GRUB配置"><a href="#方法1：修改GRUB配置" class="headerlink" title="方法1：修改GRUB配置"></a>方法1：修改GRUB配置</h3><ol>
+<li>编辑GRUB文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/default/grub</span><br></pre></td></tr></table></figure></li>
+<li>找到并修改：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">&quot;quiet splash&quot;</span></span><br></pre></td></tr></table></figure>
+改为：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">&quot;text&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>更新GRUB并重启<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub </span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="方法2：设置默认运行级别（适用于Ubuntu18-04及以上版本）"><a href="#方法2：设置默认运行级别（适用于Ubuntu18-04及以上版本）" class="headerlink" title="方法2：设置默认运行级别（适用于Ubuntu18.04及以上版本）"></a>方法2：设置默认运行级别（适用于Ubuntu18.04及以上版本）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl set-default multi-user.target </span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<p>若需恢复图形界面，执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl set-default graphical.target </span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<h2 id="彻底卸载图形界面（释放资源）"><a href="#彻底卸载图形界面（释放资源）" class="headerlink" title="彻底卸载图形界面（释放资源）"></a>彻底卸载图形界面（释放资源）</h2><ol>
+<li>步骤1：卸载桌面环境<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge ubuntu-desktop <span class="comment"># 卸载GNOME桌面 </span></span><br><span class="line"><span class="comment"># 或针对其他环境： </span></span><br><span class="line"><span class="comment"># sudo apt-get purge kubuntu-desktop # KDE </span></span><br><span class="line"><span class="comment"># sudo apt-get purgexubuntu-desktop # Xfce</span></span><br></pre></td></tr></table></figure></li>
+<li>步骤2：清理依赖和配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get autoremove <span class="comment"># 移除冗余依赖 </span></span><br><span class="line">sudo apt-get autoclean <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure></li>
+<li>步骤3：验证卸载结果<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt list --installed | grep desktop</span><br></pre></td></tr></table></figure>
+若输出为空，表示图形界面已完全卸载。</li>
+</ol>
+<p>若需恢复图形界面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ubuntu-desktop</span><br><span class="line">sudo systemctl set-default graphical.target</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2025/03/20/mmap%E6%98%A0%E5%B0%84/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2025/04/03/Ubuntu%E5%85%B3%E9%97%AD%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2025/04/03/Ubuntu关闭图形界面/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
