@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Revves_J">
+
+
+
+
+
+
+
+<title>20250704购买老师打印机粉盒 | YiMing</title>
+
+
+
+    <link rel="icon" href="/jjymsworld/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/jjymsworld/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/jjymsworld/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/jjymsworld/">
+          
+            <img class="logo-img" src="/jjymsworld/logo5.png" alt="logo_image">
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/">Home</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/archives/">Archive</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/categories/gallery/">Gallery</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/jjymsworld/tag/">Tags</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/jjymsworld/tags/ubuntu/">
+                            ubuntu
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                20250704购买老师打印机粉盒
+            
+            
+        </div>
+        <span class="post-date">
+            7月 5, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h3 id="创建两个独立的队列"><a href="#创建两个独立的队列" class="headerlink" title="创建两个独立的队列"></a>创建两个独立的队列</h3><p>为每个GPU创建一个单独的队列配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/task-spooler</span><br><span class="line"><span class="built_in">touch</span> ~/.config/task-spooler/gpu0</span><br><span class="line"><span class="built_in">touch</span> ~/.config/task-spooler/gpu1</span><br></pre></td></tr></table></figure>
+<h3 id="设置队列的GPU分配"><a href="#设置队列的GPU分配" class="headerlink" title="设置队列的GPU分配"></a>设置队列的GPU分配</h3><p>编辑队列配置文件，为每个队列指定使用的GPU：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置GPU0队列</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export CUDA_VISIBLE_DEVICES=0&quot;</span> &gt; ~/.config/task-spooler/gpu0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置GPU1队列</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export CUDA_VISIBLE_DEVICES=1&quot;</span> &gt; ~/.config/task-spooler/gpu1</span><br></pre></td></tr></table></figure>
+<h3 id="启动两个独立的Task-Spooler服务器"><a href="#启动两个独立的Task-Spooler服务器" class="headerlink" title="启动两个独立的Task Spooler服务器"></a>启动两个独立的Task Spooler服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动GPU0队列的服务器</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu0 tsp -S</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动GPU1队列的服务器</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu1 tsp -S</span><br></pre></td></tr></table></figure>
+<h3 id="向不同的队列提交任务"><a href="#向不同的队列提交任务" class="headerlink" title="向不同的队列提交任务"></a>向不同的队列提交任务</h3><p>使用<code>TS_SOCKET</code>环境变量指定队列，向不同GPU提交任务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 向GPU0队列提交任务</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu0 tsp python my_script.py --param1 value1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 向GPU1队列提交任务</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu1 tsp python my_script.py --param2 value2</span><br></pre></td></tr></table></figure>
+<h3 id="查看队列状态"><a href="#查看队列状态" class="headerlink" title="查看队列状态"></a>查看队列状态</h3><p>查看各个队列的状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看GPU0队列状态</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu0 tsp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看GPU1队列状态</span></span><br><span class="line">TS_SOCKET=~/.ts_gpu1 tsp</span><br></pre></td></tr></table></figure>
+<h3 id="自动化配置"><a href="#自动化配置" class="headerlink" title="自动化配置"></a>自动化配置</h3><p>为了方便使用，可以将一下别名添加到<code>~/.bashrc</code>中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Task Spooler GPU队列别名</span></span><br><span class="line"><span class="built_in">alias</span> tsp0=<span class="string">&#x27;TS_SOCKET=~/.ts_gpu0 tsp&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> tsp1=<span class="string">&#x27;TS_SOCKET=~/.ts_gpu1 tsp&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动GPU队列服务器的别名</span></span><br><span class="line"><span class="built_in">alias</span> tsp0-start=<span class="string">&#x27;TS_SOCKET=~/.ts_gpu0 tsp -S&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> tsp1-start=<span class="string">&#x27;TS_SOCKET=~/.ts_gpu1 tsp -S&#x27;</span></span><br></pre></td></tr></table></figure>
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/jjymsworld/2025/04/05/windows11%20esc%E5%92%8Ccapslock%E4%BA%92%E6%8D%A2%E9%94%AE%E5%80%BC/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+    
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            
+            var disqus_config = function () {
+                this.page.url = 'https://jjymsworld.github.io/jjymsworld/2025/07/05/Ubuntu%E4%B8%8Btask%20spooler%E4%B8%BA%E5%A4%9A%E5%8D%A1GPU%E5%8D%95%E7%8B%AC%E8%AE%BE%E7%BD%AE%E9%98%9F%E5%88%97/';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = '2025/07/05/Ubuntu下task spooler为多卡GPU单独设置队列/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.language = 'en'
+            };
+            
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://versatile1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>   
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+      <div class="search-popup">
+    <div class="search-popup-overlay">  
+    </div>
+    <div class="search-popup-window" >
+        <div class="search-header">
+            <div class="search-input-container">
+              <input autocomplete="off" autocapitalize="off" maxlength="80"
+                     placeholder="Search Anything" spellcheck="false"
+                     type="search" class="search-input">
+            </div>
+            <div class="search-close-btn">
+                <div class="icon close-btn"></div>
+            </div>
+        </div>
+        <div class="search-result-container">
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchConfig = {
+        path             : "/jjymsworld/search.xml",
+        top_n_per_article: "1",
+        unescape         : "false",
+        trigger: "auto",
+        preload: "false"
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+<script src="js/search.js"></script>
+    
+    
+
+  </body>
+</html>
